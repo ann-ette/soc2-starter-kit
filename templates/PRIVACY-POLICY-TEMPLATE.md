@@ -42,23 +42,23 @@ We collect information in two ways: information you provide directly, and inform
 ### 2.1 Information You Provide
 
 #### Account Information
-- **Name, email address, phone number** — Required to create an account
-- **Profile information** — Optional profile pictures, preferences, settings
-- **Authentication credentials** — Passwords, biometric data (fingerprint/face ID), security questions
-- **Billing information** — For paid subscriptions (see "Payment Information" below)
+- **Name, email address, phone number**: Required to create an account
+- **Profile information**: Optional profile pictures, preferences, settings
+- **Authentication credentials**: Passwords, biometric data (fingerprint/face ID), security questions
+- **Billing information**: For paid subscriptions (see "Payment Information" below)
 
 #### Communication Data
-- **Messages and content** — Conversations, text input, voice recordings (if voice feature used)
-- **Support communications** — Messages to customer support, feedback, feature requests
+- **Messages and content**: Conversations, text input, voice recordings (if voice feature used)
+- **Support communications**: Messages to customer support, feedback, feature requests
 
 #### Voice/Biometric Data (If Applicable)
-- **Voice recordings** — Only if you use voice features; recordings are encrypted and deleted after [X] days
-- **Voice transcripts** — Automatically generated transcriptions of voice input
-- **Facial recognition data** — Only if you explicitly enable face unlock (stored locally on your device, never sent to our servers)
+- **Voice recordings**: Only if you use voice features; recordings are encrypted and deleted after [X] days
+- **Voice transcripts**: Automatically generated transcriptions of voice input
+- **Facial recognition data**: Only if you explicitly enable face unlock (stored locally on your device, never sent to our servers)
 
 #### Other Information You Provide
-- **Preferences and settings** — Language, notification preferences, accessibility settings
-- **Device information** — Device type, OS version, app version (for support purposes)
+- **Preferences and settings**: Language, notification preferences, accessibility settings
+- **Device information**: Device type, OS version, app version (for support purposes)
 
 **Data Collection Basis:** These are required or optional at your discretion. Providing optional information helps us improve your experience.
 
@@ -67,35 +67,35 @@ We collect information in two ways: information you provide directly, and inform
 ### 2.2 Information Collected Automatically
 
 #### Usage Data
-- **Feature usage** — Which features you use, frequency, time spent
-- **Interaction data** — Buttons clicked, screens viewed, errors encountered
-- **Performance data** — App crashes, latency, response times
+- **Feature usage**: Which features you use, frequency, time spent
+- **Interaction data**: Buttons clicked, screens viewed, errors encountered
+- **Performance data**: App crashes, latency, response times
 
-**Collection Method:** Analytics (Google Analytics 4 — see "Third-Party Services" below)
+**Collection Method:** Analytics (Google Analytics 4, see "Third-Party Services" below)
 
 #### Device Data
-- **Device identifier** — Device ID (anonymized), device type, OS version, app version
-- **IP address** — Logged for security purposes; masked for analytics
-- **Device permissions** — Microphone, camera, location access (you control via system settings)
+- **Device identifier**: Device ID (anonymized), device type, OS version, app version
+- **IP address**: Logged for security purposes; masked for analytics
+- **Device permissions**: Microphone, camera, location access (you control via system settings)
 
 **Collection Method:** Automated collection via SDK
 
 #### Location Data
-- **Location information** — We do NOT collect your location unless you explicitly grant permission
-- **Permission-based location** — Only if you enable location services in app settings
+- **Location information**: We do NOT collect your location unless you explicitly grant permission
+- **Permission-based location**: Only if you enable location services in app settings
 
 **Collection Method:** You must grant permission; you can revoke anytime in device settings
 
 #### Interaction Data
-- **Clicks, swipes, typing patterns** — For improving UX and detecting abuse
-- **Conversion funnel data** — Sign-up steps, purchase funnel (anonymized)
+- **Clicks, swipes, typing patterns**: For improving UX and detecting abuse
+- **Conversion funnel data**: Sign-up steps, purchase funnel (anonymized)
 
 **Collection Method:** Analytics, event tracking
 
 #### Technical Data
-- **System logs** — Application errors, crashes, warnings
-- **Network data** — API request/response times, bandwidth usage
-- **Cookie data** — Session cookies (temporary), analytics cookies (see Cookie Policy below)
+- **System logs**: Application errors, crashes, warnings
+- **Network data**: API request/response times, bandwidth usage
+- **Cookie data**: Session cookies (temporary), analytics cookies (see Cookie Policy below)
 
 **Collection Method:** Server logs, cookies, analytics
 
@@ -105,14 +105,14 @@ We collect information in two ways: information you provide directly, and inform
 
 #### Third-Party Vendors
 We receive data from third-party vendors that process data on our behalf:
-- **LLM Provider (OpenAI)** — May return anonymized usage metrics
-- **Payment Processor (Stripe)** — Confirmation of successful/failed transactions
-- **Analytics Provider (Google)** — Aggregated usage analytics
-- **Voice API Provider (Twilio)** — Delivery confirmation for SMS/voice
+- **LLM Provider (OpenAI)**: May return anonymized usage metrics
+- **Payment Processor (Stripe)**: Confirmation of successful/failed transactions
+- **Analytics Provider (Google)**: Aggregated usage analytics
+- **Voice API Provider (Twilio)**: Delivery confirmation for SMS/voice
 
 #### Third-Party Services You Connect
-- **Social login** — If you sign in via Google/Apple ID, we receive email and public profile info
-- **Third-party apps** — If you connect third-party apps, we receive permission scopes you grant
+- **Social login**: If you sign in via Google/Apple ID, we receive email and public profile info
+- **Third-party apps**: If you connect third-party apps, we receive permission scopes you grant
 
 ---
 
@@ -141,7 +141,7 @@ We use your information for these purposes:
 ### 3.4 Communications
 - ✓ Send transactional emails (password resets, receipts, security alerts)
 - ✓ Send service updates and announcements
-- ✓ **Marketing emails** — Only if you opt-in (see "Your Privacy Rights" for opt-out)
+- ✓ **Marketing emails**: Only if you opt-in (see "Your Privacy Rights" for opt-out)
 
 ### 3.5 Compliance & Legal
 - ✓ Comply with laws and regulations (GDPR, CCPA, etc.)
@@ -227,14 +227,14 @@ We share anonymized, aggregated data with:
 We implement technical and organizational measures to protect your data:
 
 ### 6.1 Encryption
-- ✓ **In Transit** — All data transmitted via HTTPS/TLS 1.2+ encryption
-- ✓ **At Rest** — All data in [YOUR DATABASE] encrypted with AES-256
-- ✓ **Sensitive Data** — Voice recordings, payment info encrypted separately
+- ✓ **In Transit**: All data transmitted via HTTPS/TLS 1.2+ encryption
+- ✓ **At Rest**: All data in [YOUR DATABASE] encrypted with AES-256
+- ✓ **Sensitive Data**: Voice recordings, payment info encrypted separately
 
 ### 6.2 Access Control
 - ✓ Only authorized employees/contractors have access to data
 - ✓ Multi-factor authentication (MFA) required for all admin access
-- ✓ Role-based access control (RBAC) — minimizing data access
+- ✓ Role-based access control (RBAC), minimizing data access
 - ✓ Monthly access audits to ensure least-privilege principle
 
 ### 6.3 Infrastructure Security
@@ -373,9 +373,9 @@ Some browsers include a DNT feature. We honor DNT signals by:
 [YOUR APP] may contain links to third-party websites and services. This Privacy Policy applies only to [YOUR APP]. We are not responsible for third-party privacy practices.
 
 **Third-Party Services We Integrate:**
-- **Social login** (Google, Apple) — See their privacy policies
-- **Third-party payment processors** (Stripe) — See their privacy policies
-- **Third-party analytics** (Google Analytics) — See their privacy policies
+- **Social login** (Google, Apple): see their privacy policies
+- **Third-party payment processors** (Stripe): see their privacy policies
+- **Third-party analytics** (Google Analytics): see their privacy policies
 
 We encourage you to review third-party privacy policies before sharing information.
 

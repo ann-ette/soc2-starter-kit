@@ -12,7 +12,7 @@
 
 ## Team Size Adaptation
 
-This template uses role names like "Security Lead" as a placeholder. For solo founders, you fill all these roles yourself — simply use your own name. For small teams (2–5), assign roles based on who handles infrastructure/security. The controls are the same regardless of team size; only the assignment changes.
+This template uses role names like "Security Lead" as a placeholder. For solo founders, you fill all these roles yourself. Use your own name. For small teams (2–5), assign roles based on who handles infrastructure/security. The controls are the same regardless of team size; only the assignment changes.
 
 ---
 
@@ -125,7 +125,7 @@ This checklist ensures that secrets (API keys, database credentials, encryption 
   ```
 
   For each significant commit, check:
-  - [ ] `git show [COMMIT_HASH]` — Review changes
+  - [ ] `git show [COMMIT_HASH]`: review changes
   - [ ] Look for patterns: `password=`, `api_key=`, `secret=`, `token=`, `AWS_ACCESS_KEY`
   - [ ] Check for binary files (could be credentials)
 

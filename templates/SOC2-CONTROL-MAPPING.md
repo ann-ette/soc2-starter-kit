@@ -12,7 +12,7 @@
 
 ## Team Size Adaptation
 
-This template uses role names like "Compliance Lead" as a placeholder. For solo founders, you fill all these roles yourself — simply use your own name. For small teams (2–5), assign roles based on who oversees compliance. The controls are the same regardless of team size; only the assignment changes.
+This template uses role names like "Compliance Lead" as a placeholder. For solo founders, you fill all these roles yourself, simply use your own name. For small teams (2–5), assign roles based on who oversees compliance. The controls are the same regardless of team size; only the assignment changes.
 
 ---
 
@@ -31,15 +31,38 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 ---
 
+## Status Legend
+
+Every control row in this document ships as `☐ Not Started` with a `[DATE]` placeholder. That is the honest starting position for a template, and you move each row yourself as the control goes in.
+
+| Status | Meaning |
+|--------|---------|
+| `☐ Not Started` | No control in place, or none you can evidence yet |
+| `◐ In Progress` | Control partially in place, or evidence collection has begun |
+| `✓ Implemented` | Control operating, with evidence an auditor could sample |
+| `N/A` | Criterion does not apply to your system. Say why in the Evidence Source column |
+
+**Last Verified** is the date you last looked at the control and confirmed it still operates. An empty or stale date on an `✓ Implemented` row is one of the first things an auditor asks about, so leave it as `[DATE]` until you have actually checked.
+
+**One warning worth the sentence.** Marking a row `✓ Implemented` because you intend to implement it is the single easiest way to turn this document into a liability. A control mapping that overstates your position is worse than no control mapping, because you have now written the overstatement down.
+
+---
+
 ## CC1: Organization and Governance
 
-### CC1.1 — Entity Obtains or Generates, Uses, and Communicates Relevant, Quality Information Regarding the Objectives of Information and Related Responsibilities
+### CC1.1: Entity Obtains or Generates, Uses, and Communicates Relevant, Quality Information Regarding the Objectives of Information and Related Responsibilities
+
+**Worked Example: How to Fill In a Control Row**
+
+The three rows below are filled in to show the shape of a completed entry. Every other control row in this document is blank, and these three are the only exception. Reset them to `☐ Not Started` and `[DATE]` once you have read them, or overwrite them with your own position.
+
+Read the Evidence Source column as the working part. "Board minutes" is a weak entry because nobody can find it; "Board minutes, `governance/` folder in the company drive, reviewed each quarter" names an artifact an auditor can request. The date is illustrative, so replace it with the date you actually verified the control.
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **CC1.1** | Board/Executive Oversight | Board minutes, security policy, CEO sign-off on policies | ✓ Implemented | 2026-03-01 |
-| | Security Policy | SECURITY-POLICY.md (if exists) or Risk Register documented | ✓ Implemented | 2026-03-01 |
-| | Roles & Responsibilities | Organization chart, RACI matrix, security team assignments | ✓ Implemented | 2026-03-01 |
+| **CC1.1** | Board/Executive Oversight | Board minutes, security policy, CEO sign-off on policies | ✓ Implemented | 2026-09-01 (example) |
+| | Security Policy | INFORMATION-SECURITY-POLICY.md, signed and dated | ✓ Implemented | 2026-09-01 (example) |
+| | Roles & Responsibilities | Organization chart, RACI matrix, security team assignments | ◐ In Progress | 2026-09-01 (example) |
 
 **Evidence:**
 - [ ] Written security policy signed by executive leadership
@@ -49,12 +72,12 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 ---
 
-### CC1.2 — The Board of Directors Demonstrates Independence from Management and Exercises Oversight
+### CC1.2: The Board of Directors Demonstrates Independence from Management and Exercises Oversight
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **CC1.2** | Board/Management Separation | Board governance policy, meeting minutes | ✓ Implemented | 2026-03-01 |
-| | Independent Review | Security audits, compliance assessments | ✓ Implemented | 2026-03-01 |
+| **CC1.2** | Board/Management Separation | Board governance policy, meeting minutes | ☐ Not Started | [DATE] |
+| | Independent Review | Security audits, compliance assessments | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Board receives security compliance status reports quarterly
@@ -65,13 +88,13 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 ---
 
-### CC1.3 — Management Establishes Structures, Reporting Lines, and Appropriate Authorities to Achieve Objectives
+### CC1.3: Management Establishes Structures, Reporting Lines, and Appropriate Authorities to Achieve Objectives
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **CC1.3** | Organizational Structure | Org chart, roles/responsibilities documented | ✓ Implemented | 2026-03-01 |
-| | Security Leadership | Security Lead / CISO role defined, reporting to CEO | ✓ Implemented | 2026-03-01 |
-| | Incident Escalation | Incident response plan with escalation procedures | ✓ Implemented | 2026-03-01 |
+| **CC1.3** | Organizational Structure | Org chart, roles/responsibilities documented | ☐ Not Started | [DATE] |
+| | Security Leadership | Security Lead / CISO role defined, reporting to CEO | ☐ Not Started | [DATE] |
+| | Incident Escalation | Incident response plan with escalation procedures | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Clear organizational structure (team roles)
@@ -80,13 +103,13 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 ---
 
-### CC1.4 — The Entity Demonstrates a Commitment to Competence and Enforces Accountability for Performance of Responsibilities
+### CC1.4: The Entity Demonstrates a Commitment to Competence and Enforces Accountability for Performance of Responsibilities
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **CC1.4** | Security Training | Annual security training records, attendance logs | ✓ Implemented | 2026-01-15 |
-| | Competency Requirements | Job descriptions, security training requirements | ✓ Implemented | 2026-01-15 |
-| | Performance Accountability | Performance reviews, incident post-mortems | ✓ Implemented | 2026-03-01 |
+| **CC1.4** | Security Training | Annual security training records, attendance logs | ☐ Not Started | [DATE] |
+| | Competency Requirements | Job descriptions, security training requirements | ☐ Not Started | [DATE] |
+| | Performance Accountability | Performance reviews, incident post-mortems | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] All employees complete annual security awareness training
@@ -96,30 +119,38 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 ---
 
-### CC1.5 — The Entity Selects, Develops, and Performs Ongoing and Periodic Evaluations of Changes in the Business, Laws, Regulations, and Ecosystem to Inform the Risk Acceptances
+### CC1.5: The Entity Selects, Develops, and Performs Ongoing and Periodic Evaluations of Changes in the Business, Laws, Regulations, and Ecosystem to Inform the Risk Acceptances
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **CC1.5** | Regulatory Monitoring | Legal/compliance team tracks regulatory changes | ✓ Implemented | 2026-03-01 |
-| | Risk Assessment | Quarterly risk reviews, risk register updates | ✓ Implemented | 2026-03-01 |
-| | Business Change Review | Change management process for significant business changes | ✓ Implemented | 2026-03-01 |
+| **CC1.5** | Regulatory Monitoring | Legal/compliance team tracks regulatory changes | ☐ Not Started | [DATE] |
+| | AI Regulation Monitoring | Dated jurisdiction assessment for AI transparency and disclosure duties; refreshed each review cycle | ☐ Not Started | [DATE] |
+| | Risk Assessment | Quarterly risk reviews, risk register updates | ☐ Not Started | [DATE] |
+| | Business Change Review | Change management process for significant business changes | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Quarterly regulatory change review (GDPR, CCPA, state laws)
-- [ ] Risk register updated quarterly
+- [ ] AI transparency assessment covering every jurisdiction the product is available in, dated and signed (EU AI Act Art 50, China labeling Measures, California SB 243, UK GDPR Arts 5/13/14 at minimum)
+- [ ] In-product AI disclosure captured as a dated screenshot
+- [ ] Machine-readable marking of generated output implemented and sampled
+- [ ] Risk register updated quarterly, including RISK-016
 - [ ] New vendor/feature assessment process documented
 - [ ] Customer contract review for security requirements
+
+<!-- CUSTOMIZE: AI transparency duties attach based on where your users are rather than where you are, so this assessment covers every market the product is available in. See SOC2-GUIDE.md, "Telling People They Are Talking to AI," for the current jurisdiction table and dates. -->
+
+> **Scope note.** The Trust Services Criteria contain no AI-specific criterion. AI governance questions on a buyer questionnaire (AI policy with executive accountability, AI system inventory, per-system risk classification) fall outside SOC 2 and belong to ISO/IEC 42001. A SOC 2 report cannot answer them, and saying so plainly is a better answer than stretching a criterion to cover it. See SOC2-GUIDE.md, "What ISO 42001 Covers That SOC 2 Does Not."
 
 ---
 
 ## CC2: Communication
 
-### CC2.1 — The Entity Obtains or Generates, Uses, and Communicates Relevant, Quality Information Regarding Objectives and Responsibilities
+### CC2.1: The Entity Obtains or Generates, Uses, and Communicates Relevant, Quality Information Regarding Objectives and Responsibilities
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **CC2.1** | Security Policy Communication | Posted on intranet, annual training, employee handbook | ✓ Implemented | 2026-01-15 |
-| | Roles Communication | Role assignments documented, shared with team | ✓ Implemented | 2026-01-15 |
+| **CC2.1** | Security Policy Communication | Posted on intranet, annual training, employee handbook | ☐ Not Started | [DATE] |
+| | Roles Communication | Role assignments documented, shared with team | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Security policy accessible to all employees
@@ -128,13 +159,13 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 ---
 
-### CC2.2 — The Entity Makes Available or Obtains Relevant, Quality Information to Support the Functioning of Internal Controls
+### CC2.2: The Entity Makes Available or Obtains Relevant, Quality Information to Support the Functioning of Internal Controls
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **CC2.2** | Incident Reporting | Internal incident reporting procedures, Slack/email channels | ✓ Implemented | 2026-03-01 |
-| | Security Alerts | Monitoring alerts, vendor security bulletins forwarded | ✓ Implemented | 2026-03-01 |
-| | Control Effectiveness Reports | Audit reports, vulnerability scan results | ✓ Implemented | 2026-03-01 |
+| **CC2.2** | Incident Reporting | Internal incident reporting procedures, Slack/email channels | ☐ Not Started | [DATE] |
+| | Security Alerts | Monitoring alerts, vendor security bulletins forwarded | ☐ Not Started | [DATE] |
+| | Control Effectiveness Reports | Audit reports, vulnerability scan results | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Security team reviews vendor security advisories weekly
@@ -145,12 +176,12 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 ## CC3: Risk Assessment
 
-### CC3.1 — The Entity Specifies Objectives with Sufficient Clarity to Enable the Assessment of Risks Relating to Those Objectives
+### CC3.1: The Entity Specifies Objectives with Sufficient Clarity to Enable the Assessment of Risks Relating to Those Objectives
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **CC3.1** | Business Objectives | Business plan, customer commitments (SLA) | ✓ Implemented | 2026-03-01 |
-| | Security Objectives | Security policy, control documentation | ✓ Implemented | 2026-03-01 |
+| **CC3.1** | Business Objectives | Business plan, customer commitments (SLA) | ☐ Not Started | [DATE] |
+| | Security Objectives | Security policy, control documentation | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Documented business objectives (revenue, availability, etc.)
@@ -159,12 +190,12 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 ---
 
-### CC3.2 — The Entity Identifies Risks Across the Organization Relating to Achievement of the Specified Objectives
+### CC3.2: The Entity Identifies Risks Across the Organization Relating to Achievement of the Specified Objectives
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **CC3.2** | Risk Identification | Risk Register (RISK-REGISTER.md), quarterly reviews | ✓ Implemented | 2026-03-15 |
-| | Threat Assessment | Vulnerability scans, penetration tests, threat modeling | ✓ Implemented | 2026-03-01 |
+| **CC3.2** | Risk Identification | Risk Register (RISK-REGISTER.md), quarterly reviews | ☐ Not Started | [DATE] |
+| | Threat Assessment | Vulnerability scans, penetration tests, threat modeling | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Risk register maintained with 15+ risks identified
@@ -174,12 +205,12 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 ---
 
-### CC3.3 — The Entity Considers Potential for Fraud in Assessing Risks to Achievement of Objectives
+### CC3.3: The Entity Considers Potential for Fraud in Assessing Risks to Achievement of Objectives
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **CC3.3** | Fraud Risk Assessment | Risk register fraud section, payment processor reviews | ✓ Implemented | 2026-03-15 |
-| | Fraud Controls | Payment verification, refund policies, abuse monitoring | ✓ Implemented | 2026-03-01 |
+| **CC3.3** | Fraud Risk Assessment | Risk register fraud section, payment processor reviews | ☐ Not Started | [DATE] |
+| | Fraud Controls | Payment verification, refund policies, abuse monitoring | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Fraud risk identified in risk register
@@ -188,12 +219,12 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 ---
 
-### CC3.4 — The Entity Identifies and Assesses Changes that Could Significantly Impact the System of Internal Controls
+### CC3.4: The Entity Identifies and Assesses Changes that Could Significantly Impact the System of Internal Controls
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **CC3.4** | Change Impact Assessment | CHANGE-MANAGEMENT-POLICY.md, change request template | ✓ Implemented | 2026-03-01 |
-| | Risk Assessment for Changes | Risk scoring for significant changes, approval workflow | ✓ Implemented | 2026-03-01 |
+| **CC3.4** | Change Impact Assessment | CHANGE-MANAGEMENT-POLICY.md, change request template | ☐ Not Started | [DATE] |
+| | Risk Assessment for Changes | Risk scoring for significant changes, approval workflow | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] All significant changes reviewed for security/compliance impact
@@ -204,12 +235,12 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 ## CC4: Monitoring Activities
 
-### CC4.1 — The Entity Selects, Develops, and Performs Ongoing and Periodic Evaluations of the Effectiveness of Monitoring Tools
+### CC4.1: The Entity Selects, Develops, and Performs Ongoing and Periodic Evaluations of the Effectiveness of Monitoring Tools
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **CC4.1** | Monitoring Tools | Datadog, AWS CloudWatch, security scanning tools | ✓ Implemented | 2026-03-01 |
-| | Tool Effectiveness Review | Monitoring dashboard review, alert accuracy | ✓ Implemented | 2026-03-01 |
+| **CC4.1** | Monitoring Tools | Datadog, AWS CloudWatch, security scanning tools | ☐ Not Started | [DATE] |
+| | Tool Effectiveness Review | Monitoring dashboard review, alert accuracy | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Monitoring tools configured and active
@@ -218,12 +249,12 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 ---
 
-### CC4.2 — The Entity Monitors System Components and the Operation of Those Components for Anomalies
+### CC4.2: The Entity Monitors System Components and the Operation of Those Components for Anomalies
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **CC4.2** | Anomaly Detection | Real-time alerting, log analysis, dashboards | ✓ Implemented | 2026-03-01 |
-| | Security Metrics | Error rates, latency, failed logins, API abuse | ✓ Implemented | 2026-03-01 |
+| **CC4.2** | Anomaly Detection | Real-time alerting, log analysis, dashboards | ☐ Not Started | [DATE] |
+| | Security Metrics | Error rates, latency, failed logins, API abuse | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Real-time alerting for anomalies (Datadog, PagerDuty)
@@ -234,12 +265,12 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 ## CC5: Control Activities
 
-### CC5.1 — The Entity Selects and Develops Control Activities that Contribute to the Mitigation of Risks
+### CC5.1: The Entity Selects and Develops Control Activities that Contribute to the Mitigation of Risks
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **CC5.1** | Risk Mitigation Controls | Each risk in register has documented mitigations | ✓ Implemented | 2026-03-15 |
-| | Control Design | Control documentation, evidence of implementation | ✓ Implemented | 2026-03-01 |
+| **CC5.1** | Risk Mitigation Controls | Each risk in register has documented mitigations | ☐ Not Started | [DATE] |
+| | Control Design | Control documentation, evidence of implementation | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Each risk in risk register has documented mitigations
@@ -248,12 +279,12 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 ---
 
-### CC5.2 — The Entity Also Selects and Develops General Control Activities over Technology
+### CC5.2: The Entity Also Selects and Develops General Control Activities over Technology
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **CC5.2** | IT General Controls | Access controls, change management, backups | ✓ Implemented | 2026-03-01 |
-| | Technology Security | Encryption, patch management, vulnerability scanning | ✓ Implemented | 2026-03-01 |
+| **CC5.2** | IT General Controls | Access controls, change management, backups | ☐ Not Started | [DATE] |
+| | Technology Security | Encryption, patch management, vulnerability scanning | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Encryption at rest (AES-256) and in transit (TLS 1.2+)
@@ -264,12 +295,12 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 ---
 
-### CC5.3 — The Entity Deploys Control Activities through Policies and Procedures
+### CC5.3: The Entity Deploys Control Activities through Policies and Procedures
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **CC5.3** | Policy Documentation | All control policies documented (this spreadsheet, linked docs) | ✓ Implemented | 2026-03-01 |
-| | Procedure Implementation | Procedures are followed in practice (audit evidence) | ✓ Implemented | 2026-03-01 |
+| **CC5.3** | Policy Documentation | All control policies documented (this spreadsheet, linked docs) | ☐ Not Started | [DATE] |
+| | Procedure Implementation | Procedures are followed in practice (audit evidence) | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] All policies documented and accessible
@@ -280,13 +311,13 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 ## CC6: Logical and Physical Access Controls
 
-### CC6.1 — The Entity Restricts Physical Access to Assets and Complementary Information Assets by Enforcing Logical Access Controls
+### CC6.1: The Entity Restricts Physical Access to Assets and Complementary Information Assets by Enforcing Logical Access Controls
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **CC6.1** | Logical Access Control | IAM policies, VPC security groups, database access controls | ✓ Implemented | 2026-03-01 |
-| | MFA Enforcement | MFA required for admin/sensitive access | ✓ Implemented | 2026-03-01 |
-| | Access Revocation | Offboarding checklist, access removal procedures | ✓ Implemented | 2026-03-01 |
+| **CC6.1** | Logical Access Control | IAM policies, VPC security groups, database access controls | ☐ Not Started | [DATE] |
+| | MFA Enforcement | MFA required for admin/sensitive access | ☐ Not Started | [DATE] |
+| | Access Revocation | Offboarding checklist, access removal procedures | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] IAM least-privilege policies in place
@@ -297,12 +328,12 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 ---
 
-### CC6.2 — Prior to Issuing System Credentials, the Entity Registers and Authorizes New Internal and External Users
+### CC6.2: Prior to Issuing System Credentials, the Entity Registers and Authorizes New Internal and External Users
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **CC6.2** | User Registration Process | Onboarding procedure, employee forms | ✓ Implemented | 2026-03-01 |
-| | Authorization Process | Manager approval, role assignment | ✓ Implemented | 2026-03-01 |
+| **CC6.2** | User Registration Process | Onboarding procedure, employee forms | ☐ Not Started | [DATE] |
+| | Authorization Process | Manager approval, role assignment | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Formal user registration process documented
@@ -314,14 +345,14 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 ## CC7: Change Management
 
-### CC7.1 — The Entity Authorizes, Designs, Builds, Configures, Documents, Tests, Approves, and Deploys Changes
+### CC7.1: The Entity Authorizes, Designs, Builds, Configures, Documents, Tests, Approves, and Deploys Changes
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **CC7.1** | Change Management Policy | CHANGE-MANAGEMENT-POLICY.md, change request template | ✓ Implemented | 2026-03-01 |
-| | Change Approval | Change request signs-off, PR reviews | ✓ Implemented | 2026-03-01 |
-| | Testing & Validation | Test results in change request, staging deployment | ✓ Implemented | 2026-03-01 |
-| | Deployment Documentation | Deployment logs, CHANGELOG.md, git commit history | ✓ Implemented | 2026-03-01 |
+| **CC7.1** | Change Management Policy | CHANGE-MANAGEMENT-POLICY.md, change request template | ☐ Not Started | [DATE] |
+| | Change Approval | Change request signs-off, PR reviews | ☐ Not Started | [DATE] |
+| | Testing & Validation | Test results in change request, staging deployment | ☐ Not Started | [DATE] |
+| | Deployment Documentation | Deployment logs, CHANGELOG.md, git commit history | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] All changes documented in change requests
@@ -332,12 +363,12 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 ---
 
-### CC7.2 — The Entity Authorizes, Designs, Builds, Configures, Documents, Tests, Approves, and Deploys Infrastructure Changes
+### CC7.2: The Entity Authorizes, Designs, Builds, Configures, Documents, Tests, Approves, and Deploys Infrastructure Changes
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **CC7.2** | Infrastructure Change Process | AWS/Cloud change management, Terraform/IaC reviews | ✓ Implemented | 2026-03-01 |
-| | Configuration Audits | AWS Config, periodic infrastructure audits | ✓ Implemented | 2026-03-01 |
+| **CC7.2** | Infrastructure Change Process | AWS/Cloud change management, Terraform/IaC reviews | ☐ Not Started | [DATE] |
+| | Configuration Audits | AWS Config, periodic infrastructure audits | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Infrastructure as Code (IaC) with change control
@@ -349,12 +380,12 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 ## CC8: Deficiency Management
 
-### CC8.1 — The Entity Identifies, Records, and Resolves Exceptions to Objectives and Other Identified Deficiencies
+### CC8.1: The Entity Identifies, Records, and Resolves Exceptions to Objectives and Other Identified Deficiencies
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **CC8.1** | Deficiency Tracking | GitHub issues, security backlog, remediation log | ✓ Implemented | 2026-03-01 |
-| | Remediation Tracking | Remediation due dates, completion verification | ✓ Implemented | 2026-03-01 |
+| **CC8.1** | Deficiency Tracking | GitHub issues, security backlog, remediation log | ☐ Not Started | [DATE] |
+| | Remediation Tracking | Remediation due dates, completion verification | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Audit findings logged and tracked
@@ -366,12 +397,12 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 ## CC9: Risk and Control Design and Implementation
 
-### CC9.1 — The Entity Identifies, Selects, and Develops Risk Mitigation Activities for Risks Arising from Potential Business Disruptions
+### CC9.1: The Entity Identifies, Selects, and Develops Risk Mitigation Activities for Risks Arising from Potential Business Disruptions
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **CC9.1** | Business Continuity | Disaster recovery plan, backup schedule, RTO/RPO | ✓ Implemented | 2026-03-01 |
-| | Incident Response | Incident response plan, on-call procedures | ✓ Implemented | 2026-03-01 |
+| **CC9.1** | Business Continuity | Disaster recovery plan, backup schedule, RTO/RPO | ☐ Not Started | [DATE] |
+| | Incident Response | Incident response plan, on-call procedures | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Disaster recovery plan documented with RTO/RPO
@@ -383,12 +414,12 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 ## A1: Availability and Resilience
 
-### A1.1 — The Entity Maintains, Monitors, and Evaluates the Current State of System Components and Holocomponents
+### A1.1: The Entity Maintains, Monitors, and Evaluates the Current State of System Components and Holocomponents
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **A1.1** | Infrastructure Monitoring | Datadog, AWS CloudWatch, uptime monitoring | ✓ Implemented | 2026-03-01 |
-| | Health Checks | Application health endpoints, database checks | ✓ Implemented | 2026-03-01 |
+| **A1.1** | Infrastructure Monitoring | Datadog, AWS CloudWatch, uptime monitoring | ☐ Not Started | [DATE] |
+| | Health Checks | Application health endpoints, database checks | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Uptime monitoring with 24/7 alerting
@@ -398,13 +429,13 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 ---
 
-### A1.2 — The Entity Identifies, Develops, and Implements Recovery Strategies
+### A1.2: The Entity Identifies, Develops, and Implements Recovery Strategies
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **A1.2** | Disaster Recovery Plan | DR plan document, RTO/RPO defined | ✓ Implemented | 2026-03-01 |
-| | Recovery Procedures | Runbooks for common failures, failover procedures | ✓ Implemented | 2026-03-01 |
-| | Testing | Quarterly DR drills, recovery time validation | ✓ Implemented | 2026-03-01 |
+| **A1.2** | Disaster Recovery Plan | DR plan document, RTO/RPO defined | ☐ Not Started | [DATE] |
+| | Recovery Procedures | Runbooks for common failures, failover procedures | ☐ Not Started | [DATE] |
+| | Testing | Quarterly DR drills, recovery time validation | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Documented DR plan with clear procedures
@@ -416,12 +447,12 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 ## PI1: System Monitoring and Completeness
 
-### PI1.1 — The Entity Obtains or Generates, Uses, and Communicates Relevant, Quality Information Regarding Objectives of System Monitoring
+### PI1.1: The Entity Obtains or Generates, Uses, and Communicates Relevant, Quality Information Regarding Objectives of System Monitoring
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **PI1.1** | Data Completeness Monitoring | Transaction logging, data validation rules | ✓ Implemented | 2026-03-01 |
-| | Monitoring Objectives | Monitoring policy, dashboard definitions | ✓ Implemented | 2026-03-01 |
+| **PI1.1** | Data Completeness Monitoring | Transaction logging, data validation rules | ☐ Not Started | [DATE] |
+| | Monitoring Objectives | Monitoring policy, dashboard definitions | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Transaction logging enabled for all data modifications
@@ -431,11 +462,11 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 ---
 
-### PI1.2 — The Entity Monitors System Components and the Operations of Systems Monitoring for Anomalies
+### PI1.2: The Entity Monitors System Components and the Operations of Systems Monitoring for Anomalies
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **PI1.2** | Anomaly Detection | Real-time monitoring, duplicate/missing data alerts | ✓ Implemented | 2026-03-01 |
+| **PI1.2** | Anomaly Detection | Real-time monitoring, duplicate/missing data alerts | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Alerts for data inconsistencies
@@ -447,14 +478,14 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 ## C1: Confidentiality
 
-### C1.1 — The Entity Restricts Access to Information Assets and Use of Those Assets
+### C1.1: The Entity Restricts Access to Information Assets and Use of Those Assets
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **C1.1** | Encryption at Rest | AES-256 encryption in database and backups | ✓ Implemented | 2026-03-01 |
-| | Encryption in Transit | TLS 1.2+ for all API/database communications | ✓ Implemented | 2026-03-01 |
-| | Key Management | KMS for key storage, key rotation schedule | ✓ Implemented | 2026-03-01 |
-| | Access Controls | IAM policies, database user restrictions | ✓ Implemented | 2026-03-01 |
+| **C1.1** | Encryption at Rest | AES-256 encryption in database and backups | ☐ Not Started | [DATE] |
+| | Encryption in Transit | TLS 1.2+ for all API/database communications | ☐ Not Started | [DATE] |
+| | Key Management | KMS for key storage, key rotation schedule | ☐ Not Started | [DATE] |
+| | Access Controls | IAM policies, database user restrictions | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Encryption policy documented
@@ -465,12 +496,12 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 ---
 
-### C1.2 — The Entity Disposes of Information to Meet the Objectives Defined in the Entity's Information and System-Related Objectives
+### C1.2: The Entity Disposes of Information to Meet the Objectives Defined in the Entity's Information and System-Related Objectives
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **C1.2** | Data Retention Policy | DATA-RETENTION-POLICY.md, deletion procedures | ✓ Implemented | 2026-03-01 |
-| | Secure Deletion | Encrypted deletion, verification procedures | ✓ Implemented | 2026-03-01 |
+| **C1.2** | Data Retention Policy | DATA-RETENTION-POLICY.md, deletion procedures | ☐ Not Started | [DATE] |
+| | Secure Deletion | Encrypted deletion, verification procedures | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Data retention policy for each data type
@@ -486,14 +517,16 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **P1** | Privacy Policy | Privacy policy posted, covers all data types | ✓ Implemented | 2026-03-01 |
-| | Consent Mechanism | Consent forms, checkboxes for marketing/analytics | ✓ Implemented | 2026-03-01 |
+| **P1** | Privacy Policy | Privacy policy posted, covers all data types | ☐ Not Started | [DATE] |
+| | Consent Mechanism | Consent forms, checkboxes for marketing/analytics | ☐ Not Started | [DATE] |
+| | AI Interaction Notice | Disclosure shown at the point of interaction that the user is talking to an AI system | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Privacy policy updated and accessible
 - [ ] Consent forms for marketing communications
 - [ ] Analytics opt-out mechanism
 - [ ] Cookie consent banner
+- [ ] AI interaction notice visible in the interface where the conversation starts, not only in the privacy policy
 
 ---
 
@@ -501,7 +534,7 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **P2** | Consent Management | User preferences, opt-out options | ✓ Implemented | 2026-03-01 |
+| **P2** | Consent Management | User preferences, opt-out options | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Users can opt-out of marketing
@@ -514,8 +547,8 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **P3** | Data Usage Disclosure | Privacy policy details data usage | ✓ Implemented | 2026-03-01 |
-| | Data Retention Policy | DATA-RETENTION-POLICY.md | ✓ Implemented | 2026-03-01 |
+| **P3** | Data Usage Disclosure | Privacy policy details data usage | ☐ Not Started | [DATE] |
+| | Data Retention Policy | DATA-RETENTION-POLICY.md | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Privacy policy explains how data is used
@@ -528,7 +561,7 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **P4** | Data Accuracy | User ability to update profile, periodic audits | ✓ Implemented | 2026-03-01 |
+| **P4** | Data Accuracy | User ability to update profile, periodic audits | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Users can view and correct their data
@@ -541,7 +574,7 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **P5** | Data Subject Rights | DSAR process, data export, deletion capability | ✓ Implemented | 2026-03-01 |
+| **P5** | Data Subject Rights | DSAR process, data export, deletion capability | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Data Subject Access Request (DSAR) procedure documented
@@ -555,7 +588,7 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **P6** | Access Control | Authentication, authorization, encryption | ✓ Implemented | 2026-03-01 |
+| **P6** | Access Control | Authentication, authorization, encryption | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] User authentication required
@@ -569,7 +602,7 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **P7** | Data Protection Program | Security policy, incident response, breach notification | ✓ Implemented | 2026-03-01 |
+| **P7** | Data Protection Program | Security policy, incident response, breach notification | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Security program documented
@@ -583,7 +616,7 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 | Criteria | Control | Evidence Source | Status | Last Verified |
 |----------|---------|-----------------|--------|---|
-| **P8** | Data Backup | Automated backups, encryption, tested recovery | ✓ Implemented | 2026-03-01 |
+| **P8** | Data Backup | Automated backups, encryption, tested recovery | ☐ Not Started | [DATE] |
 
 **Evidence:**
 - [ ] Automated backup schedule
@@ -599,16 +632,16 @@ This document maps [YOUR COMPANY]'s security controls to SOC 2 Trust Service Cri
 
 For each control implemented, evidence must demonstrate:
 
-1. **Existence** — Control is documented and in place
-2. **Execution** — Control is actually being performed
-3. **Effectiveness** — Control is achieving its objective
+1. **Existence**, Control is documented and in place
+2. **Execution**, Control is actually being performed
+3. **Effectiveness**, Control is achieving its objective
 
 | Control | Evidence of Existence | Evidence of Execution | Evidence of Effectiveness | Last Tested |
 |---------|---|---|---|---|
-| Access Control (CC6.1) | IAM policy document | Access logs, monthly review | No unauthorized access detected | 2026-03-01 |
-| Encryption (C1.1) | Encryption policy | TLS certs, database encryption | Zero data breaches | 2026-03-01 |
-| Change Management (CC7.1) | Change policy, template | Change requests, approvals | Zero unauthorized changes | 2026-03-01 |
-| Backup & Recovery (A1.2) | DR plan, RTO/RPO | Backup logs, quarterly DR drill | Successful recovery in [X] hours | 2026-03-01 |
+| Access Control (CC6.1) | IAM policy document | Access logs, monthly review | No unauthorized access detected | [DATE] |
+| Encryption (C1.1) | Encryption policy | TLS certs, database encryption | Zero data breaches | [DATE] |
+| Change Management (CC7.1) | Change policy, template | Change requests, approvals | Zero unauthorized changes | [DATE] |
+| Backup & Recovery (A1.2) | DR plan, RTO/RPO | Backup logs, quarterly DR drill | Successful recovery in [X] hours | [DATE] |
 
 ---
 

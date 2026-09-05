@@ -11,7 +11,7 @@
 
 ## Team Size Adaptation
 
-This template uses role names like "Engineering Lead" and "Security Lead" as placeholders. For solo founders, you fill all these roles yourself — simply use your own name. For small teams (2–5), assign roles based on who has the most relevant expertise. The controls are the same regardless of team size; only the assignment changes.
+This template uses role names like "Engineering Lead" and "Security Lead" as placeholders. For solo founders, you fill all these roles yourself. Use your own name. For small teams (2–5), assign roles based on who has the most relevant expertise. The controls are the same regardless of team size; only the assignment changes.
 
 ---
 
