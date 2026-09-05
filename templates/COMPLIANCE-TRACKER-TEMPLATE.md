@@ -119,7 +119,7 @@ This document describes the recommended structure for a SOC 2 compliance trackin
 | Data Classification Review | Quarterly | 2026-01-15 | 2026-04-15 | Data Governance | New customer data types identified, updating classification matrix |
 | Third-Party Vendor Audit | Quarterly | 2026-02-28 | 2026-05-28 | Procurement | Datadog DPA signature pending, follow-up scheduled |
 | Security Policy Review | Semi-Annually | 2025-09-15 | 2026-03-15 | Security Lead | Spring review completed 2026-03-12, no changes required |
-| External Audit / SOC 2 Assessment | Annually | 2025-03-01 | 2026-03-01 | CTO / Audit Team | Type II assessment scheduled for March 2026, fieldwork in progress |
+| External Audit / SOC 2 Assessment | Annually | [LAST AUDIT DATE] | [NEXT AUDIT DATE] | CTO / Audit Team | Type II assessment scheduled, fieldwork not yet started |
 
 ---
 
