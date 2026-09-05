@@ -402,7 +402,7 @@ flowchart LR
 | Vendor assessments | [SOURCE] | [PERIOD] | [LOCATION] |
 | AI transparency assessment | [SOURCE] | [PERIOD] | [LOCATION] |
 
-**A Type II report needs history.** Evidence has to span the observation window, so a pipeline switched on a month before the audit produces a month of evidence. The workflows in `.github/workflows/` start accumulating from the day you enable them, which is the argument for enabling them early even if the audit is a year out.
+**A Type II report needs history.** Evidence has to span the observation window, so a pipeline switched on a month before the audit produces a month of evidence. Your CI workflows start accumulating from the day you enable them, which is the argument for enabling them early even if the audit is a year out.
 
 **Auditor asks here:** an audit trail that the person being audited cannot edit. Say plainly whether yours qualifies.
 

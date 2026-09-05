@@ -60,6 +60,8 @@ Most companies start with Type I and progress to Type II. Security is the only r
 
 ## What It Costs in 2026
 
+**These figures date from April 2026 and I have not re-verified them since.** Confirm current pricing with each vendor before you budget against these ranges.
+
 ### Option 1: Full-Service (Consulting Firm + Auditor)
 
 | Item | Cost | Timeline |
@@ -90,7 +92,7 @@ Platforms automate evidence collection, provide policy templates, and connect yo
 | Item | Cost | Timeline |
 |------|------|----------|
 | Policy documents and control mapping | $0 (this kit) | 1–2 weeks |
-| GitHub Actions security pipeline | $0 (GitHub free tier: 2,000 min/month) | 1 day setup |
+| CI security pipeline you build in your own repo | $0 (GitHub Actions free tier: 2,000 min/month) | 1 day setup |
 | Compliance tracker (spreadsheet) | $0 | Ongoing maintenance |
 | Your time | 40–80 hours total | 2–4 weeks |
 | SOC 2 Type I audit (when ready) | $15,000–$30,000 | 1–2 months |
@@ -117,7 +119,7 @@ This is what this starter kit enables. You do the control design and evidence co
 
 - **You find real bugs.** The process of documenting your data flows, vendor relationships, and access controls surfaces issues you didn't know you had. I found committed private keys and missing deletion logic in my own codebase.
 - **Better architecture decisions.** When you know you'll need to explain your data flow to an auditor, you make cleaner architecture choices.
-- **Automated security scanning.** The GitHub Actions pipeline catches vulnerabilities continuously, not just during annual reviews.
+- **Automated security scanning.** A CI pipeline in your own repo catches vulnerabilities on every push, which turns vulnerability management into a continuous control.
 - **Incident readiness.** Having a documented incident response plan means you're not improvising at 2am when something goes wrong.
 
 ### Personal Benefits (Solo Founder)
@@ -152,7 +154,7 @@ Compliance platforms provide a branded portal where your auditor logs in, review
 
 ### 5. Manual Evidence Collection
 
-The GitHub Actions pipeline automates code-level evidence (security scans, dependency audits, change logs). But organizational evidence, vendor DPA status, access reviews, policy acknowledgments, training records, is still manual. You're maintaining spreadsheets, not dashboards.
+CI you set up in your own repo automates code-level evidence (security scans, dependency audits, change logs). But organizational evidence, vendor DPA status, access reviews, policy acknowledgments, training records, is still manual. You're maintaining spreadsheets by hand.
 
 ### 6. No Built-In HR Integration
 
@@ -292,7 +294,7 @@ SOC 2 and privacy regulations are complementary but different. SOC 2 focuses on 
 2. Start with `SOC2-CONTROL-MAPPING.md` to understand what controls you need
 3. Customize the `INFORMATION-SECURITY-POLICY.md` as your foundational document
 4. Work through the remaining templates in order
-5. Set up the GitHub Actions pipeline for automated evidence collection
+5. Set up a CI security pipeline in your own repository for automated evidence collection
 6. Use the `COMPLIANCE-TRACKER-TEMPLATE.md` to track your progress
 
 Total estimated time: 40–80 hours spread over 2–4 weeks.

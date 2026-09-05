@@ -168,7 +168,7 @@ This document describes the recommended structure for a SOC 2 compliance trackin
 ## Related Documents
 
 - **SOC 2 Trust Service Criteria:** Reference AICPA SOC 2 for control framework categories
-- **GitHub Actions Workflows:** See `.github/workflows/` for automation that generates evidence
+- **Your CI Workflows:** The automation in your own repository that generates scan reports and audit logs
 - **Security Policy:** Link to your Information Security Policy document
 - **Incident Response Plan:** Link to IR documentation for incident tracking
 
