@@ -23,37 +23,43 @@ At [YOUR COMPANY], security and privacy are core values. We've implemented compr
 
 ### Our Security Posture
 
-**[YOUR COMPANY] maintains the following security certifications and standards:**
+<!-- CUSTOMIZE: Only list certifications you actually have or are actively pursuing.
+     Claiming certifications you haven't completed creates legal liability. Use "in progress"
+     or "controls implemented" language until you have a completed audit report. -->
 
-- ✓ **SOC 2 Type II** — Independent annual audit of security, availability, and confidentiality controls
-- ✓ **ISO 27001** — International standard for information security management
-- ✓ **GDPR Compliant** — Full compliance with European privacy regulation
-- ✓ **CCPA Compliant** — Full compliance with California privacy law
-- ✓ **PCI DSS Level 1** (if handling payment cards) — Highest level of payment security
-- ✓ **Annual Penetration Testing** — Third-party security assessments
+**[YOUR COMPANY] security standards:**
 
-**Last Security Audit:** [DATE]
-**Next Audit:** [DATE]
+- ✓ **SOC 2 Trust Service Criteria**: Controls implemented; formal audit planned for [DATE]
+- ✓ **GDPR**: Privacy controls aligned with European data protection requirements
+- ✓ **CCPA**: Privacy controls aligned with California consumer privacy requirements
+- ✓ **Continuous Security Scanning**: Automated vulnerability detection on every code change
+
+<!-- Add these lines ONLY when you have completed the relevant certification:
+- ✓ **SOC 2 Type I**: Point-in-time audit completed [DATE]
+- ✓ **SOC 2 Type II**: Independent annual audit completed [DATE]
+- ✓ **ISO 27001**: Certified [DATE]
+- ✓ **Annual Penetration Testing**: Last completed [DATE]
+-->
 
 ---
 
 ## 🛡️ Data Protection
 
 ### Encryption
-- **In Transit** — All data transmitted via TLS 1.2+ encryption (HTTPS)
-- **At Rest** — All data stored with AES-256 encryption
-- **Backups** — All backups encrypted and stored in separate geographic region
+- **In Transit**: All data transmitted via TLS 1.2+ encryption (HTTPS)
+- **At Rest**: All data stored with AES-256 encryption
+- **Backups**: All backups encrypted and stored in separate geographic region
 
 ### Access Control
-- **Authentication** — Multi-factor authentication (MFA) for all sensitive access
-- **Authorization** — Role-based access control (RBAC) with principle of least privilege
-- **Audit Logging** — All access logged and audited monthly
+- **Authentication**: Multi-factor authentication (MFA) for all sensitive access
+- **Authorization**: Role-based access control (RBAC) with principle of least privilege
+- **Audit Logging**: All access logged and audited monthly
 
 ### Infrastructure Security
-- **Cloud Provider** — Hosted on [YOUR CLOUD PROVIDER] with SOC 2 Type II certification
-- **Network Isolation** — Virtual Private Cloud (VPC) with security groups and firewalls
-- **Intrusion Detection** — Real-time monitoring for unauthorized access attempts
-- **Automated Backups** — Daily encrypted backups with cross-region replication
+- **Cloud Provider**: Hosted on [YOUR CLOUD PROVIDER] with SOC 2 Type II certification
+- **Network Isolation**: Virtual Private Cloud (VPC) with security groups and firewalls
+- **Intrusion Detection**: Real-time monitoring for unauthorized access attempts
+- **Automated Backups**: Daily encrypted backups with cross-region replication
 
 ---
 
@@ -68,10 +74,10 @@ At [YOUR COMPANY], security and privacy are core values. We've implemented compr
 | **Recovery Point Objective (RPO)** | Less than 1 hour of data loss |
 
 ### Monitoring & Incident Response
-- **24/7 Monitoring** — Real-time alerts for any anomalies
-- **Incident Response** — Dedicated team responds within [X] minutes
-- **Status Page** — Public status dashboard at [STATUS PAGE URL]
-- **Quarterly DR Drills** — Disaster recovery tested quarterly
+- **24/7 Monitoring**: Real-time alerts for any anomalies
+- **Incident Response**: Dedicated team responds within [X] minutes
+- **Status Page**: Public status dashboard at [STATUS PAGE URL]
+- **Quarterly DR Drills**: Disaster recovery tested quarterly
 
 ---
 
@@ -153,26 +159,26 @@ We work with trusted vendors that meet strict security standards. All vendors ha
 ## 🛠️ Secure Development Practices
 
 ### Code Security
-- **Secure Code Review** — All code reviewed by at least one peer before deployment
-- **Static Application Security Testing (SAST)** — Automated code scanning for vulnerabilities
-- **Dependency Scanning** — Automated scanning for vulnerable libraries (Dependabot, Snyk)
-- **Signed Commits** — All commits must be GPG-signed
-- **No Secrets in Code** — Secrets managed via encrypted vault (AWS Secrets Manager)
+- **Secure Code Review**: All code reviewed by at least one peer before deployment
+- **Static Application Security Testing (SAST)**: Automated code scanning for vulnerabilities
+- **Dependency Scanning**: Automated scanning for vulnerable libraries (Dependabot, Snyk)
+- **Signed Commits**: All commits must be GPG-signed
+- **No Secrets in Code**: Secrets managed via encrypted vault (AWS Secrets Manager)
 
 ### Deployment & Change Management
-- **Change Management Policy** — Formal change control for all deployments
-- **Testing** — All changes tested in staging before production
-- **Rollback Plan** — Automated rollback capability for failed deployments
-- **Monitoring** — Real-time monitoring during and after deployments
-- **Audit Trail** — All deployments logged with git commit history
+- **Change Management Policy**: Formal change control for all deployments
+- **Testing**: All changes tested in staging before production
+- **Rollback Plan**: Automated rollback capability for failed deployments
+- **Monitoring**: Real-time monitoring during and after deployments
+- **Audit Trail**: All deployments logged with git commit history
 
 See [CHANGE-MANAGEMENT-POLICY.md](#) for detailed procedures.
 
 ### Vulnerability Management
-- **Patching** — Critical patches applied within 7 days
-- **Vulnerability Scanning** — Weekly automated scans
-- **Penetration Testing** — Annual third-party penetration tests
-- **Responsible Disclosure** — [BUG BOUNTY PROGRAM](https://security.txt) (if applicable)
+- **Patching**: Critical patches applied within 7 days
+- **Vulnerability Scanning**: Weekly automated scans
+- **Penetration Testing**: Annual third-party penetration tests
+- **Responsible Disclosure**: [BUG BOUNTY PROGRAM](https://security.txt) (if applicable)
 
 ---
 
@@ -209,12 +215,12 @@ See [DATA-RETENTION-POLICY.md](#) for detailed procedures.
 
 ### Our Incident Response Commitment
 
-- **Detection** — Continuous 24/7 monitoring and alerting
-- **Response** — Incident team mobilized within [X] minutes
-- **Investigation** — Root cause analysis and forensics
-- **Notification** — Customers notified within 72 hours (GDPR requirement)
-- **Remediation** — Security patch deployed within [X] hours
-- **Post-Mortem** — Lessons learned documented and shared
+- **Detection**: Continuous 24/7 monitoring and alerting
+- **Response**: Incident team mobilized within [X] minutes
+- **Investigation**: Root cause analysis and forensics
+- **Notification**: Customers notified within 72 hours (GDPR requirement)
+- **Remediation**: Security patch deployed within [X] hours
+- **Post-Mortem**: Lessons learned documented and shared
 
 ### What Happens If a Breach Occurs
 
@@ -233,14 +239,14 @@ See [DATA-RETENTION-POLICY.md](#) for detailed procedures.
 ## 🧪 Testing & Validation
 
 ### Annual Third-Party Audits
-- **SOC 2 Type II Audit** — Independent audit of all security controls
-- **Penetration Testing** — Third-party security firm tests for vulnerabilities
-- **Vulnerability Assessment** — Comprehensive scan for known CVEs
+- **SOC 2 Type II Audit**: Independent audit of all security controls
+- **Penetration Testing**: Third-party security firm tests for vulnerabilities
+- **Vulnerability Assessment**: Comprehensive scan for known CVEs
 
 ### Continuous Security Testing
-- **Weekly Vulnerability Scans** — Automated scanning of infrastructure and code
-- **Monthly Access Reviews** — Audit of who has access to sensitive data
-- **Quarterly Disaster Recovery Drills** — Test backup restoration and failover
+- **Weekly Vulnerability Scans**: Automated scanning of infrastructure and code
+- **Monthly Access Reviews**: Audit of who has access to sensitive data
+- **Quarterly Disaster Recovery Drills**: Test backup restoration and failover
 
 ### Security Monitoring Dashboard
 
@@ -288,14 +294,14 @@ See [Responsible Disclosure Policy](#) for full details.
 ## 🎓 Security Awareness & Training
 
 ### Employee Training
-- **Mandatory** — All employees complete annual security training
-- **Topics** — Password security, phishing, social engineering, data protection
-- **Certification** — Employees certify completion annually
+- **Mandatory**: All employees complete annual security training
+- **Topics**: Password security, phishing, social engineering, data protection
+- **Certification**: Employees certify completion annually
 
 ### Customers
-- **Security Best Practices** — Help center articles on secure usage
-- **Privacy Controls** — In-app guides for managing preferences
-- **Data Security Tips** — Blog posts on protecting your account
+- **Security Best Practices**: Help center articles on secure usage
+- **Privacy Controls**: In-app guides for managing preferences
+- **Data Security Tips**: Blog posts on protecting your account
 
 ---
 
@@ -305,12 +311,12 @@ See [Responsible Disclosure Policy](#) for full details.
 
 The following compliance documents are available for enterprise customers:
 
-- [ ] **SOC 2 Type II Report** — Independent audit report
-- [ ] **ISO 27001 Certificate** — International security standard
-- [ ] **Data Processing Agreement (DPA)** — GDPR-compliant terms
-- [ ] **Business Associate Agreement (BAA)** — HIPAA compliance (if applicable)
-- [ ] **Security Questionnaire** — Detailed security assessment responses
-- [ ] **Vendor Assessment** — Third-party vendor security details
+- [ ] **SOC 2 Type II Report**: Independent audit report
+- [ ] **ISO 27001 Certificate**: International security standard
+- [ ] **Data Processing Agreement (DPA)**: GDPR-compliant terms
+- [ ] **Business Associate Agreement (BAA)**: HIPAA compliance (if applicable)
+- [ ] **Security Questionnaire**: Detailed security assessment responses
+- [ ] **Vendor Assessment**: Third-party vendor security details
 
 **Request Documentation:** [COMPLIANCE@YOUR DOMAIN](#)
 
@@ -319,8 +325,8 @@ The following compliance documents are available for enterprise customers:
 ## 🏆 Our Security Team
 
 ### Leadership
-- **Chief Information Security Officer (CISO)** — [NAME], [EXPERIENCE]
-- **Security Lead** — [NAME], [CERTIFICATIONS]
+- **Chief Information Security Officer (CISO)**: [NAME], [EXPERIENCE]
+- **Security Lead**: [NAME], [CERTIFICATIONS]
 
 ### Security Experience
 - Average security experience: [X] years
@@ -331,14 +337,14 @@ The following compliance documents are available for enterprise customers:
 
 ## 🔗 Security Links
 
-- **[Privacy Policy](PRIVACY-POLICY-TEMPLATE.md)** — How we collect and use your data
-- **[Terms of Service](#)** — Legal terms of service
-- **[Data Retention Policy](DATA-RETENTION-POLICY.md)** — How long we keep your data
-- **[Incident Response Plan](#)** — How we respond to security incidents
-- **[Change Management Policy](CHANGE-MANAGEMENT-POLICY.md)** — How we manage code changes
-- **[Vendor Management](SUBPROCESSOR-TABLE.md)** — Third-party security assessment
-- **[Status Page](#)** — Real-time service status
-- **[Security Blog](#)** — Security announcements and updates
+- **[Privacy Policy](PRIVACY-POLICY-TEMPLATE.md)**: How we collect and use your data
+- **[Terms of Service](#)**: Legal terms of service
+- **[Data Retention Policy](DATA-RETENTION-POLICY.md)**: How long we keep your data
+- **[Incident Response Plan](#)**: How we respond to security incidents
+- **[Change Management Policy](CHANGE-MANAGEMENT-POLICY.md)**: How we manage code changes
+- **[Vendor Management](SUBPROCESSOR-TABLE.md)**: Third-party security assessment
+- **[Status Page](#)**: Real-time service status
+- **[Security Blog](#)**: Security announcements and updates
 
 ---
 
