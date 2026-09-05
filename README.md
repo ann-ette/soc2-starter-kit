@@ -6,14 +6,18 @@
 
 ## What This Is
 
-This is a comprehensive, production-ready collection of SOC 2 compliance templates specifically designed for solo founders and small teams building AI-native products. Unlike generic SOC 2 kits on GitHub (which assume standard SaaS on AWS with Stripe and Auth0), this kit is purpose-built for the reality of modern AI applications:
+A production-ready collection of SOC 2 compliance templates for solo founders and small teams building AI-native products. The templates are written around four things an AI product actually deals with:
 
 - **Voice and biometric data** processing (voice APIs, facial recognition, speaker ID)
 - **Generative AI pipelines** (LLM APIs, fine-tuning, prompt injection risks)
 - **Multi-vendor architectures** (10-15 vendors processing customer data, each a potential risk)
 - **Solo founder workflow** (you fill every role; no HR, no compliance team)
 
-**Open-sourced by [Lantern Works](https://lanternworks.dev)**, makers of [HistorAI](https://apps.apple.com/app/historai). MIT License.
+The risk register is tuned to AI vendors, the subprocessor model assumes a pipeline of ten to fifteen processors rather than a handful, and the worked examples sit in voice and biometric territory.
+
+**Mapped against:** TSP Section 100, the 2017 Trust Services Criteria, with the revised points of focus issued in 2022. The AICPA has published no newer criteria; the July 2025 release updated implementation guidance for system descriptions and added no controls.
+
+**Open-sourced by [Lantern Works](https://lanternworks.dev)**, makers of Valoquent. MIT License.
 
 ---
 
@@ -27,9 +31,9 @@ This is a comprehensive, production-ready collection of SOC 2 compliance templat
 - Want to move fast but build compliance *right*, not retrofit it
 
 **Still a good fit, even if:**
-- **You're pre-launch** — building with compliance in mind from day one is dramatically cheaper than retrofitting it later. Your architecture decisions, vendor choices, and data flows are easier to get right now than to fix after 10,000 users
-- **You're B2C today** — enterprise, education, and healthcare partnerships come faster than you expect, and "SOC 2 controls implemented" opens doors that "we'll get to it" doesn't
-- **You're building on a standard SaaS stack** — this kit still applies, though Vanta/Drata may be worth evaluating once you're ready for the audit itself
+- **You're pre-launch**, building with compliance in mind from day one is dramatically cheaper than retrofitting it later. Your architecture decisions, vendor choices, and data flows are easier to get right now than to fix after 10,000 users
+- **You're B2C today**, enterprise, education, and healthcare partnerships come faster than you expect, and "SOC 2 controls implemented" opens doors that "we'll get to it" doesn't
+- **You're building on a standard SaaS stack**, this kit still applies, though Vanta/Drata may be worth evaluating once you're ready for the audit itself
 
 **This kit is honest:** It won't give you SOC 2 certification. Only an external auditor can do that. But it gives you 80% of the work done before you hire an auditor, saving $20K–$80K in consulting fees.
 
@@ -37,22 +41,27 @@ This is a comprehensive, production-ready collection of SOC 2 compliance templat
 
 ## What's Inside
 
-**9 production-ready templates** (9,000+ lines):
+**12 production-ready templates** (9,000+ lines):
 
-1. **RISK-REGISTER.md** — 15+ risks specific to AI apps (prompt injection, voice data leakage, multi-vendor pipelines) with worked examples
-2. **DATA-RETENTION-POLICY.md** — Retention schedules for 18+ data types with GDPR/CCPA deletion procedures
-3. **CHANGE-MANAGEMENT-POLICY.md** — Deployment safety (standard/significant/emergency change tiers, rollback)
-4. **SUBPROCESSOR-TABLE.md** — Vendor inventory, SOC 2 tracking, DPA status (critical for multi-vendor apps)
-5. **VENDOR-ASSESSMENT.md** — 70+ security questions for evaluating new AI vendors
-6. **SECRETS-AUDIT-CHECKLIST.md** — Git audit, secret rotation, automated scanning
-7. **SOC2-CONTROL-MAPPING.md** — Maps your controls to all 9 SOC 2 Common Criteria (CC1-CC9) + Privacy/Confidentiality
-8. **PRIVACY-POLICY-TEMPLATE.md** — GDPR/CCPA/App Store compliant; includes voice/biometric sections
-9. **SECURITY-PAGE-TEMPLATE.md** — Public-facing trust/security page
+1. **ARCHITECTURE-MAP.md**, eight views of how customer data moves through an AI product, from client app through real-time media, inference, and storage. Fill this in first: it feeds four of the templates below.
+2. **INFORMATION-SECURITY-POLICY.md**, the foundational security policy (NIST SP 800-53 shaped)
+3. **INCIDENT-RESPONSE-PLAN.md**, severity classification and response procedures
+4. **RISK-REGISTER.md**, 15+ risks specific to AI apps (prompt injection, voice data leakage, multi-vendor pipelines) with worked examples
+5. **DATA-RETENTION-POLICY.md**, retention schedules for 18+ data types with GDPR/CCPA deletion procedures
+6. **CHANGE-MANAGEMENT-POLICY.md**, deployment safety (standard/significant/emergency change tiers, rollback)
+7. **SUBPROCESSOR-TABLE.md**, vendor inventory, SOC 2 tracking, DPA status (critical for multi-vendor apps)
+8. **VENDOR-ASSESSMENT.md**, 70+ security questions for evaluating new AI vendors
+9. **SECRETS-AUDIT-CHECKLIST.md**, git audit, secret rotation, automated scanning
+10. **SOC2-CONTROL-MAPPING.md**, maps your controls to all 9 SOC 2 Common Criteria (CC1-CC9) plus Privacy and Confidentiality
+11. **PRIVACY-POLICY-TEMPLATE.md**, GDPR/CCPA/App Store compliant; includes voice/biometric sections
+12. **SECURITY-PAGE-TEMPLATE.md**, public-facing trust/security page
 
 Plus:
-- **SOC2-GUIDE.md** — Full landscape: costs ($0 DIY vs. $180K full-service), what you get, honest trade-offs
-- **COMPLIANCE-TRACKER-TEMPLATE.md** — Spreadsheet to track remediation + evidence
-- **GitHub Actions workflows** — Automated secret scanning, dependency audits, static analysis
+- **AI transparency and disclosure coverage**, in the guide and wired into the risk register (RISK-016) and the control mapping. Which jurisdictions require you to tell users they are talking to AI, what marking of generated output is owed and by when, and where a solo founder is in scope without a revenue floor. Covers the EU AI Act Article 50, China's labeling Measures, California SB 243, the UK position, Texas, and Canada.
+- **An ISO 42001 map**, showing which AI governance questions on a buyer's questionnaire a SOC 2 report cannot answer, and what the standard costs if you decide to pursue it.
+- **SOC2-GUIDE.md**, the full picture: costs ($0 DIY vs. $180K full-service), what you get, honest trade-offs
+- **COMPLIANCE-TRACKER-TEMPLATE.md**, spreadsheet to track remediation and evidence
+- **GitHub Actions workflows**, automated secret scanning, dependency audits, static analysis
 
 ---
 
@@ -60,17 +69,17 @@ Plus:
 
 **If you're a solo founder with 10 hours to invest:**
 
-1. **Read** [SOC2-GUIDE.md](SOC2-GUIDE.md) (30 min) — Understand the landscape and whether you actually need this
-2. **Skim** [RISK-REGISTER.md](templates/RISK-REGISTER.md) (20 min) — See which risks apply to your app
-3. **Customize & save** all 9 templates in a folder (2 hours):
+1. **Read** [SOC2-GUIDE.md](SOC2-GUIDE.md) (30 min) to understand the terrain and whether you actually need this
+2. **Skim** [RISK-REGISTER.md](templates/RISK-REGISTER.md) (20 min) to see which risks apply to your app
+3. **Customize & save** all 12 templates in a folder (2 hours):
    - Find/replace `[YOUR COMPANY]`, `[YOUR APP]`, etc.
    - Read the `<!-- CUSTOMIZE: -->` comments
    - Fill in placeholders for your stack (database, cloud provider, vendors)
 4. **Focus your effort** (7+ hours):
-   - **SUBPROCESSOR-TABLE.md** — List every vendor; get their SOC 2 reports; sign DPAs
-   - **DATA-RETENTION-POLICY.md** — Implement the deletion procedures (this is real code work)
-   - **RISK-REGISTER.md** — Document mitigations for high-risk items
-   - **PRIVACY-POLICY-TEMPLATE.md** — Publish on your website and App Store
+   - **SUBPROCESSOR-TABLE.md**: list every vendor; get their SOC 2 reports; sign DPAs
+   - **DATA-RETENTION-POLICY.md**: implement the deletion procedures (this is real code work)
+   - **RISK-REGISTER.md**: document mitigations for high-risk items
+   - **PRIVACY-POLICY-TEMPLATE.md**: publish on your website and App Store
 5. **Gather evidence** as you implement (ongoing):
    - Save screenshots of security configs
    - Keep DPA signatures
@@ -87,7 +96,8 @@ Not all templates are created equal. Some depend on others:
 
 | Template | Standalone? | Depends On | Effort |
 |----------|---|---|---|
-| RISK-REGISTER.md | Yes | None | 1 day |
+| ARCHITECTURE-MAP.md | Yes | None | Half a day |
+| RISK-REGISTER.md | Yes | ARCHITECTURE-MAP.md (helpful) | 1 day |
 | SOC2-CONTROL-MAPPING.md | Yes | None | 2 days |
 | PRIVACY-POLICY-TEMPLATE.md | Yes | None | 2 hours (customize) |
 | SUBPROCESSOR-TABLE.md | Mostly | VENDOR-ASSESSMENT.md | 2-3 days (vendor outreach) |
@@ -98,7 +108,7 @@ Not all templates are created equal. Some depend on others:
 | SECURITY-PAGE-TEMPLATE.md | Yes | None | 1 hour (copywriting) |
 
 **Recommended order:**
-1. Start with RISK-REGISTER and SOC2-CONTROL-MAPPING (understand your risks)
+1. Start with ARCHITECTURE-MAP (know where your data goes), then RISK-REGISTER and SOC2-CONTROL-MAPPING (understand your risks)
 2. Do VENDOR-ASSESSMENT + SUBPROCESSOR-TABLE (critical: know your vendors)
 3. Then PRIVACY-POLICY-TEMPLATE, DATA-RETENTION-POLICY (user-facing)
 4. Then CHANGE-MANAGEMENT-POLICY, SECRETS-AUDIT-CHECKLIST (engineering practices)
@@ -112,7 +122,7 @@ Not all templates are created equal. Some depend on others:
 - You fill every role: Security Lead, Engineering Lead, Product, CEO
 - Each template has a "Team Size Adaptation" note explaining role placeholders
 - When templates ask for sign-offs (e.g., "Security Lead and Engineering Lead approved"), you sign both lines
-- This is intentional — documenting that you've reviewed and accepted responsibility for each control
+- This is intentional, documenting that you've reviewed and accepted responsibility for each control
 
 **2-5 Person Team:**
 - Assign roles by expertise: Who knows infrastructure best? Who handles customer security questions?
@@ -130,7 +140,7 @@ Not all templates are created equal. Some depend on others:
 ```
 soc2-starter-kit/
 ├── README.md                    ← Start here (this file)
-├── SOC2-GUIDE.md                ← Full landscape: costs, benefits, trade-offs
+├── SOC2-GUIDE.md                ← Costs, benefits, trade-offs
 ├── LICENSE                      ← MIT License
 ├── .gitignore
 ├── .github/
@@ -139,6 +149,7 @@ soc2-starter-kit/
 │       ├── weekly-compliance-report.yml   ← Weekly evidence report (Monday 9am UTC)
 │       └── codeql-analysis.yml            ← Static analysis for JS/TS + Python
 └── templates/
+    ├── ARCHITECTURE-MAP.md                ← 8-page data-flow map, feeds four others below
     ├── INFORMATION-SECURITY-POLICY.md     ← Core security policy (NIST SP 800-53)
     ├── INCIDENT-RESPONSE-PLAN.md          ← Severity classification + response procedures
     ├── RISK-REGISTER.md                   ← Risk matrix + worked AI-specific example
@@ -260,7 +271,7 @@ soc2-starter-kit/
 ## Template Statistics
 
 - **Total Lines of Content:** 9,000+
-- **Number of Templates:** 9 (plus guides, workflows, tracker)
+- **Number of Templates:** 12 (plus guides, workflows, tracker)
 - **Number of Customizable Placeholders:** 150+
 - **Documented Controls:** 60+
 - **Risk Examples:** 15+
@@ -306,13 +317,13 @@ These templates are designed to be living documents. Update them:
 
 ## Credits
 
-**Open-sourced by [Lantern Works](https://lanternworks.dev)** — makers of [HistorAI](https://apps.apple.com/app/historai), an AI-powered app for real-time video conversations with historical figures. We built our SOC 2 compliance program from scratch as a solo founder and open-sourced these templates so others don't have to start from zero.
+**Open-sourced by [Lantern Works](https://lanternworks.dev)**, makers of Valoquent, an app for real-time video conversations with historical figures. I built this SOC 2 compliance program from scratch and open-sourced the templates so others don't have to start from zero.
 
 ---
 
 ## License
 
-MIT License — see LICENSE file for details. Use freely, modify, and distribute. The only requirement is attribution.
+MIT License, see LICENSE file for details. Use freely, modify, and distribute. The only requirement is attribution.
 
 ---
 
@@ -326,6 +337,18 @@ MIT License — see LICENSE file for details. Use freely, modify, and distribute
 
 ---
 
-**Last Updated:** April 2026
-**Version:** 1.0
+### What Changed in 1.2
+
+- Added ARCHITECTURE-MAP.md, an 8-page fill-in data-flow map (system context, sessions, real-time media, inference, stores, trust boundaries, access and secrets, evidence). The repo description had advertised an architecture map that did not ship.
+
+- Added AI transparency and disclosure coverage: a jurisdiction table in the guide (EU AI Act Art 50, China's labeling Measures, California SB 243, UK, Texas, Canada), RISK-016 in the risk register, and rows under CC1.5 and P1 in the control mapping.
+- Added an ISO 42001 map: which buyer-questionnaire questions SOC 2 cannot answer, and what certification costs.
+- Corrected the guide's Trust Services Criteria description. Security covers CC1 through CC9, not CC1 through CC5.
+- Named the criteria vintage the kit maps to (2017 TSC with the 2022 revised points of focus).
+- Corrected the template count from 9 to 12, surfacing INFORMATION-SECURITY-POLICY and INCIDENT-RESPONSE-PLAN.
+- Scrubbed SOC2-CONTROL-MAPPING.md. Every control row now ships as `☐ Not Started` with a `[DATE]` placeholder, and CC1.1 is kept as a labelled worked example.
+- Cleared em dashes from the templates and the workflows, finishing the sweep that covered only the README and the guide in 1.1.
+
+**Last Updated:** September 2026
+**Version:** 1.2
 **Recommended For:** Solo founders, small teams, AI/voice/ML products
