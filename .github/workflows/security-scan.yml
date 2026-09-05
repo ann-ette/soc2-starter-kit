@@ -1,0 +1,366 @@
+name: Security Scan
+
+# Trigger on every push to main and on pull requests
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+# Permissions required for artifact upload and repo access
+permissions:
+  contents: read
+  security-events: write
+  actions: write
+
+jobs:
+  # Job 1: Secret detection using Gitleaks
+  gitleaks-scan:
+    name: Gitleaks Secret Detection
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for comprehensive scanning
+
+      - name: Run Gitleaks scan
+        uses: gitleaks/gitleaks-action@v2
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Generate timestamp for artifact naming
+      - name: Generate report timestamp
+        id: timestamp
+        run: echo "timestamp=$(date +'%Y%m%d_%H%M%S')" >> $GITHUB_OUTPUT
+
+      # Create gitleaks report summary (Gitleaks outputs to gitleaks-report.json by default)
+      - name: Create Gitleaks markdown report
+        if: always()
+        run: |
+          cat > gitleaks-report.md << 'EOF'
+# Gitleaks Scan Report
+**Timestamp:** ${{ steps.timestamp.outputs.timestamp }}
+**Commit SHA:** ${{ github.sha }}
+**Branch:** ${{ github.ref_name }}
+
+## Summary
+Gitleaks scans for hardcoded secrets, API keys, and credentials in the codebase.
+Full JSON results available in artifacts.
+
+## Status
+Check artifacts for detailed gitleaks-report.json output.
+EOF
+
+      - name: Upload Gitleaks report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gitleaks-report-${{ steps.timestamp.outputs.timestamp }}
+          path: gitleaks-report*
+          retention-days: 365
+
+  # Job 2: Node.js dependency vulnerability audit
+  npm-audit:
+    name: NPM Dependency Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Generate timestamp for artifact naming
+      - name: Generate report timestamp
+        id: timestamp
+        run: echo "timestamp=$(date +'%Y%m%d_%H%M%S')" >> $GITHUB_OUTPUT
+
+      # Check if package.json exists before running npm audit
+      - name: Check for package.json
+        id: check-npm
+        run: |
+          if [ -f package.json ]; then
+            echo "npm-exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "npm-exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup Node.js
+        if: steps.check-npm.outputs.npm-exists == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        if: steps.check-npm.outputs.npm-exists == 'true'
+        run: npm ci
+        continue-on-error: true
+
+      # Run npm audit and capture output (continue on error to prevent job failure)
+      - name: Run npm audit
+        if: steps.check-npm.outputs.npm-exists == 'true'
+        id: audit
+        run: npm audit --json > npm-audit-results.json 2>&1 || true
+
+      # Generate markdown report from npm audit JSON
+      - name: Generate NPM audit markdown report
+        if: steps.check-npm.outputs.npm-exists == 'true'
+        run: |
+          cat > npm-audit-report.md << 'EOF'
+# NPM Dependency Audit Report
+**Timestamp:** ${{ steps.timestamp.outputs.timestamp }}
+**Commit SHA:** ${{ github.sha }}
+**Branch:** ${{ github.ref_name }}
+
+## Overview
+This report documents security vulnerabilities in Node.js dependencies.
+
+## Execution
+- Command: `npm audit --json`
+- Full results: See npm-audit-results.json in artifacts
+
+## Next Steps
+1. Review critical and high severity vulnerabilities
+2. Update packages with `npm update` or `npm install <package>@latest`
+3. For non-fixable issues, document rationale in security log
+EOF
+
+      # Create "no package.json" report if npm doesn't exist
+      - name: Create N/A report for non-Node projects
+        if: steps.check-npm.outputs.npm-exists == 'false'
+        run: |
+          cat > npm-audit-report.md << 'EOF'
+# NPM Dependency Audit Report
+**Timestamp:** ${{ steps.timestamp.outputs.timestamp }}
+**Status:** N/A. No package.json detected
+
+This project does not include Node.js dependencies.
+EOF
+
+      - name: Upload NPM audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-audit-report-${{ steps.timestamp.outputs.timestamp }}
+          path: npm-audit-*.md
+          retention-days: 365
+
+      - name: Upload NPM audit JSON
+        if: steps.check-npm.outputs.npm-exists == 'true' && always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-audit-json-${{ steps.timestamp.outputs.timestamp }}
+          path: npm-audit-results.json
+          retention-days: 365
+
+  # Job 3: Python dependency vulnerability audit
+  pip-audit:
+    name: Pip Dependency Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Generate timestamp for artifact naming
+      - name: Generate report timestamp
+        id: timestamp
+        run: echo "timestamp=$(date +'%Y%m%d_%H%M%S')" >> $GITHUB_OUTPUT
+
+      # Check for requirements files in multiple locations
+      - name: Check for Python dependencies
+        id: check-python
+        run: |
+          has_reqs=false
+          if [ -f requirements.txt ]; then
+            has_reqs=true
+            echo "requirements-path=requirements.txt" >> $GITHUB_OUTPUT
+          elif [ -f agent/requirements.txt ]; then
+            has_reqs=true
+            echo "requirements-path=agent/requirements.txt" >> $GITHUB_OUTPUT
+          fi
+          echo "python-exists=$has_reqs" >> $GITHUB_OUTPUT
+
+      - name: Setup Python
+        if: steps.check-python.outputs.python-exists == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install pip-audit
+        if: steps.check-python.outputs.python-exists == 'true'
+        run: pip install pip-audit
+
+      # Run pip-audit and generate JSON report
+      - name: Run pip-audit
+        if: steps.check-python.outputs.python-exists == 'true'
+        id: audit
+        run: |
+          pip-audit --desc -r ${{ steps.check-python.outputs.requirements-path }} --format json > pip-audit-results.json 2>&1 || true
+
+      # Generate markdown report from pip-audit results
+      - name: Generate pip-audit markdown report
+        if: steps.check-python.outputs.python-exists == 'true'
+        run: |
+          cat > pip-audit-report.md << 'EOF'
+# Pip Dependency Audit Report
+**Timestamp:** ${{ steps.timestamp.outputs.timestamp }}
+**Commit SHA:** ${{ github.sha }}
+**Branch:** ${{ github.ref_name }}
+**Requirements File:** ${{ steps.check-python.outputs.requirements-path }}
+
+## Overview
+This report documents security vulnerabilities in Python dependencies.
+
+## Execution
+- Command: `pip-audit --desc -r ${{ steps.check-python.outputs.requirements-path }}`
+- Full results: See pip-audit-results.json in artifacts
+
+## Next Steps
+1. Review the full JSON report for vulnerability details
+2. Update packages with `pip install --upgrade <package>`
+3. Document rationale for any accepted risks
+EOF
+
+      # Create "no requirements.txt" report if Python doesn't exist
+      - name: Create N/A report for non-Python projects
+        if: steps.check-python.outputs.python-exists == 'false'
+        run: |
+          cat > pip-audit-report.md << 'EOF'
+# Pip Dependency Audit Report
+**Timestamp:** ${{ steps.timestamp.outputs.timestamp }}
+**Status:** N/A. No requirements.txt detected
+
+This project does not include Python dependencies or no requirements.txt was found in root or agent/ directory.
+EOF
+
+      - name: Upload pip-audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pip-audit-report-${{ steps.timestamp.outputs.timestamp }}
+          path: pip-audit-report.md
+          retention-days: 365
+
+      - name: Upload pip-audit JSON
+        if: steps.check-python.outputs.python-exists == 'true' && always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pip-audit-json-${{ steps.timestamp.outputs.timestamp }}
+          path: pip-audit-results.json
+          retention-days: 365
+
+  # Job 4: Hardcoded credential/secret pattern detection (CC6.1)
+  hardcoded-credential-scan:
+    name: Hardcoded Credential Pattern Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Generate report timestamp
+        id: timestamp
+        run: echo "timestamp=$(date +'%Y%m%d_%H%M%S')" >> $GITHUB_OUTPUT
+
+      - name: Scan for hardcoded credentials
+        run: |
+          echo "# Hardcoded Credential Pattern Scan" > hardcoded-creds-report.md
+          echo "**Timestamp:** ${{ steps.timestamp.outputs.timestamp }}" >> hardcoded-creds-report.md
+          echo "**Commit SHA:** ${{ github.sha }}" >> hardcoded-creds-report.md
+          echo "" >> hardcoded-creds-report.md
+          echo "## Patterns Checked" >> hardcoded-creds-report.md
+          echo "" >> hardcoded-creds-report.md
+
+          FOUND_ISSUES=false
+
+          # Pattern 1: Hardcoded passwords/secrets in assignments
+          echo "### Password/Secret Assignments" >> hardcoded-creds-report.md
+          HITS=$(grep -rn --include='*.ts' --include='*.tsx' --include='*.js' --include='*.jsx' --include='*.py' \
+            -iE '(password|secret|api_key|apikey|jwt_secret|private_key)\s*[=:]\s*["\x27][^"\x27]{8,}' \
+            --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=__pycache__ \
+            . 2>/dev/null | grep -v 'process\.env\|os\.getenv\|os\.environ\|\.example\|\.md\|test\|mock\|fixture' || true)
+          if [ -n "$HITS" ]; then
+            echo '```' >> hardcoded-creds-report.md
+            echo "$HITS" >> hardcoded-creds-report.md
+            echo '```' >> hardcoded-creds-report.md
+            FOUND_ISSUES=true
+          else
+            echo "No hardcoded password/secret assignments found." >> hardcoded-creds-report.md
+          fi
+          echo "" >> hardcoded-creds-report.md
+
+          # Pattern 2: Raw IP addresses (potential hardcoded endpoints)
+          echo "### Hardcoded IP Addresses" >> hardcoded-creds-report.md
+          HITS=$(grep -rn --include='*.ts' --include='*.tsx' --include='*.js' --include='*.jsx' --include='*.py' \
+            -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' \
+            --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=__pycache__ \
+            . 2>/dev/null | grep -v '127\.0\.0\.1\|0\.0\.0\.0\|localhost\|\.md\|test\|mock\|package-lock\|\.map' || true)
+          if [ -n "$HITS" ]; then
+            echo '```' >> hardcoded-creds-report.md
+            echo "$HITS" >> hardcoded-creds-report.md
+            echo '```' >> hardcoded-creds-report.md
+            FOUND_ISSUES=true
+          else
+            echo "No suspicious hardcoded IP addresses found." >> hardcoded-creds-report.md
+          fi
+          echo "" >> hardcoded-creds-report.md
+
+          # Pattern 3: Hardcoded URLs with credentials
+          echo "### URLs with Embedded Credentials" >> hardcoded-creds-report.md
+          HITS=$(grep -rn --include='*.ts' --include='*.tsx' --include='*.js' --include='*.jsx' --include='*.py' \
+            -E 'https?://[^:]+:[^@]+@' \
+            --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=__pycache__ \
+            . 2>/dev/null | grep -v '\.md\|test\|mock\|example\|\.env\.example' || true)
+          if [ -n "$HITS" ]; then
+            echo '```' >> hardcoded-creds-report.md
+            echo "$HITS" >> hardcoded-creds-report.md
+            echo '```' >> hardcoded-creds-report.md
+            FOUND_ISSUES=true
+          else
+            echo "No URLs with embedded credentials found." >> hardcoded-creds-report.md
+          fi
+          echo "" >> hardcoded-creds-report.md
+
+          # Pattern 4: Base64-encoded secrets (common obfuscation)
+          echo "### Potential Base64-Encoded Secrets" >> hardcoded-creds-report.md
+          HITS=$(grep -rn --include='*.ts' --include='*.tsx' --include='*.js' --include='*.jsx' --include='*.py' \
+            -E '["\x27][A-Za-z0-9+/]{40,}={0,2}["\x27]' \
+            --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=__pycache__ \
+            . 2>/dev/null | grep -v '\.md\|test\|mock\|fixture\|\.map\|hash\|sha\|checksum' | head -20 || true)
+          if [ -n "$HITS" ]; then
+            echo '```' >> hardcoded-creds-report.md
+            echo "$HITS" >> hardcoded-creds-report.md
+            echo '```' >> hardcoded-creds-report.md
+            echo "*Review these manually. Some may be legitimate hashes or encoded data.*" >> hardcoded-creds-report.md
+            FOUND_ISSUES=true
+          else
+            echo "No suspicious base64-encoded strings found." >> hardcoded-creds-report.md
+          fi
+          echo "" >> hardcoded-creds-report.md
+
+          # Summary
+          echo "---" >> hardcoded-creds-report.md
+          if [ "$FOUND_ISSUES" = true ]; then
+            echo "**Result: REVIEW NEEDED**. Potential hardcoded credentials detected. See details above." >> hardcoded-creds-report.md
+          else
+            echo "**Result: PASS**. No hardcoded credential patterns detected." >> hardcoded-creds-report.md
+          fi
+
+      - name: Upload hardcoded credential report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hardcoded-creds-report-${{ steps.timestamp.outputs.timestamp }}
+          path: hardcoded-creds-report.md
+          retention-days: 365
+
+# Summary comment explaining the workflow
+# This workflow provides continuous security scanning across four vectors:
+# 1. Gitleaks: Detects accidentally committed secrets in git history
+# 2. NPM Audit: Finds vulnerabilities in JavaScript/Node.js dependencies
+# 3. Pip Audit: Finds vulnerabilities in Python dependencies
+# 4. Hardcoded Credential Scan: Grep-based detection of passwords, secrets,
+#    IP addresses, and encoded credentials in source files (CC6.1)
+#
+# All reports are timestamped and retained for 365 days for audit trails.
+# Failures in individual jobs don't block the overall workflow to ensure visibility.
