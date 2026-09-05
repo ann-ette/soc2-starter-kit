@@ -65,7 +65,6 @@ Plus:
 - **An ISO 42001 map**, showing which AI governance questions on a buyer's questionnaire a SOC 2 report cannot answer, and what the standard costs if you decide to pursue it.
 - **SOC2-GUIDE.md**, the full picture: costs ($0 DIY vs. $180K full-service), what you get, honest trade-offs
 - **COMPLIANCE-TRACKER-TEMPLATE.md**, spreadsheet to track remediation and evidence
-- **GitHub Actions workflows**, automated secret scanning, dependency audits, static analysis
 
 ---
 
@@ -147,11 +146,6 @@ soc2-starter-kit/
 ├── SOC2-GUIDE.md                ← Costs, benefits, trade-offs
 ├── LICENSE                      ← MIT License
 ├── .gitignore
-├── .github/
-│   └── workflows/
-│       ├── security-scan.yml              ← Secret + dep scan (every push)
-│       ├── weekly-compliance-report.yml   ← Weekly evidence report (Monday 9am UTC)
-│       └── codeql-analysis.yml            ← Static analysis for JS/TS + Python
 └── templates/
     ├── ARCHITECTURE-MAP.md                ← 8-page data-flow map, feeds four others below
     ├── INFORMATION-SECURITY-POLICY.md     ← Core security policy (NIST SP 800-53)
@@ -275,7 +269,7 @@ soc2-starter-kit/
 ## Template Statistics
 
 - **Total Lines of Content:** 9,000+
-- **Number of Templates:** 12 (plus guides, workflows, tracker)
+- **Number of Templates:** 12 (plus guides and tracker)
 - **Number of Customizable Placeholders:** 150+
 - **Documented Controls:** 60+
 - **Risk Examples:** 15+
@@ -351,7 +345,8 @@ MIT License, see LICENSE file for details. Use freely, modify, and distribute. T
 - Named the criteria vintage the kit maps to (2017 TSC with the 2022 revised points of focus).
 - Corrected the template count from 9 to 12, surfacing INFORMATION-SECURITY-POLICY and INCIDENT-RESPONSE-PLAN.
 - Scrubbed SOC2-CONTROL-MAPPING.md. Every control row now ships as `☐ Not Started` with a `[DATE]` placeholder, and CC1.1 is kept as a labelled worked example.
-- Cleared em dashes from the templates and the workflows, finishing the sweep that covered only the README and the guide in 1.1.
+- Cleared em dashes from the templates, finishing the sweep that covered only the README and the guide in 1.1.
+- Removed the GitHub Actions workflows from the README's contents. The three workflow files were never valid: two fail YAML parsing because heredoc bodies sit at column zero inside a `run:` block, and the third scans for JavaScript and Python in a repository that contains neither. They are being repaired separately and will return when they run.
 
 **Originally Published:** 2026-04-03
 **Last Updated:** 2026-09-05
