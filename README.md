@@ -2,6 +2,10 @@
 
 **Built for products handling voice data, behavioral analytics, generative AI, and multi-vendor data pipelines**
 
+**Originally Published:** 2026-04-03 · **Last Updated:** 2026-09-05 · **Version:** 1.2
+
+Maps to the 2017 Trust Services Criteria with the 2022 revised points of focus. See [What Changed in 1.2](#what-changed-in-12) for this release.
+
 ---
 
 ## What This Is
@@ -349,6 +353,7 @@ MIT License, see LICENSE file for details. Use freely, modify, and distribute. T
 - Scrubbed SOC2-CONTROL-MAPPING.md. Every control row now ships as `☐ Not Started` with a `[DATE]` placeholder, and CC1.1 is kept as a labelled worked example.
 - Cleared em dashes from the templates and the workflows, finishing the sweep that covered only the README and the guide in 1.1.
 
-**Last Updated:** September 2026
+**Originally Published:** 2026-04-03
+**Last Updated:** 2026-09-05
 **Version:** 1.2
 **Recommended For:** Solo founders, small teams, AI/voice/ML products
