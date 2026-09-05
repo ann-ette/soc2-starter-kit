@@ -21,10 +21,10 @@ This risk register identifies, assesses, and tracks risks specific to [YOUR APP]
 
 | Level | Likelihood | Impact |
 |-------|-----------|--------|
-| **1 - Low** | <10% annual probability | Financial loss <$10K, minimal reputation damage |
-| **2 - Medium** | 10-50% annual probability | Financial loss $10K–$100K, moderate downtime/impact |
-| **3 - High** | 50-90% annual probability | Financial loss >$100K, significant downtime/customer impact |
-| **4 - Critical** | >90% annual probability | >$500K loss, major breach, regulatory action possible |
+| **1 (Low)** | <10% annual probability | Financial loss <$10K, minimal reputation damage |
+| **2 (Medium)** | 10-50% annual probability | Financial loss $10K–$100K, moderate downtime/impact |
+| **3 (High)** | 50-90% annual probability | Financial loss >$100K, significant downtime/customer impact |
+| **4 (Critical)** | >90% annual probability | >$500K loss, major breach, regulatory action possible |
 
 ---
 
@@ -420,6 +420,27 @@ All of this evidence is what an auditor will ask for. Document it continuously, 
 | **Remediation Due** | [DATE] |
 | **Status** | In Progress |
 | **Last Reviewed** | [DATE] |
+
+---
+
+### 16. AI Transparency and Disclosure Non-Compliance (AI-Specific Risk)
+
+| Field | Value |
+|-------|-------|
+| **ID** | RISK-016 |
+| **Risk Statement** | [YOUR APP] fails to tell users they are interacting with an AI system, or ships generated content without machine-readable marking, in a jurisdiction that requires it. Duties attach based on where users are rather than where the company is, so a product with no local presence can still be in scope |
+| **Likelihood** | 3 (High: 50–90%) |
+| **Impact** | 3 (High: regulatory action, private claims, forced product change) |
+| **Risk Score** | 9 (Critical Priority) |
+| **Affected Asset** | Chat and voice interfaces, generated text/image/audio output, onboarding and consent screens |
+| **Mitigations** | • Disclosure at the point of interaction rather than in the privacy policy<br/>• Interface names the assistant or model, which satisfies the EU "unless this is obvious" carve-out<br/>• Machine-readable marking (metadata or watermark) on generated text, image and audio output<br/>• Published self-harm protocol where the product could read as a companion rather than a tool<br/>• Jurisdiction assessment recorded and dated, refreshed at each regulatory review<br/>• Disclosure copy reviewed whenever the interface changes |
+| **Evidence/Control** | • Screenshot of the in-product disclosure, dated<br/>• Marking implementation in code review, with a sample of marked output<br/>• Dated jurisdiction assessment covering EU, UK, China, and applicable US states<br/>• Published self-harm protocol and its URL<br/>• Regulatory change review log (see SOC2-CONTROL-MAPPING CC1.5) |
+| **Remediation Owner** | [YOUR NAME] |
+| **Remediation Due** | [DATE] |
+| **Status** | In Progress |
+| **Last Reviewed** | [DATE] |
+
+<!-- CUSTOMIZE: Likelihood is set high because these duties are in force now and apply without a revenue floor in several jurisdictions. Lower it only if you have a dated assessment showing your product is out of scope everywhere it is available. Key dates as of September 2026: EU AI Act Art 50 applied 2026-08-02, with marking of output from systems already on the market due 2026-12-02; China's labeling Measures applied 2025-09-01; California SB 243 applied 2026-01-01 with a $1,000-per-violation private right of action. See SOC2-GUIDE.md, "Telling People They Are Talking to AI." -->
 
 ---
 

@@ -11,7 +11,7 @@
 
 ## Team Size Adaptation
 
-This template uses role names like "Compliance Lead" as a placeholder. For solo founders, you fill all these roles yourself — simply use your own name. For small teams (2–5), assign roles based on who handles vendor relationships. The controls are the same regardless of team size; only the assignment changes.
+This template uses role names like "Compliance Lead" as a placeholder. For solo founders, you fill all these roles yourself. Use your own name. For small teams (2–5), assign roles based on who handles vendor relationships. The controls are the same regardless of team size; only the assignment changes.
 
 ---
 
@@ -36,7 +36,7 @@ This document maintains an inventory of all third-party vendors and subprocessor
 | **SendGrid** | Email Service | Email addresses, user ID | Transactional email | Until bounce/unsubscribe | Type II | Yes, 2025-12-05 | Low | 2026-01-30 | ✓ Active |
 | **Datadog** | Monitoring / Logging | Application logs, performance metrics, user IDs (anonymized) | System monitoring, alerting | 90 days (hot), 1 year (archive) | Type II | Yes, 2026-03-01 | Medium | 2026-03-01 | ✓ Active |
 | **GitHub** | Code Repository | Source code, contributor emails | Version control | Until repository deletion | SOC 2 Type II | Yes, 2025-08-15 | High | 2026-02-15 | ✓ Active |
-| **[FUTURE] Anthropic** | LLM / Fine-tuning | Conversation data (with consent) | Model fine-tuning | [TBD - under evaluation] | Type II | Pending | High | 2026-04-01 | ⏳ Evaluating |
+| **[FUTURE] Anthropic** | LLM / Fine-tuning | Conversation data (with consent) | Model fine-tuning | [TBD, under evaluation] | Type II | Pending | High | 2026-04-01 | ⏳ Evaluating |
 
 ---
 
@@ -349,11 +349,11 @@ This document maintains an inventory of all third-party vendors and subprocessor
 | Stripe | ✓ | 2025-10-30 | 2026-10-30 | 6 months | ✓ Active |
 | AWS | ✓ | 2025-09-01 | 2026-09-01 | 5 months | ✓ Active |
 | Google Analytics | ✓ | 2026-02-10 | 2027-02-10 | 10 months | ✓ Active |
-| Auth0 | ⏳ Pending | — | — | — | ⚠ In Progress (due 2026-05-01) |
+| Auth0 | ⏳ Pending | [TBD] | [TBD] | [TBD] | ⚠ In Progress (due 2026-05-01) |
 | SendGrid | ✓ | 2025-12-05 | 2026-12-05 | 8 months | ✓ Active |
 | Datadog | ✓ | 2026-03-01 | 2027-03-01 | 11 months | ✓ Active |
 | GitHub | ✓ | 2025-08-15 | 2026-08-15 | 4 months | ✓ Active |
-| Anthropic | ⏳ Pending | — | — | — | ⏳ Evaluating (decision due 2026-05-01) |
+| Anthropic | ⏳ Pending | [TBD] | [TBD] | [TBD] | ⏳ Evaluating (decision due 2026-05-01) |
 
 ---
 

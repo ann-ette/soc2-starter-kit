@@ -25,9 +25,9 @@ This plan establishes procedures for identifying, responding to, and recovering 
 
 | Severity | Description | Examples | Response Time |
 |----------|-------------|----------|---------------|
-| **Sev 1 — Critical** | Active data breach, system compromise, or user data exposure | Database breach, leaked credentials in use, unauthorized access to production | Immediate (within 1 hour) |
-| **Sev 2 — High** | Potential data exposure, significant vulnerability, or service outage | Secrets committed to public repo, critical CVE in production dependency, extended downtime | Within 4 hours |
-| **Sev 3 — Medium** | Security weakness, minor vulnerability, or suspicious activity | Failed intrusion attempt, moderate CVE, unusual API usage patterns | Within 24 hours |
+| **Sev 1 (Critical)** | Active data breach, system compromise, or user data exposure | Database breach, leaked credentials in use, unauthorized access to production | Immediate (within 1 hour) |
+| **Sev 2 (High)** | Potential data exposure, significant vulnerability, or service outage | Secrets committed to public repo, critical CVE in production dependency, extended downtime | Within 4 hours |
+| **Sev 3 (Medium)** | Security weakness, minor vulnerability, or suspicious activity | Failed intrusion attempt, moderate CVE, unusual API usage patterns | Within 24 hours |
 
 ## 3. Response Phases
 

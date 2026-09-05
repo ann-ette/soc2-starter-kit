@@ -10,7 +10,7 @@
 
 ## Team Size Adaptation
 
-This template uses role names like "Security Lead" as a placeholder. For solo founders, you fill all these roles yourself — simply use your own name. For small teams (2–5), assign roles based on who evaluates vendors. The controls are the same regardless of team size; only the assignment changes.
+This template uses role names like "Security Lead" as a placeholder. For solo founders, you fill all these roles yourself. Use your own name. For small teams (2–5), assign roles based on who evaluates vendors. The controls are the same regardless of team size; only the assignment changes.
 
 ---
 
@@ -345,10 +345,10 @@ This questionnaire evaluates the security posture and compliance standards of pr
 
 **Recommendation:**
 
-- [ ] **APPROVED** — Vendor meets security standards; proceed with integration
-- [ ] **APPROVED WITH CONDITIONS** — Minor gaps acceptable; require remediation plan within [X] months
-- [ ] **PENDING** — Need additional information or clarification from vendor (see below)
-- [ ] **REJECTED** — Vendor does not meet security standards; recommend alternative
+- [ ] **APPROVED**: Vendor meets security standards; proceed with integration
+- [ ] **APPROVED WITH CONDITIONS**: Minor gaps acceptable; require remediation plan within [X] months
+- [ ] **PENDING**: Need additional information or clarification from vendor (see below)
+- [ ] **REJECTED**: Vendor does not meet security standards; recommend alternative
 
 ---
 
