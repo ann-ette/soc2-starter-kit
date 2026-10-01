@@ -12,7 +12,7 @@
 
 This Information Security Policy establishes the security framework for [YOUR COMPANY] and the [YOUR APP] application. It defines the principles, responsibilities, and controls that govern how we protect information assets, customer data, and system integrity.
 
-This policy is aligned with the NIST SP 800-53 framework and the SOC 2 Trust Service Criteria.
+This policy draws on the control families of NIST SP 800-53 Revision 5 (Release 5.2.0, August 2025) and is mapped to the SOC 2 Trust Services Criteria in SOC2-CONTROL-MAPPING.md.
 
 ## 2. Scope
 
@@ -100,7 +100,7 @@ All data transmitted between users, application servers, and third-party service
 
 - Dependencies are tracked via lock files (`package-lock.json`, `requirements.txt`)
 - `npm audit` and `pip-audit` run automatically on every push via GitHub Actions
-- Critical vulnerability alerts are reviewed and patched within 72 hours
+- Critical vulnerability alerts are reviewed within 72 hours and patched within 7 days
 
 ## 7. Infrastructure Security
 
@@ -113,7 +113,7 @@ All data transmitted between users, application servers, and third-party service
 - Isolated container execution
 - Managed TLS termination
 - DDoS protection at the infrastructure level
-- SOC 2 Type II certified infrastructure (verify with your provider)
+- A current SOC 2 Type II report covering the infrastructure (obtain it and review it annually)
 
 ### 7.2 Database Security
 
@@ -136,7 +136,7 @@ All data transmitted between users, application servers, and third-party service
 
 All third-party services that process, store, or transmit user data must undergo a security assessment before integration. The assessment evaluates:
 
-- SOC 2 certification or equivalent security audit
+- A SOC 2 Type II report, an ISO/IEC 27001 certificate, or an equivalent independent assessment
 - Data Processing Agreement (DPA) availability
 - Data retention and deletion policies
 - Data residency and jurisdiction
@@ -191,7 +191,42 @@ In the event of a major infrastructure failure:
 3. Restore from backups to alternative infrastructure if primary provider is unavailable
 4. Conduct post-incident review
 
-## 12. Policy Review
+## 12. Acceptable Use, Including AI Tools
+
+- Company systems and customer data are used only for [YOUR COMPANY] business
+- Customer data is never pasted into, uploaded to, or connected to an AI tool, browser extension or service that is not an approved vendor under a signed DPA (see `SUBPROCESSOR-TABLE.md`)
+- Personal accounts are not used to store or process company or customer data
+- Coding assistants and agents that can read the repository are approved tools, configured so they cannot read production secrets
+
+<!-- CUSTOMIZE: List the AI tools you have approved for work use and what each may see. -->
+
+## 13. AI Systems
+
+- Every AI feature in [YOUR APP] is listed with its provider, model, purpose and the data it receives (`ARCHITECTURE-MAP.md` page 4)
+- System prompts are kept in version control, and prompt or model changes follow `CHANGE-MANAGEMENT-POLICY.md`
+- Users are told they are interacting with an AI system at the point of interaction
+- AI features are tested against unsafe and adversarial conversations before each release (`RISK-REGISTER.md`, RISK-002 and RISK-017)
+
+These four commitments are also the start of the AI policy, inventory and risk classification that ISO/IEC 42001 asks for; see `SOC2-GUIDE.md`.
+
+## 14. Logging and Monitoring
+
+- Authentication, administrative actions and access to customer data are logged
+- Logs are retained for [PERIOD] and protected from edits by the people they record
+- Alerts cover failed logins, privilege changes, error spikes, downtime and unusual AI usage or spend
+- Alerts are reviewed when they fire, and log review is recorded [MONTHLY]
+
+## 15. Devices and Training
+
+- Work devices use full-disk encryption, a screen lock, automatic updates and malware protection
+- Lost or stolen devices are reported immediately and their sessions revoked
+- Everyone with access to customer data completes security awareness training at onboarding and annually
+
+## 16. Violations
+
+Violations of this policy are recorded and addressed. Consequences range from retraining to removal of access and termination of a contract or employment, depending on severity.
+
+## 17. Policy Review
 
 This policy is reviewed and updated:
 

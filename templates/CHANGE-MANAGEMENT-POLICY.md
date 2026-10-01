@@ -348,6 +348,28 @@ else:
 
 ---
 
+### AI Model and Prompt Changes
+
+In an AI product, the behavior users see changes most often through a prompt edit or a model swap rather than a code change, and those changes can skip every gate above if they live in a provider console or a config value. Treat them as changes.
+
+| Change | Category | What to Record |
+|---|---|---|
+| System prompt or character prompt edit | Standard, or Significant if it touches safety, disclosure or crisis handling | The diff, why, and the evaluation run before release |
+| Model version change you choose (e.g. moving to a newer model) | Significant | Evaluation results on your own test set, cost and latency change, rollback path |
+| Model change the provider makes (deprecation, silent update) | Significant, triggered by the provider's notice | Date of notice, retirement date, what you tested, what you switched to |
+| New AI provider or new data sent to an existing one | Significant | Vendor assessment, DPA, updated ARCHITECTURE-MAP.md page 4 and SUBPROCESSOR-TABLE.md |
+| Safety filter, moderation threshold, or disclosure copy change | Significant | Before and after behavior on the cases the filter exists for |
+
+**Procedure:**
+1. Keep every prompt in version control, never only in a provider dashboard
+2. Keep a small evaluation set of real-shaped conversations (including the unsafe ones your filters must catch) and run it before each prompt or model release
+3. Record the model identifier your code pins, and subscribe to each provider's deprecation notices
+4. Log model and prompt changes in CHANGELOG.md with `[MODEL]` or `[PROMPT]` beside the change type
+
+<!-- CUSTOMIZE: If your evaluation calls a paid provider, set a fixed, small size for the pre-release run so the gate stays cheap enough that you actually run it. -->
+
+---
+
 ## Monitoring & Alerting During Deployments
 
 <!-- CUSTOMIZE: Adjust thresholds based on your application -->
@@ -413,7 +435,7 @@ Body (72 chars per line, explain why, not what):
 Fixes: #123 (GitHub issue number)
 ```
 
-**Type:** `[STANDARD]`, `[SIGNIFICANT]`, `[EMERGENCY]`, `[DOCS]`, `[TEST]`
+**Type:** `[STANDARD]`, `[SIGNIFICANT]`, `[EMERGENCY]`, `[DOCS]`, `[TEST]`, `[MODEL]`, `[PROMPT]`
 
 **Example:**
 ```
@@ -495,7 +517,8 @@ Every change must be auditable:
 **Audit Query Example:**
 ```bash
 # Show all significant/emergency changes in past 3 months
-git log --oneline --grep="\[SIGNIFICANT\]|\[EMERGENCY\]" --since="3 months ago"
+# (-E is required: without it git reads the | literally and returns nothing)
+git log --oneline -E --grep='\[(SIGNIFICANT|EMERGENCY)\]' --since="3 months ago"
 
 # Show all production deployments
 grep "deployed to production" deployment.log
@@ -503,7 +526,7 @@ grep "deployed to production" deployment.log
 
 ### SOC 2 Compliance for Change Management
 
-Change management is a SOC 2 Control (CC7: Change Management):
+Change management is criterion CC8.1 in the Trust Services Criteria. (CC7 is System Operations: vulnerability detection, monitoring and incident response.) An auditor sampling your changes looks for:
 
 - ✓ All changes documented before deployment
 - ✓ Testing evidence retained (test logs, screenshots)
@@ -513,7 +536,18 @@ Change management is a SOC 2 Control (CC7: Change Management):
 - ✓ Emergency change procedures documented
 - ✓ Change access restricted (only authorized deployments)
 
-**Retention:** Keep change records and deployment logs for 1+ year for audit
+**Retention:** Keep change records and deployment logs for at least the audit period plus a year. SOC 2 sets no fixed retention period; the auditor needs to sample the whole observation window.
+
+### Working Alone: Segregation of Duties
+
+A reviewer who is also the author is not a second pair of eyes, and an auditor will say so. Self-review is still worth documenting, because it shows the change was considered, but it does not replace segregation of duties. What a solo founder can show instead is mechanical:
+
+- **Branch protection** on the production branch: no direct pushes, and merge blocked until tests and security checks pass
+- **Deploys only through the pipeline**, so every production change has a build record you did not type by hand
+- **Logs you cannot edit**, such as the code host's audit log and the hosting provider's deploy history
+- **A periodic outside look**: an advisor or contractor who reviews a sample of the period's changes and signs a short note
+
+Write down which of these you run. When you hire, the second person becomes the reviewer and this section shrinks.
 
 ---
 

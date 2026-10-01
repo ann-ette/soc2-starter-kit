@@ -24,14 +24,16 @@ This questionnaire evaluates the security posture and compliance standards of pr
 
 ## Assessment Scoring
 
+The Answer column shows the expected answer for each question. For most questions that is "Yes"; for some (does the vendor train on your data, does it sell your data) the answer you want is "No". Score each question as met or not met against the expected answer.
+
 | Rating | Definition | Threshold |
 |--------|-----------|-----------|
-| **Critical (C)** | Required for integration; any "No" fails assessment | Must be "Yes" |
-| **High (H)** | Strongly preferred; "No" requires exception approval | Min 80% "Yes" |
-| **Medium (M)** | Preferred; acceptable if vendor commits to remediate | Min 60% "Yes" |
-| **Low (L)** | Nice-to-have; does not affect approval decision | No minimum |
+| **Critical (C)** | Required for integration; any Critical question not met fails the assessment | All met |
+| **High (H)** | Strongly preferred; a High question not met requires exception approval | Min 80% met |
+| **Medium (M)** | Preferred; acceptable if vendor commits to remediate | Min 60% met |
+| **Low (L)** | Nice-to-have or informational; does not affect approval decision | No minimum |
 
-**Overall Score:** (Approved if all Critical answers = "Yes" AND overall score ≥ 75%)
+**Overall Score:** (Approved if every Critical question is met AND overall score ≥ 75%)
 
 ---
 
@@ -44,7 +46,7 @@ This questionnaire evaluates the security posture and compliance standards of pr
 | 1.1.1 | What is the vendor's primary business and years in operation? | L | [ ] Yes | Business registration, website, LinkedIn | _____ |
 | 1.1.2 | Does the vendor have a documented security program / Chief Information Security Officer (CISO)? | M | [ ] Yes | CISO contact, security policy link | _____ |
 | 1.1.3 | Is the vendor financially stable? (Check credit rating, funding, major customers) | L | [ ] Yes | Dun & Bradstreet, Crunchbase, annual report | _____ |
-| 1.1.4 | Has the vendor had any public security breaches in the past 3 years? | C | [ ] No | Security breach database search, vendor statement | _____ |
+| 1.1.4 | List any public security breaches at the vendor in the past 3 years. A breach alone does not fail the vendor; 4.2.1 asks how it was handled | L | [List, or "none found"] | Security breach database search, news search, vendor statement | _____ |
 | 1.1.5 | Does the vendor have cyber liability insurance? | M | [ ] Yes | Certificate of Insurance, policy limits | _____ |
 
 ---
@@ -53,12 +55,25 @@ This questionnaire evaluates the security posture and compliance standards of pr
 
 | # | Question | Critical | Answer | Evidence | Notes |
 |---|----------|----------|--------|----------|-------|
-| 1.2.1 | Does the vendor maintain SOC 2 Type II certification? | C | [ ] Yes | SOC 2 report (audit within 1 year) | _____ |
+| 1.2.1 | Does the vendor have a current independent security attestation: a SOC 2 Type II report, an ISO 27001 certificate, or an equivalent? | H | [ ] Yes | SOC 2 report whose period ended within the last 12 months, or ISO 27001 certificate and its scope statement | _____ |
 | 1.2.2 | Does the vendor maintain ISO 27001 certification? | H | [ ] Yes | ISO 27001 certificate | _____ |
 | 1.2.3 | Is the vendor PCI DSS compliant (if handling payment data)? | C | [ ] N/A or Yes | PCI DSS certification, SAQ | _____ |
 | 1.2.4 | Does the vendor maintain HIPAA compliance (if health-related)? | C (conditional) | [ ] N/A or Yes | HIPAA Business Associate Agreement (BAA) | _____ |
 | 1.2.5 | Does the vendor comply with GDPR? | C | [ ] Yes | GDPR compliance statement, Data Processing Agreement available | _____ |
 | 1.2.6 | Does the vendor comply with CCPA / other privacy laws? | H | [ ] Yes | Privacy policy review, compliance documentation | _____ |
+
+<!-- CUSTOMIZE: SOC 2 Type II is High rather than Critical because many AI startups worth using hold a Type I, an ISO 27001 certificate, or neither yet. Raise it to Critical if your own customers require it of your subprocessors. -->
+
+**Reading the SOC 2 report** (answer these when 1.2.1 is met by a SOC 2 report; a report you have not read proves little):
+
+| # | Question | Critical | Answer | Evidence | Notes |
+|---|----------|----------|--------|----------|-------|
+| 1.2.7 | Does the report's system description cover the product and region you actually use? | H | [ ] Yes | Section 3 (system description) of the report | _____ |
+| 1.2.8 | What period does it cover, and if it ended more than 3 months ago, has the vendor provided a bridge letter for the gap? | H | [Specify period] / [ ] Bridge letter | Report period; bridge (gap) letter | _____ |
+| 1.2.9 | Is the auditor's opinion unqualified (clean)? | H | [ ] Yes | Section 1 (auditor's opinion) | _____ |
+| 1.2.10 | Did the auditor's tests find exceptions, and does management's response explain each one? | M | [ ] None / [ ] Explained | Section 4 (tests and results) | _____ |
+| 1.2.11 | Which complementary user entity controls (CUECs) does the report expect you to operate? List them and map each into your own controls | H | [List] | CUEC section of the report | _____ |
+| 1.2.12 | Which subservice organizations (for example, the vendor's cloud host) are carved out, and have you obtained their reports? | M | [List] / [ ] Reports obtained | Carve-out section; subservice reports | _____ |
 
 ---
 
@@ -80,7 +95,7 @@ This questionnaire evaluates the security posture and compliance standards of pr
 |---|----------|----------|--------|----------|-------|
 | 2.1.1 | What data types does the vendor collect/process? | C | [Specify] | Vendor documentation, API documentation | _____ |
 | 2.1.2 | Does the vendor have a clear, accessible privacy policy? | C | [ ] Yes | Privacy policy link, URL | _____ |
-| 2.1.3 | Does the vendor use customer data for training AI/ML models without consent? | C | [ ] No / [ ] Opt-in available | Privacy policy review, DPA terms | _____ |
+| 2.1.3 | Is customer data used to train AI/ML models by default on our plan? (Met: No, or an opt-out you have turned on) | C | [ ] No / [ ] Yes, with opt-out (per request, account setting or contract) / [ ] Yes, no opt-out | Privacy policy review, DPA terms | _____ |
 | 2.1.4 | Does the vendor sell or share customer data with third parties? | C | [ ] No / [ ] Only for service delivery | Privacy policy, terms of service | _____ |
 | 2.1.5 | Can we prevent our data from being used for vendor's own product improvement? | H | [ ] Yes | DPA clause, product configuration option | _____ |
 | 2.1.6 | Does the vendor allow opt-out from analytics / telemetry? | M | [ ] Yes | Configuration documentation | _____ |
@@ -91,7 +106,7 @@ This questionnaire evaluates the security posture and compliance standards of pr
 
 | # | Question | Critical | Answer | Evidence | Notes |
 |---|----------|----------|--------|----------|-------|
-| 2.2.1 | What is the default data retention period? | C | [Specify: ___ days/months] | Data retention policy link | _____ |
+| 2.2.1 | What does the vendor retain by default, for how long, and why? | C | [Specify: ___ days/months] Purpose: [ ] Abuse monitoring / [ ] Model improvement / [ ] Feature state / [ ] Other | Data retention policy link | _____ |
 | 2.2.2 | Can we request custom retention periods? | M | [ ] Yes | DPA terms, vendor confirmation | _____ |
 | 2.2.3 | Can we request permanent deletion of customer data? | C | [ ] Yes | Deletion policy, confirmation timeline | _____ |
 | 2.2.4 | What is the timeframe for data deletion after request? | C | [Specify: ___ days] | DPA, data deletion SLA | _____ |
@@ -146,7 +161,7 @@ This questionnaire evaluates the security posture and compliance standards of pr
 | # | Question | Critical | Answer | Evidence | Notes |
 |---|----------|----------|--------|----------|-------|
 | 4.1.1 | Does the vendor have a documented Incident Response Plan? | C | [ ] Yes | Incident response plan (can be summary) | _____ |
-| 4.1.2 | How quickly will the vendor notify us of a security breach? (SLA) | C | [Specify: ___ hours] | DPA clause, incident response timeline | _____ |
+| 4.1.2 | How quickly does the DPA require the vendor to notify us of a security breach? (Many DPAs give no hour count, only "without undue delay") | C | [ ] Hour cap: ___ hours (all personal data / GDPR data only) / [ ] "Without undue delay", no hour cap | DPA clause, incident response timeline | _____ |
 | 4.1.3 | Will the vendor notify regulators on our behalf (GDPR, CCPA)? | M | [ ] Yes / [ ] We coordinate | DPA terms | _____ |
 | 4.1.4 | Does the vendor provide incident forensics/post-mortem? | M | [ ] Yes | Incident response process | _____ |
 | 4.1.5 | Is there a dedicated security contact for incidents? | H | [ ] Yes | Emergency contact information | _____ |
@@ -157,7 +172,7 @@ This questionnaire evaluates the security posture and compliance standards of pr
 
 | # | Question | Critical | Answer | Evidence | Notes |
 |---|----------|----------|--------|----------|-------|
-| 4.2.1 | Has the vendor disclosed any security breaches in the past 3 years? | C | [ ] No | Security disclosures, breach database | _____ |
+| 4.2.1 | For each breach found in 1.1.4: did the vendor notify affected customers promptly, and publish what was exposed, the root cause, and the fix? | H | [ ] Yes / [ ] N/A (no breach) | Security disclosures, post-incident reports, breach database | _____ |
 | 4.2.2 | Does the vendor have a public security page or disclosure page? | M | [ ] Yes | Security.txt, security page URL | _____ |
 | 4.2.3 | Does the vendor publish a responsible disclosure policy? | M | [ ] Yes | Responsible Disclosure / Bug Bounty link | _____ |
 
@@ -219,7 +234,7 @@ This questionnaire evaluates the security posture and compliance standards of pr
 
 | # | Question | Critical | Answer | Evidence | Notes |
 |---|----------|----------|--------|----------|-------|
-| 7.1.1 | Can we specify where our data is stored (country/region)? | H | [ ] Yes | Data residency options | _____ |
+| 7.1.1 | Can we pin both storage and processing (inference, support, moderation) to a country or region, and on which plan? | H | Storage: [ ] Yes / Processing: [ ] Yes / Plan: ___ | Data residency options | _____ |
 | 7.1.2 | Does the vendor comply with European GDPR requirements? | C (if EU customers) | [ ] Yes | GDPR compliance documentation | _____ |
 | 7.1.3 | Does the vendor comply with California CCPA requirements? | H (if CA customers) | [ ] Yes | CCPA compliance documentation | _____ |
 | 7.1.4 | Is the vendor compliant with other regional data protection laws? | M | [ ] Yes | Regional compliance documentation | _____ |
@@ -272,9 +287,11 @@ This questionnaire evaluates the security posture and compliance standards of pr
 
 ### 9.1 Training Data & Model Usage
 
+Some AI vendors train on customer data by default and offer an opt-out, per request or as an account setting. For 9.1.1 and 9.3.2, the question is met when the vendor does not train on your data or when you have turned the opt-out on.
+
 | # | Question | Critical | Answer | Evidence | Notes |
 |---|----------|----------|--------|----------|-------|
-| 9.1.1 | Does the vendor use our data for training their AI models? | C | [ ] No / [ ] Only with explicit consent | Privacy policy, DPA, feature documentation | _____ |
+| 9.1.1 | Is our data used to train the vendor's AI models by default on our plan? | C | [ ] No / [ ] Yes, with opt-out (per request, account setting or contract) / [ ] Yes, no opt-out | Privacy policy, DPA, feature documentation | _____ |
 | 9.1.2 | Can we opt-out of model training? | C (if model training offered) | [ ] Yes / [ ] Not applicable | Opt-out mechanism, configuration | _____ |
 | 9.1.3 | Does the vendor allow users to exclude their data from model training? | M | [ ] Yes / [ ] N/A | User privacy controls | _____ |
 | 9.1.4 | Are we able to verify what data was used for training? | M | [ ] Yes / [ ] N/A | Model transparency, documentation | _____ |
@@ -295,9 +312,26 @@ This questionnaire evaluates the security posture and compliance standards of pr
 
 | # | Question | Critical | Answer | Evidence | Notes |
 |---|----------|----------|--------|----------|-------|
-| 9.3.1 | Is voice/biometric data encrypted end-to-end? | C | [ ] Yes / [ ] N/A | Encryption documentation | _____ |
-| 9.3.2 | Is voice/biometric data used for training without consent? | C | [ ] No / [ ] N/A | Privacy policy, DPA | _____ |
+| 9.3.1 | Is voice/biometric data encrypted in transit and at rest, and which vendor systems and staff can access it in the clear while it is processed? (A vendor that transcribes or synthesizes your audio has to decrypt it, so end-to-end encryption is not available for these services) | C | [ ] Yes / [ ] N/A | Encryption documentation, access policy | _____ |
+| 9.3.2 | Is voice or audio data retained for model training by default? | C | [ ] No / [ ] Yes, opt-out per request / [ ] Yes, opt-out by account setting / [ ] Yes, no opt-out / [ ] N/A | Privacy policy, DPA | _____ |
 | 9.3.3 | Can voice/biometric data be used to create deepfakes? | L | Vendor should have safeguards | Policy documentation | _____ |
+| 9.3.4 | For voice cloning or custom voices: does the vendor require, verify and record the consent of the person whose voice is cloned? | C (if voice cloning used) | [ ] Yes / [ ] N/A | Voice cloning policy, consent flow | _____ |
+
+---
+
+### 9.4 Retention, Human Review and Model Lifecycle
+
+Training and retention are separate controls: a vendor can promise not to train on your data and still keep every prompt for weeks.
+
+| # | Question | Critical | Answer | Evidence | Notes |
+|---|----------|----------|--------|----------|-------|
+| 9.4.1 | Separately from training: how long does the vendor keep prompts, outputs, audio and uploaded files, and for what purpose (abuse monitoring, debugging, legal hold)? | C | [Specify: ___ days, purpose] | DPA, data usage documentation | _____ |
+| 9.4.2 | Is zero data retention (or an equivalent) available, is it on by default for your account or granted on approval, and which endpoints or features are excluded? | H | [ ] Default / [ ] On approval / [ ] Not offered; excluded: ___ | ZDR documentation, written confirmation for your organization | _____ |
+| 9.4.3 | Do vendor staff or contractors review your inputs or outputs (for abuse, safety or quality), and under what conditions? | H | [Specify] | Data usage policy, DPA | _____ |
+| 9.4.4 | What duties does the vendor's usage policy pass to you (telling users they are talking to AI, age limits, prohibited uses, content you must filter)? List them; each becomes one of your controls | C | [List] | Usage policy, terms of service | _____ |
+| 9.4.5 | How much notice does the vendor give before deprecating or retiring a model you depend on? | M | [Specify: ___ days] | Deprecation policy | _____ |
+| 9.4.6 | In which regions does inference run, and can you pin it to one? | H | [Specify] | Data residency or inference region documentation | _____ |
+| 9.4.7 | Does the vendor hold ISO/IEC 42001 certification for its AI management system? | M | [ ] Yes | Certificate and its scope | _____ |
 
 ---
 
@@ -341,7 +375,7 @@ This questionnaire evaluates the security posture and compliance standards of pr
 
 ### Overall Assessment Score
 
-**Total Score:** _____ % (Approved if ≥ 75% and all Critical = "Yes")
+**Total Score:** _____ % (Approved if ≥ 75% and every Critical question is met)
 
 **Recommendation:**
 
@@ -354,7 +388,7 @@ This questionnaire evaluates the security posture and compliance standards of pr
 
 ### Critical Issues (If Any)
 
-If any Critical questions are answered "No", integration cannot proceed. List issues below:
+If any Critical question is not met, integration cannot proceed. List issues below:
 
 1. _______________________________________________________________
 2. _______________________________________________________________
@@ -373,7 +407,7 @@ If any Critical questions are answered "No", integration cannot proceed. List is
 
 ### Exceptions (If Approved with Conditions)
 
-If the vendor is approved despite some "No" answers, document the business justification and risk acceptance:
+If the vendor is approved despite some questions not met, document the business justification and risk acceptance:
 
 **Risk Acceptance:**
 > We accept the following risks because [explain business need/justification]:
@@ -430,7 +464,7 @@ If the vendor is approved despite some "No" answers, document the business justi
 
 ## Appendix: Assessment Template Notes
 
-- **Critical (C):** Must be "Yes" for integration approval
+- **Critical (C):** Must meet the expected answer for integration approval
 - **High (H):** Strongly preferred; affects overall score significantly
 - **Medium (M):** Preferred; vendor should have or commit to implement
 - **Low (L):** Nice-to-have; informational only

@@ -16,7 +16,7 @@
 
 ---
 
-<!-- CUSTOMIZE: This template is designed for iOS/macOS App Store compliance (Apple requires specific data collection disclosures). Adjust for your jurisdiction and platforms. -->
+<!-- CUSTOMIZE: Written for apps on the App Store and Google Play. If your app lets people create an account, both require in-app account deletion (Apple Guideline 5.1.1(v); Google Play also requires a web link for deletion requests and matching Data safety answers). Apple Guideline 5.1.2(i) requires you to disclose sharing with third-party AI and get explicit permission first. Adjust for your jurisdictions. -->
 
 ---
 
@@ -44,7 +44,7 @@ We collect information in two ways: information you provide directly, and inform
 #### Account Information
 - **Name, email address, phone number**: Required to create an account
 - **Profile information**: Optional profile pictures, preferences, settings
-- **Authentication credentials**: Passwords, biometric data (fingerprint/face ID), security questions
+- **Authentication credentials**: Passwords and security questions. If you unlock [YOUR APP] with Face ID or Touch ID, your device runs the check and tells the app only whether it succeeded; we never receive your face or fingerprint data.
 - **Billing information**: For paid subscriptions (see "Payment Information" below)
 
 #### Communication Data
@@ -54,7 +54,8 @@ We collect information in two ways: information you provide directly, and inform
 #### Voice/Biometric Data (If Applicable)
 - **Voice recordings**: Only if you use voice features; recordings are encrypted and deleted after [X] days
 - **Voice transcripts**: Automatically generated transcriptions of voice input
-- **Facial recognition data**: Only if you explicitly enable face unlock (stored locally on your device, never sent to our servers)
+- **Voiceprints**: [We do not create a voiceprint or any model of your voice that could identify you.] OR [If you turn on voice identification, we create a voiceprint only with your explicit consent, tell you how long we keep it, and delete it when the purpose ends or within [X], whichever comes first.]
+- **Face or fingerprint unlock**: Handled by your device's operating system. [YOUR APP] receives only a pass or fail result and stores no facial or fingerprint data.
 
 #### Other Information You Provide
 - **Preferences and settings**: Language, notification preferences, accessibility settings
@@ -87,7 +88,7 @@ We collect information in two ways: information you provide directly, and inform
 **Collection Method:** You must grant permission; you can revoke anytime in device settings
 
 #### Interaction Data
-- **Clicks, swipes, typing patterns**: For improving UX and detecting abuse
+- **Clicks, swipes and screen events**: For improving UX and detecting abuse. We do not use typing rhythm or keystroke timing to identify you.
 - **Conversion funnel data**: Sign-up steps, purchase funnel (anonymized)
 
 **Collection Method:** Analytics, event tracking
@@ -118,7 +119,9 @@ We receive data from third-party vendors that process data on our behalf:
 
 ## 3. How We Use Your Data
 
-We use your information for these purposes:
+We use your information for these purposes. For users in the EU and the UK, each purpose names its legal basis under the GDPR and the UK GDPR.
+
+<!-- CUSTOMIZE: GDPR Article 13(1)(c) requires the legal basis for each purpose, and Article 13(1)(d) requires you to name the legitimate interests you rely on. Check each basis below against what you actually do. -->
 
 ### 3.1 Service Delivery
 - ✓ Create and maintain your account
@@ -126,11 +129,15 @@ We use your information for these purposes:
 - ✓ Provide customer support
 - ✓ Respond to your inquiries and requests
 
+**Legal basis (EU and UK):** Contract.
+
 ### 3.2 Service Improvement
 - ✓ Analyze usage patterns to improve features
 - ✓ Identify and fix bugs/performance issues
 - ✓ Conduct A/B testing to optimize UX
 - ✓ Develop new features based on user demand
+
+**Legal basis (EU and UK):** Legitimate interests (improving [YOUR APP]).
 
 ### 3.3 Safety & Security
 - ✓ Detect and prevent fraud/abuse
@@ -138,10 +145,14 @@ We use your information for these purposes:
 - ✓ Enforce Terms of Service
 - ✓ Prevent service abuse (spam, bot attacks)
 
+**Legal basis (EU and UK):** Legitimate interests (preventing abuse).
+
 ### 3.4 Communications
 - ✓ Send transactional emails (password resets, receipts, security alerts)
 - ✓ Send service updates and announcements
 - ✓ **Marketing emails**: Only if you opt-in (see "Your Privacy Rights" for opt-out)
+
+**Legal basis (EU and UK):** Contract for transactional emails and service updates; consent for marketing emails.
 
 ### 3.5 Compliance & Legal
 - ✓ Comply with laws and regulations (GDPR, CCPA, etc.)
@@ -149,9 +160,13 @@ We use your information for these purposes:
 - ✓ Protect against legal claims
 - ✓ Maintain records for audit/compliance
 
+**Legal basis (EU and UK):** Legal obligation; legitimate interests for protecting against legal claims.
+
 ### 3.6 AI Model Training (If Applicable)
 - ✗ **WE DO NOT use your data for training AI models without explicit consent.**
 - If you opt-in, we anonymize your conversation data before using it for model fine-tuning (see "Your Privacy Rights" for consent management).
+
+**Legal basis (EU and UK):** Consent.
 
 ---
 
@@ -166,8 +181,8 @@ We retain data only as long as necessary for the purposes listed above. See [DAT
 | Account information | Until account deletion; 30 days grace period | Service provision |
 | Conversation/chat data | [X] months from last activity (<!-- CUSTOMIZE: e.g., 6 months -->) | User convenience |
 | Voice recordings | [X] days (<!-- CUSTOMIZE: e.g., 7 days -->) | Support/compliance |
-| Payment records | 7 years | Tax/legal requirement |
-| Audit/security logs | 1 year | SOC 2 compliance |
+| Payment records | [PERIOD SET BY TAX AND ACCOUNTING LAW] | Tax and accounting law |
+| Audit/security logs | 1 year | Security and audit (SOC 2 sets no fixed period) |
 | Analytics data | 24 months (rolling window) | Product analytics |
 | Backups | 30 days (hot), 1 year (cold archive) | Disaster recovery |
 
@@ -183,23 +198,37 @@ We share data only when necessary, with third parties that have signed Data Proc
 
 We share data with vendors that help operate [YOUR APP]:
 
+<!-- CUSTOMIZE: List every vendor that receives personal data, matching SUBPROCESSOR-TABLE.md. The rows below are an example AI app stack: replace each bracketed name, and check each retention cell against the vendor's current terms. -->
+
 | Vendor | Service | Data Shared | Purpose | Data Retention |
 |--------|---------|------------|---------|---|
-| **OpenAI** | LLM API | Conversation text (anonymized) | Generate AI responses | 30 days (OpenAI policy) |
-| **Twilio** | Voice/SMS API | Phone numbers, voice recordings, transcripts | Voice interactions, SMS | 7 days auto-delete |
-| **Stripe** | Payment Processing | Card last-4, billing name/address, email | Process payments | 7 years (PCI requirement) |
-| **AWS** | Cloud Hosting | All application data, backups, logs | Hosting, storage, compute | Per retention policy |
-| **Google Analytics** | Analytics | Anonymized usage data, anonymized IP | Track feature usage | 24 months |
-| **Datadog** | Monitoring | Application logs (PII anonymized), metrics | Monitor app health | 90 days (hot), 1 year (cold) |
-| **SendGrid** | Email Service | Email addresses, user ID | Send transactional emails | Until bounce/unsubscribe |
+| **[LLM PROVIDER]** | LLM API | Conversation text and voice transcripts | Generate AI responses | [Per the provider's terms. At OpenAI, for example, API abuse-monitoring logs are kept up to 30 days by default, longer where law requires, and shorter only under a zero data retention arrangement OpenAI has approved.] |
+| **[VOICE PROVIDER]** | Voice/SMS API | Phone numbers, voice recordings, transcripts | Voice interactions, SMS | [X] days, deleted through the provider's API |
+| **[PAYMENT PROCESSOR]** | Payment Processing | Card last-4, billing name/address, email | Process payments | [Per the processor's terms. Stripe, for example, keeps data while it provides the service, then as long as its legal, regulatory, fraud-prevention, tax and accounting obligations require (see Stripe's privacy policy).] |
+| **[YOUR CLOUD PROVIDER]** | Cloud Hosting | All application data, backups, logs | Hosting, storage, compute | Per Section 4 |
+| **[ANALYTICS PROVIDER]** | Analytics | Usage events, cookie and device identifiers | Track feature usage | [Your retention setting. Google Analytics 4, for example, keeps user-level and event-level data 2 months by default, settable to 14.] |
+| **[MONITORING PROVIDER]** | Monitoring | Application logs, metrics, pseudonymized user IDs | Monitor app health | [Set by your plan] |
+| **[EMAIL PROVIDER]** | Email Service | Email addresses, user ID | Send transactional emails | [Per the provider's terms] |
+
+Before your conversations go to a third-party AI provider, we ask for your explicit permission in the app.
 
 **Data Protection:** All vendors are required to:
-- ✓ Implement SOC 2 Type II or equivalent security certification
+- ✓ Hold a SOC 2 Type II report, ISO/IEC 27001 certification, or equivalent
 - ✓ Sign a Data Processing Agreement (DPA)
 - ✓ Comply with GDPR, CCPA, and other privacy laws
-- ✓ Notify us of security breaches within 48 hours
+- ✓ Notify us of security breaches [within [X] hours, as each DPA sets]
 
-### 5.2 Legal Requests
+### 5.2 AI Processing
+
+<!-- CUSTOMIZE: Keep this section if [YOUR APP] sends what people type or say to an AI model a third party runs, and check each answer against the provider's current terms. SOC2-GUIDE.md lists major providers' training defaults ("AI Model Training Opt-Outs") and the laws that require telling people they are talking to AI ("Telling People They Are Talking to AI"). -->
+
+- **Which providers:** [LLM PROVIDER] generates [YOUR APP]'s replies. [[SPEECH PROVIDER] transcribes what you say and [VOICE PROVIDER] speaks the replies.] Section 5.1 lists what each receives and how long it keeps it.
+- **Your permission:** You can withdraw the permission we ask for before sharing (Section 5.1) at any time in [SETTINGS LOCATION].
+- **Training:** [Our AI providers do not train their models on what we send them.] OR [[PROVIDER] uses what we send to improve its models unless we opt out, and we have opted out.] We train our own models on your conversations only if you opt in (Section 3.6).
+- **Retention:** A provider that never trains on your data can still keep it for a set period, for example to monitor abuse. Section 5.1 gives each provider's period.
+- **AI disclosure:** [YOUR APP] tells you that you are talking with an AI [when each conversation starts] OR [in a label that stays on screen]. [In voice conversations, the assistant also says so out loud when the conversation starts.]
+
+### 5.3 Legal Requests
 
 We may disclose your information if required by law or legal process:
 - Subpoena or court order
@@ -209,11 +238,11 @@ We may disclose your information if required by law or legal process:
 
 We will attempt to notify you of legal requests (unless prohibited by law) and resist overly broad requests.
 
-### 5.3 Business Transfers
+### 5.4 Business Transfers
 
 If [YOUR COMPANY] is acquired, merged, or dissolved, your information may be transferred as part of that transaction. We will notify you via email and/or in-app notification.
 
-### 5.4 Marketing & Analytics
+### 5.5 Marketing & Analytics
 
 We share anonymized, aggregated data with:
 - Marketing partners (for marketing attribution only; no PII shared)
@@ -253,7 +282,7 @@ We implement technical and organizational measures to protect your data:
 ### 6.5 Incident Response
 - ✓ Incident response plan with defined procedures
 - ✓ 24/7 security monitoring and alerting
-- ✓ Breach notification within 72 hours (GDPR requirement)
+- ✓ Breach notification to the data protection authority within 72 hours where the GDPR requires it, and to affected users without undue delay where the risk to them is high
 - ✓ Post-incident reviews and root cause analysis
 
 **Limitations:** While we implement strong security, no system is 100% secure. We cannot guarantee absolute security.
@@ -278,38 +307,39 @@ If you're in the EU or EEA, you have:
 | **Object** | Opt-out of processing for specific purposes | Use preference center or email us |
 | **Automated Decision** | Not be subject to solely automated decisions | We do not use automated decision-making |
 
-**Response Timeline:** 30 days for DSAR/deletion requests (extendable to 60 days if complex).
+**Response Timeline:** One month from receipt. If a request is complex or one of many, we may extend this by up to two further months, and we will tell you why within the first month. For UK users, the month runs from the latest of when we receive the request, any identity information we ask for, or any fee, and pauses while we ask what an access request covers.
 
 ### 7.2 CCPA Rights (California Residents)
+
+<!-- CUSTOMIZE: The CCPA applies only if you meet a threshold in Civil Code 1798.140(d): revenue over $26,625,000 (2025 adjustment), buying, selling or sharing the data of 100,000 or more consumers or households, or 50% of revenue from selling or sharing. -->
 
 If you're a California resident, you have:
 
 | Right | What It Means | How to Exercise |
 |------|---|---|
-| **Know** | Know what personal data is collected | [PRIVACY-POLICY-TEMPLATE.md](.) details data collected |
+| **Know** | Know the categories of personal information we collect, its sources, our purposes, the categories of recipients, and the specific pieces we hold about you | Email [YOUR EMAIL] |
 | **Delete** | Request deletion of personal data | Email [YOUR EMAIL] with "Deletion Request" |
-| **Opt-Out of Sale** | Opt-out of data "sale" to third parties | Use preference center or email us (we do not "sell" data) |
-| **Non-Discrimination** | No discrimination for exercising rights | You will not receive different pricing/service |
+| **Correct** | Ask us to correct inaccurate personal information | Use account settings or email [YOUR EMAIL] |
+| **Opt Out of Sale or Sharing** | Opt out of the sale of your personal information or its sharing for cross-context behavioral advertising | Use preference center or email us (we do not sell or share data) [If you sell or share: a "Do Not Sell or Share My Personal Information" link] |
+| **Limit Use of Sensitive Personal Information** | Limit our use of sensitive personal information | [Only if we use it beyond the purposes in 11 CCR 7027(m)] |
+| **Automated Decisionmaking** | Opt out of, and get information about, our use of automated decisionmaking technology | [Only if we use it for significant decisions, from 2027-01-01] |
+| **No Retaliation** | We will not retaliate against you for using these rights | You will not receive different pricing/service |
 
-**Response Timeline:** 45 days for requests.
+**Response Timeline:** 45 days, extendable once by 45 more days when reasonably necessary; we will tell you within the first 45.
 
-### 7.3 CCPA's "Shine the Light" (California)
+### 7.3 California "Shine the Light" (Civil Code 1798.83)
 
-California residents can request disclosure of third parties data is shared with:
-- Request annually at [YOUR EMAIL]
-- We will provide list of vendors within 30 days
+<!-- CUSTOMIZE: Keep only if you have 20 or more employees and disclosed personal information to third parties for their own direct marketing last calendar year. Otherwise replace the body with: We do not disclose personal information to third parties for their own direct marketing. -->
+
+California customers may ask once a year which categories of personal information we disclosed to third parties for their direct marketing in the prior calendar year, with those third parties' names and addresses. Send requests to [YOUR EMAIL]; we respond within 30 days.
 
 ### 7.4 Canadian Residents (PIPEDA)
 
-You have the right to:
-- Access your personal information
-- Correct inaccurate information
-- Withdraw consent anytime
-- Request not to receive direct marketing
+You have the right to: access the personal information we hold about you; ask us to correct it if it is inaccurate or incomplete; and withdraw your consent at any time, subject to legal or contractual limits and reasonable notice, and we will tell you what withdrawing means for your use of [YOUR APP]. We respond within 30 days and may extend this once by up to 30 more days, with notice. You can also complain to the Privacy Commissioner of Canada.
 
 ### 7.5 UK Residents (UK GDPR)
 
-UK residents have the same rights as EU residents (see GDPR Rights above).
+UK residents have the rights in Section 7.1 under the UK GDPR. You can also complain to us directly at [YOUR EMAIL or complaints form link]; we acknowledge complaints within 30 days and respond without undue delay. You can also complain to the UK Information Commission (ico.org.uk), which took over from the Information Commissioner's Office on 30 September 2026.
 
 ---
 
@@ -328,7 +358,7 @@ UK residents have the same rights as EU residents (see GDPR Rights above).
 #### Voice/Biometric Data
 - [ ] You can request deletion of voice recordings anytime
 - [ ] Disable voice features in app settings
-- [ ] Facial recognition data stored locally; not transmitted to servers
+- [ ] Face ID and Touch ID data never reaches [YOUR APP]; you manage it in your device settings.
 
 #### AI Training (If Applicable)
 - [ ] If you opt-in to data use for AI training, you can withdraw consent anytime
@@ -360,11 +390,9 @@ Cookies are small files stored on your device that recognize you on return visit
 
 **Choice Persistence:** Your choice is remembered for 1 year.
 
-### 8.4 Do-Not-Track (DNT)
+### 8.4 Global Privacy Control and Do Not Track
 
-Some browsers include a DNT feature. We honor DNT signals by:
-- Not collecting analytics if DNT is enabled
-- Restricting data sharing with marketing partners
+If your browser or device sends a Global Privacy Control signal, we treat it as a request to opt out of the sale or sharing of your personal information for that browser or device, and for your account if you are signed in. [We do not respond to Do Not Track signals.] OR [When your browser sends Do Not Track, we (describe exactly what changes).]
 
 ---
 
@@ -383,13 +411,13 @@ We encourage you to review third-party privacy policies before sharing informati
 
 ## 10. Children's Privacy
 
-[YOUR APP] is not intended for children under [AGE]<!-- CUSTOMIZE: typically 13 (COPPA) or 16 (GDPR) -->.
+[YOUR APP] is not intended for children under [AGE]<!-- CUSTOMIZE: 16 by default under the GDPR, which EU member states may lower to no less than 13; 13 under the UK GDPR and under COPPA (US) -->.
 
 **Our Commitments:**
 - ✗ We do not knowingly collect data from children under [AGE]
 - If we learn we've collected data from a child under [AGE], we delete it immediately
 - We do not market to children
-- For children under [AGE], parental consent is required
+- For children under [AGE], parental consent is required <!-- CUSTOMIZE: Delete this line if [YOUR APP] is not for children. If it is directed to children under 13 even in part, the amended COPPA Rule (compliance date 2026-04-22) requires verifiable parental consent before collection, separate consent before disclosing a child's data to third parties unless integral to the service, a written information security program, and a written data retention policy published in this notice. -->
 
 If you believe we have collected data from a child, contact [YOUR EMAIL] immediately.
 
@@ -400,14 +428,17 @@ If you believe we have collected data from a child, contact [YOUR EMAIL] immedia
 [YOUR APP] is hosted in [YOUR CLOUD PROVIDER REGION]<!-- CUSTOMIZE: e.g., US East (Virginia) -->. If you access [YOUR APP] from outside [COUNTRY], your data may be transferred internationally.
 
 **International Compliance:**
-- EU/EEA residents: Data transferred via Standard Contractual Clauses (SCCs)
+- EU/EEA residents: to US recipients certified under the EU-US Data Privacy Framework (European Commission adequacy decision of 10 July 2023), and to other recipients under the Commission's Standard Contractual Clauses
+- UK residents: to US recipients in the UK Extension to the Data Privacy Framework, and to other recipients under the International Data Transfer Agreement or the Addendum to the EU clauses, both issued by the UK Information Commission (ICO)
 - We comply with GDPR and ensure adequate safeguards
+
+<!-- CUSTOMIZE: name the mechanism for each recipient in Section 5.1 -->
 
 ---
 
 ## 12. Retention of User Consent
 
-We retain records of your consent (e.g., marketing opt-in, voice data consent) for 3 years after you withdraw consent, to demonstrate GDPR/CCPA compliance.
+We keep records of your consent choices (for example marketing opt-in or voice data consent) for [3 years] after you withdraw consent, so we can show what you agreed to and when. <!-- CUSTOMIZE: GDPR Article 7(1) requires that you can demonstrate consent; no law found sets this period. -->
 
 ---
 
@@ -424,11 +455,7 @@ We may update this Privacy Policy periodically. We will:
 
 ## 14. Data Breach Notification
 
-If we detect unauthorized access to your data:
-
-**We will notify you within:**
-- 72 hours (GDPR requirement)
-- 24 hours (for sensitive data)
+If a breach of your personal data is likely to put your rights at high risk, we will tell you without undue delay. Where the law where you live sets a deadline, we meet it; California, Colorado, New York and Washington, among others, require notice within 30 days.
 
 **Notification will include:**
 - What data was accessed
@@ -447,19 +474,19 @@ As required by Apple, we provide a privacy nutrition label in the App Store. Bel
 
 | Apple Category | Data Type | Linked to You | Tracking |
 |---|---|---|---|
-| **User ID** | Account email, user ID | Yes | No |
-| **Precise Location** | Not collected | N/A | N/A |
-| **Approximate Location** | Not collected (unless user enables) | No | No |
+| **Identifiers: User ID, Device ID** | Account ID, device ID | [Yes if you or a partner can tie it to the account or device] | No |
+| **Location: Precise Location** | Not collected | N/A | N/A |
+| **Location: Coarse Location** | Not collected (unless user enables) | No | No |
 | **Health & Fitness** | Not collected | N/A | N/A |
 | **Financial Info** | Payment method (last-4 only) | Yes | No |
 | **Contact Info** | Email, phone (if provided) | Yes | No |
-| **Photos & Videos** | Voice recordings (if voice feature used) | Yes | No |
-| **Audio** | Voice data (encrypted, auto-deleted) | Yes | No |
-| **Search & Browse** | Usage data (anonymized) | No | No |
-| **Product Interaction** | Feature usage | No | No |
-| **Identifiers** | Device ID, IP | No | No |
-| **Sensitive Info** | Not collected | N/A | N/A |
-| **Other Data** | Conversation content | Yes | No |
+| **User Content: Audio Data** | Voice recordings (if voice feature used) | Yes | No |
+| **Usage Data: Product Interaction** | Feature usage, screens viewed | [Yes if tied to the account or device] | No |
+| **Sensitive Info** | [Not collected] OR [Voiceprints, if voice identification is enabled] | [Yes] | No |
+| **User Content: Other User Content** | Conversation text with the assistant | Yes | No |
+| **User Content: Customer Support** | Support messages | Yes | No |
+
+<!-- CUSTOMIZE: Declare IP addresses under the type their use fits (Coarse Location, Device ID or diagnostics). Add Browsing History or Search History only if you collect it. -->
 
 ### 15.2 Data Use Purposes
 
@@ -467,8 +494,12 @@ As required by Apple, we provide a privacy nutrition label in the App Store. Bel
 |---------|---------|
 | **App Functionality** | Yes (account, communication, payments) |
 | **Analytics** | Yes (usage tracking, anonymized) |
-| **Advertising** | Limited (marketing emails only with consent) |
-| **Third-Party Sharing** | Yes (vendors listed above) |
+| **Product Personalization** | [If any] |
+| **Developer's Advertising or Marketing** | [Marketing emails, only with consent] |
+| **Third-Party Advertising** | [Only if third-party ads are shown] |
+| **Other Purposes** | [If any] |
+
+<!-- CUSTOMIZE: Apple lists these six purposes. Declare partners' collection per data type, and declare Tracking if data is linked with third-party data for ads or shared with a data broker. -->
 
 ### 15.3 Privacy Practices
 
@@ -489,11 +520,15 @@ As required by Apple, we provide a privacy nutrition label in the App Store. Bel
 **For Data Subject Access Requests (DSAR):**
 - Email: [YOUR EMAIL] with subject "DSAR Request"
 - Include: Full name, email, specific data requested
-- Response timeline: 30 days
+- Response timeline: one month (GDPR) or 45 days (California)
 
 **For Deletion Requests:**
 - Email: [YOUR EMAIL] with subject "Deletion Request"
-- Your account and associated data will be permanently deleted within 45 days
+- We act on deletion requests within one month (GDPR) or 45 days (California), whichever applies to you; copies in backups expire as backups rotate (see Section 4).
+
+**EU representative:** [NAME AND ADDRESS]
+**UK representative:** [NAME AND ADDRESS]
+<!-- CUSTOMIZE: GDPR Article 27 (EU) and UK GDPR Article 27 (UK): if you have no establishment in the EU or the UK but offer services to, or monitor, people there, name a representative in each. Both exempt processing that is occasional, excludes large-scale special-category or criminal-offence data, and is unlikely to result in risk. -->
 
 **For Privacy Complaints (GDPR):**
 - Contact your local Data Protection Authority
@@ -505,7 +540,10 @@ As required by Apple, we provide a privacy nutrition label in the App Store. Bel
 ## 17. Jurisdiction-Specific Notices
 
 ### California (CCPA)
-Under CCPA, you have the right to know what personal information is collected, used, shared, and sold. We have provided this information in this policy. We do not "sell" personal information in the CCPA sense.
+Under CCPA, you have the right to know what personal information is collected, used, shared, and sold. We have provided this information in this policy. We do not sell personal information, and we do not share it for cross-context behavioral advertising. <!-- CUSTOMIZE: If you use advertising or remarketing cookies or SDKs (such as Google Ads or a Meta pixel), you share personal information under the CCPA. Say so here, add a "Do Not Sell or Share My Personal Information" link, and honor Global Privacy Control. -->
+
+### Other US States
+Depending on the state you live in, you may have rights to access, correct and delete your personal data, to get a portable copy, to opt out of targeted advertising, sale and certain profiling, and to be asked for consent before we process sensitive data such as biometric or health data. Email [YOUR EMAIL] to use them. <!-- CUSTOMIZE: List the states whose thresholds you meet. Texas and Nebraska have no numeric threshold; Colorado reaches biometric data at any volume since 2025-07-01; Connecticut reaches any processing of sensitive data since 2026-07-01. If you collect or infer health data from Washington residents, including voice recordings from which an identifier template can be extracted, Washington's My Health My Data Act requires a separate consumer health data privacy policy linked from your homepage; it also covers people whose health data is collected in Washington, wherever they live. -->
 
 ### European Union (GDPR)
 We are a data controller for personal data processing. Your rights are detailed in Section 7.1 above.
@@ -529,7 +567,7 @@ We comply with Personal Information Protection and Electronic Documents Act (PIP
 All third-party vendors listed in Section 5.1 have signed Data Processing Agreements (DPAs) compliant with:
 - GDPR Article 28
 - CCPA Section 1798.140(ag)
-- Standard Contractual Clauses (for EU-to-US transfers)
+- Standard Contractual Clauses or Data Privacy Framework certification (EU to US); the UK Addendum, the IDTA or the UK Extension (UK to US)
 
 **DPA Documents:** Available upon request to [YOUR EMAIL]
 

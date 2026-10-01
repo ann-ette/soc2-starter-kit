@@ -24,6 +24,8 @@ This document describes the recommended structure for a SOC 2 compliance trackin
 
 **Example Rows:**
 
+*The example rows show the shape of a filled-in sheet. Their dates are illustrative; replace them with your own.*
+
 | ID | Category | Item | Severity | Status | Owner | Target Date | Evidence Link | Notes |
 |----|----------|------|----------|--------|-------|-------------|---------------|-------|
 | VULN-001 | Security Vulnerability | Outdated lodash version in package.json | High | Resolved | DevOps Lead | 2026-04-05 | PR #147 | Updated to 4.17.21, tested in staging |
@@ -44,7 +46,7 @@ This document describes the recommended structure for a SOC 2 compliance trackin
 |--------|------|-------------|
 | **Vendor** | Text | Name of third-party vendor or SaaS provider |
 | **Data Shared** | Text | Type of data provided to vendor (e.g., customer data, transaction logs, analytics) |
-| **SOC 2 Status** | Dropdown | Certified, Pending, N/A, Not Available |
+| **SOC 2 Status** | Dropdown | Type II report on file, Type I report on file, Requested, None available, N/A |
 | **DPA Status** | Dropdown | Signed, Pending, N/A, Not Needed |
 | **Last Reviewed** | Date | Date of most recent security/compliance review |
 | **Next Review** | Date | Scheduled date for next review |
@@ -54,11 +56,11 @@ This document describes the recommended structure for a SOC 2 compliance trackin
 
 | Vendor | Data Shared | SOC 2 Status | DPA Status | Last Reviewed | Next Review | Action Needed |
 |--------|-------------|--------------|-----------|---------------|-------------|---------------|
-| Auth0 | Customer identity, authentication logs | Certified | Signed | 2026-03-15 | 2026-06-15 | None |
-| Stripe | Transaction data, payment methods | Certified | Signed | 2026-02-20 | 2026-05-20 | Review DPA renewal terms |
-| CloudFlare | DNS, WAF logs | Certified | Signed | 2026-01-10 | 2026-04-10 | Schedule annual review |
-| Datadog | Application logs, metrics, traces | Certified | Pending | 2026-03-01 | 2026-06-01 | Send executed DPA to legal |
-| SendGrid | Customer email addresses, delivery logs | Certified | N/A | 2026-02-28 | 2026-05-28 | Review processor addendum |
+| Auth0 | Customer identity, authentication logs | Type II report on file | Signed | 2026-03-15 | 2026-06-15 | None |
+| Stripe | Transaction data, payment methods | Type II report on file | Signed | 2026-02-20 | 2026-05-20 | Review DPA renewal terms |
+| Cloudflare | DNS, WAF logs | Type II report on file | Signed | 2026-01-10 | 2026-04-10 | Schedule annual review |
+| Datadog | Application logs, metrics, traces | Type II report on file | Pending | 2026-03-01 | 2026-06-01 | Send executed DPA to legal |
+| SendGrid | Customer email addresses, delivery logs | Type II report on file | Signed | 2026-02-28 | 2026-05-28 | None. A vendor that processes personal data on your behalf needs a DPA, so "N/A" does not fit this column for one |
 | Custom API Partner | Internal transaction logs | N/A | Pending | 2026-03-20 | 2026-06-20 | Obtain DPA + SOC2 report from partner |
 
 ---
@@ -72,7 +74,7 @@ This document describes the recommended structure for a SOC 2 compliance trackin
 | Column | Type | Description |
 |--------|------|-------------|
 | **Date** | Date | Date evidence was created or artifact generated |
-| **Control Area** | Dropdown | SOC 2 trust service category: CC (Change & Config), PO (Policies), PT (Processors), SC (Security), A&A (Access & Availability), etc. |
+| **Criteria** | Dropdown | The Trust Services Criteria reference the evidence supports, e.g. CC6.3, CC8.1, CC9.2, A1.3. Use the numbers in SOC2-CONTROL-MAPPING.md so the log and the mapping cross-reference |
 | **Evidence Type** | Dropdown | Policy Document, Scan Report, Audit Log, Test Result, Approval/Sign-off, Process Documentation, Training Record, Incident Report, Configuration Snapshot |
 | **Description** | Text | Brief description of the evidence |
 | **Artifact Location** | URL/Text | Link to document, GitHub Actions artifact, Google Drive, or file path |
@@ -81,15 +83,15 @@ This document describes the recommended structure for a SOC 2 compliance trackin
 
 **Example Rows:**
 
-| Date | Control Area | Evidence Type | Description | Artifact Location | Reviewer | Notes |
+| Date | Criteria | Evidence Type | Description | Artifact Location | Reviewer | Notes |
 |------|--------------|---------------|-------------|-------------------|----------|-------|
-| 2026-03-20 | SC | Scan Report | Gitleaks secret detection run | Workflow run #1234 | Security Eng | Weekly automated scan, no secrets found |
-| 2026-03-18 | CC | Process Documentation | Change management procedure | Google Drive: Policies > Change Mgmt | CTO | Latest version, approved 2026-03-15 |
-| 2026-03-15 | SC | Test Result | NPM audit results | GitHub artifact npm-audit-report | DevOps Lead | 2 high-severity vulns identified, PR #145 opened |
-| 2026-03-14 | PO | Policy Document | Information Security Policy | GitHub wiki > Policies | Security Lead | Annual review due 2026-03-14-2027 |
-| 2026-03-10 | A&A | Training Record | Security awareness training | Employee tracker spreadsheet | HR | All engineers completed March 2026 training |
-| 2026-03-05 | PT | Approval/Sign-off | DPA signed with Stripe | Legal folder: Vendor Agreements | Legal | Execution date 2026-03-05, good for 2 years |
-| 2026-02-28 | SC | Configuration Snapshot | AWS security group audit | S3 bucket: evidence/aws-sg-2026-02 | Cloud Sec | Monthly baseline snapshot |
+| 2026-03-20 | CC7.1 | Scan Report | Gitleaks secret detection run | Workflow run #1234 | Security Eng | Weekly automated scan, no secrets found |
+| 2026-03-18 | CC8.1 | Process Documentation | Change management procedure | Google Drive: Policies > Change Mgmt | CTO | Latest version, approved 2026-03-15 |
+| 2026-03-15 | CC7.1 | Test Result | NPM audit results | GitHub artifact npm-audit-report | DevOps Lead | 2 high-severity vulns identified, PR #145 opened |
+| 2026-03-14 | CC5.3 | Policy Document | Information Security Policy | GitHub wiki > Policies | Security Lead | Annual review due 2027-03-14 |
+| 2026-03-10 | CC1.4 | Training Record | Security awareness training | Employee tracker spreadsheet | HR | All engineers completed March 2026 training |
+| 2026-03-05 | CC9.2 | Approval/Sign-off | DPA signed with Stripe | Legal folder: Vendor Agreements | Legal | Execution date 2026-03-05; runs for the term of the service agreement |
+| 2026-02-28 | CC6.6 | Configuration Snapshot | AWS security group audit | S3 bucket: evidence/aws-sg-2026-02 | Cloud Sec | Monthly baseline snapshot |
 
 ---
 
@@ -137,8 +139,8 @@ This document describes the recommended structure for a SOC 2 compliance trackin
 - **Quarterly:** Review Vendor DPA statuses; conduct access control audits; verify Review Schedule completion
 - **Annually:** Complete SOC 2 assessment; review and renew policies; update vendor security posture
 
-### Integration with GitHub Actions
-- Automated workflows generate evidence artifacts (scan reports, audit logs)
+### Integration with Your CI Pipeline
+- Automated workflows in your own repository generate evidence artifacts (scan reports, audit logs)
 - Link these artifacts in the **Evidence Log** sheet for traceability
 - Use Evidence Log dates to track control operational effectiveness over time
 
@@ -160,14 +162,14 @@ This document describes the recommended structure for a SOC 2 compliance trackin
 1. **Traceability:** Every finding and evidence item should have a source link (GitHub, cloud provider, etc.)
 2. **Timeliness:** Update tracking spreadsheet within 1-2 business days of new evidence
 3. **Ownership:** Assign clear owners to each item; avoid orphaned tasks
-4. **Retention:** Keep all evidence for at least 2 years to support SOC 2 Type II extended observation period
+4. **Retention:** Keep evidence for at least the current and previous observation periods. SOC 2 sets no fixed retention period, and your auditor may sample from anywhere in the window
 5. **Automation:** Link automated scan outputs (GitHub Actions artifacts) to reduce manual data entry
 
 ---
 
 ## Related Documents
 
-- **SOC 2 Trust Service Criteria:** Reference AICPA SOC 2 for control framework categories
+- **SOC 2 Trust Services Criteria:** SOC2-CONTROL-MAPPING.md lists every criterion by its AICPA number
 - **Your CI Workflows:** The automation in your own repository that generates scan reports and audit logs
 - **Security Policy:** Link to your Information Security Policy document
 - **Incident Response Plan:** Link to IR documentation for incident tracking

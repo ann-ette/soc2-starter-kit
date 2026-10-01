@@ -38,7 +38,8 @@ I   2  [2]  [4]  [6]  [8]
 K   3  [3]  [6]  [9] [12]
 E   4  [4]  [8] [12] [16]
 
-Priority: 1–4 = Monitor, 6–8 = Mitigate, 9–12 = Reduce, 12+ = Critical
+Priority: 1 to 4 = Monitor, 6 to 8 = Mitigate, 9 to 12 = Reduce, 16 = Critical
+(With a 1 to 4 scale on each axis, the only possible scores are 1, 2, 3, 4, 6, 8, 9, 12 and 16.)
 ```
 
 ---
@@ -55,9 +56,9 @@ Imagine your app integrates with a voice API vendor (e.g., ElevenLabs) to proces
 
 **What factors should you consider?**
 
-- **Vendor's security posture:** Does the vendor have SOC 2 Type II certification? Have they had documented breaches in the past? Do they employ security best practices (encryption, access controls)?
+- **Vendor's security posture:** Does the vendor have a current SOC 2 Type II report? Have they had documented breaches in the past, and how did they handle them? Do they employ security best practices (encryption, access controls)?
 - **Your data exposure:** How much customer data flows through this vendor? Is it encrypted in transit? Do they retain data indefinitely or auto-delete?
-- **Industry trend:** How common are breaches in this type of vendor? (Voice APIs and LLM providers are frequently targeted.)
+- **Industry trend:** How common are breaches in this type of vendor? (Treat any vendor holding large volumes of customer content as an attractive target.)
 - **Contractual protections:** Do you have a Data Processing Agreement (DPA) that requires the vendor to notify you immediately if breached?
 
 **Assessment:** Let's say the vendor has SOC 2 Type II, you encrypt data in transit, and they auto-delete after 30 days. But voice APIs are a frequent attack target. You estimate a 20% annual probability of a breach at this vendor. That maps to **Likelihood 2 (10–50%, Medium)**.
@@ -67,11 +68,11 @@ Imagine your app integrates with a voice API vendor (e.g., ElevenLabs) to proces
 **What's the worst-case outcome if this vendor is breached?**
 
 - **Financial impact:** Customer churn, regulatory fines, incident response costs. If 10% of users churn due to loss of trust, that might be $20K–$100K depending on your ARR.
-- **Regulatory impact:** If you process voice data of EU residents, a breach is reportable under GDPR. Fines can reach 4% of global revenue (though usually much lower for vendors acting as processors).
-- **Reputation impact:** Trust loss is hard to quantify but real. A breach at a AI/voice company is especially damaging.
+- **Regulatory impact:** If you process voice data of EU residents, a breach is reportable under GDPR. Fines can reach EUR 20 million or 4% of worldwide annual turnover, whichever is higher, though fines on small companies are usually far lower. As the controller you answer for choosing and overseeing the vendor, even though the breach happened at theirs.
+- **Reputation impact:** Trust loss is hard to quantify but real, and a breach involving voice recordings is especially damaging.
 - **Operational impact:** Brief service disruption if you need to cut off the vendor and migrate to an alternative.
 
-**Assessment:** Worst case: regulatory fine (€10K–€50K range), customer churn ($20K–$50K lost ARR), incident costs ($5K–$10K). Total impact: $35K–$110K. That maps to **Impact 3 (High: $100K range)**.
+**Assessment:** Worst case: regulatory fine (€10K–€50K range), customer churn ($20K–$50K lost ARR), incident costs ($5K–$10K). Total impact: $35K–$110K. Score impact on the upper end of a credible range: $110K crosses the $100K line on the scale above, so this maps to **Impact 3 (High)**.
 
 #### Step 3: Calculate Risk Score
 
@@ -88,7 +89,7 @@ From the risk matrix: Score 6 is in the "Mitigate" band. This risk needs a docum
 **What can you do to reduce either likelihood or impact (or both)?**
 
 **Reduce Likelihood** (make the breach less likely):
-- Require vendor to have SOC 2 Type II (already done)
+- Require a current SOC 2 Type II report from the vendor (already done)
 - Audit vendor's security practices annually
 - Request their latest SOC 2 audit report
 - Ensure DPA includes audit rights and breach notification SLA
@@ -108,7 +109,7 @@ From the risk matrix: Score 6 is in the "Mitigate" band. This risk needs a docum
 
 With mitigations in place:
 - **Residual Likelihood:** Reduced from 20% to 5% (due to audit requirements, strong DPA, 7-day retention). **Now Likelihood 1 (Low)**.
-- **Residual Impact:** Reduced from $100K to $30K (smaller window of exposure due to 7-day retention, alternatives on standby). **Now Impact 2 (Medium)**.
+- **Residual Impact:** Reduced from $110K to $30K (smaller window of exposure due to 7-day retention, alternatives on standby). **Now Impact 2 (Medium)**.
 - **Residual Risk Score = 1 × 2 = 2 (Monitor Priority)**
 
 The risk dropped from 6 (Mitigate) to 2 (Monitor). You've successfully brought it under control.
@@ -131,7 +132,7 @@ All of this evidence is what an auditor will ask for. Document it continuously, 
 1. **Assess likelihood realistically**, not pessimistically. Use industry data, vendor track records, and your specific controls.
 2. **Impact assessment is concrete.** Quantify it: customer churn, regulatory fine, incident cost. Put a number on it.
 3. **Mitigations reduce the score.** The point of the risk register is to drive action. Pick mitigations that actually move the needle (not checkbox exercises).
-4. **Residual risk is what matters.** Even a critical risk (score 12) becomes acceptable if you can mitigate it to a 3.
+4. **Residual risk is what matters.** Even a risk scored 12 becomes acceptable if you can mitigate it to a 3.
 5. **Evidence is everything.** You won't remember why you made a decision in 6 months. Document it now so auditors (and you) can verify later.
 
 ---
@@ -146,13 +147,13 @@ All of this evidence is what an auditor will ask for. Document it continuously, 
 | **Risk Statement** | Unauthorized access to customer data stored in [YOUR DATABASE] could expose PII, conversation history, and biometric/voice data |
 | **Likelihood** | 2 (Medium: 10–50%) |
 | **Impact** | 4 (Critical: regulatory fine, customer loss, reputation damage) |
-| **Risk Score** | 8 (High Priority) |
+| **Risk Score** | 8 (Mitigate) |
 | **Affected Asset** | [YOUR DATABASE], S3/[YOUR CLOUD PROVIDER] storage |
 | **Mitigations** | • Encryption at rest (AES-256) and in transit (TLS 1.2+)<br/>• IAM policy: least privilege access<br/>• Regular access audits and log monitoring<br/>• Database activity monitoring alerts<br/>• MFA for all admin accounts |
 | **Evidence/Control** | • AWS/[YOUR CLOUD PROVIDER] Config rules<br/>• Monthly access review reports<br/>• Encryption key management policy<br/>• Firewall rules / security groups |
 | **Remediation Owner** | [YOUR NAME] |
 | **Remediation Due** | [DATE] |
-| **Status** | In Progress |
+| **Status** | Not Started |
 | **Last Reviewed** | [DATE] |
 
 ---
@@ -162,16 +163,16 @@ All of this evidence is what an auditor will ask for. Document it continuously, 
 | Field | Value |
 |-------|-------|
 | **ID** | RISK-002 |
-| **Risk Statement** | Attackers craft malicious prompts to bypass system instructions, exfiltrate training data, or cause model to generate harmful content |
+| **Risk Statement** | Attackers override the model's instructions, either directly in their own input or indirectly by planting instructions in content the model reads (web pages, uploaded files, retrieved records, tool results), to extract the system prompt or other users' data, trigger tools or actions, or produce harmful content |
 | **Likelihood** | 3 (High: 50–90%) |
 | **Impact** | 3 (High: reputation damage, service disruption, potential liability) |
-| **Risk Score** | 9 (Critical Priority) |
+| **Risk Score** | 9 (Reduce) |
 | **Affected Asset** | LLM API integration, prompt handling logic |
-| **Mitigations** | • Input validation and sanitization on all user prompts<br/>• System prompt hardening (no direct concatenation)<br/>• Rate limiting per user/IP<br/>• Output filtering and content moderation<br/>• User prompt logging and anomaly detection<br/>• Regular red-teaming exercises |
-| **Evidence/Control** | • Input validation code review<br/>• Security test cases for prompt injection<br/>• Monitoring dashboard for unusual query patterns<br/>• Annual red-teaming report |
+| **Mitigations** | • Design so a successful injection reaches little: the model can only touch the data and tools that user is entitled to (least privilege)<br/>• Treat model output as untrusted: validate it before it drives any action, and never execute it directly<br/>• Human confirmation for high-impact actions (payments, deletion, sending messages)<br/>• Untrusted content kept separate from instructions and labelled as data<br/>• Input and output filtering and moderation<br/>• Rate limiting per user and IP<br/>• Prompt logging with anomaly detection<br/>• Adversarial testing against the OWASP Top 10 for LLM Applications (LLM01: Prompt Injection) |
+| **Evidence/Control** | • Tool and data permission list for each AI feature<br/>• Security test cases for direct and indirect prompt injection<br/>• Monitoring dashboard for unusual query patterns<br/>• Adversarial test report, at least annually and after major AI feature changes |
 | **Remediation Owner** | [YOUR NAME] |
 | **Remediation Due** | [DATE] |
-| **Status** | In Progress |
+| **Status** | Not Started |
 | **Last Reviewed** | [DATE] |
 
 ---
@@ -184,13 +185,13 @@ All of this evidence is what an auditor will ask for. Document it continuously, 
 | **Risk Statement** | Customer conversation data or proprietary information inadvertently included in fine-tuning/training data leaks or is exposed via model output (e.g., through prompt injection or model memorization) |
 | **Likelihood** | 2 (Medium: 10–50%) |
 | **Impact** | 4 (Critical: customer trust loss, regulatory action, IP theft) |
-| **Risk Score** | 8 (High Priority) |
+| **Risk Score** | 8 (Mitigate) |
 | **Affected Asset** | LLM vendor training infrastructure, fine-tuning pipeline |
 | **Mitigations** | • Explicit data processing agreements with LLM vendors<br/>• Data anonymization before any training use<br/>• Opt-out mechanisms for customers<br/>• Regular vendor audit of training data usage<br/>• No PII in model prompts/training<br/>• Version control and data lineage tracking |
 | **Evidence/Control** | • Vendor DPA signed by [DATE]<br/>• Data classification and handling policy<br/>• Training data audit logs<br/>• Privacy impact assessment |
 | **Remediation Owner** | [YOUR NAME] |
 | **Remediation Due** | [DATE] |
-| **Status** | In Progress |
+| **Status** | Not Started |
 | **Last Reviewed** | [DATE] |
 
 ---
@@ -203,13 +204,13 @@ All of this evidence is what an auditor will ask for. Document it continuously, 
 | **Risk Statement** | Voice recordings or biometric samples (if collected) are exposed, sold, or used for unauthorized purposes (e.g., deepfake generation, unauthorized authentication) |
 | **Likelihood** | 2 (Medium: 10–50%) |
 | **Impact** | 4 (Critical: regulatory action, GDPR/CCPA fines, identity theft) |
-| **Risk Score** | 8 (High Priority) |
+| **Risk Score** | 8 (Mitigate) |
 | **Affected Asset** | Voice API provider, storage for audio files, [YOUR DATABASE] |
 | **Mitigations** | • Strict consent and opt-in for voice collection<br/>• Separate encrypted storage for voice/biometric data<br/>• Automatic deletion after [X] days<br/>• No use of voice data for training without explicit consent<br/>• Vendor assessment of biometric safeguards<br/>• User ability to request deletion anytime |
 | **Evidence/Control** | • Privacy policy and consent flows<br/>• Voice API vendor security assessment<br/>• Automated deletion schedules and logs<br/>• Privacy impact assessment |
 | **Remediation Owner** | [YOUR NAME] |
 | **Remediation Due** | [DATE] |
-| **Status** | In Progress |
+| **Status** | Not Started |
 | **Last Reviewed** | [DATE] |
 
 ---
@@ -228,7 +229,7 @@ All of this evidence is what an auditor will ask for. Document it continuously, 
 | **Evidence/Control** | • Subprocessor inventory (SUBPROCESSOR-TABLE.md)<br/>• Signed DPAs with all vendors<br/>• Vendor assessment questionnaire responses<br/>• Quarterly vendor review log |
 | **Remediation Owner** | [YOUR NAME] |
 | **Remediation Due** | [DATE] |
-| **Status** | In Progress |
+| **Status** | Not Started |
 | **Last Reviewed** | [DATE] |
 
 ---
@@ -247,7 +248,7 @@ All of this evidence is what an auditor will ask for. Document it continuously, 
 | **Evidence/Control** | • API security policy document<br/>• Code review checklist<br/>• Automated security testing in CI/CD<br/>• API usage logs and anomaly alerts |
 | **Remediation Owner** | [YOUR NAME] |
 | **Remediation Due** | [DATE] |
-| **Status** | In Progress |
+| **Status** | Not Started |
 | **Last Reviewed** | [DATE] |
 
 ---
@@ -260,13 +261,13 @@ All of this evidence is what an auditor will ask for. Document it continuously, 
 | **Risk Statement** | Compromised or vulnerable open-source dependencies in [YOUR APP] codebase allow code execution or data exfiltration |
 | **Likelihood** | 3 (High: 50–90%) |
 | **Impact** | 3 (High: code compromise, service interruption) |
-| **Risk Score** | 9 (Critical Priority) |
+| **Risk Score** | 9 (Reduce) |
 | **Affected Asset** | Application codebase, CI/CD pipeline |
 | **Mitigations** | • Dependency scanning tool (Dependabot, Snyk) enabled<br/>• Weekly dependency update reviews<br/>• Bill of Materials (SBOM) maintained<br/>• License scanning for GPL/copyleft<br/>• Signed commits required<br/>• Vendor verification for critical packages |
 | **Evidence/Control** | • Dependabot/Snyk scan reports<br/>• SBOM artifact in release<br/>• Git history of dependency updates<br/>• Security advisory response log |
 | **Remediation Owner** | [YOUR NAME] |
 | **Remediation Due** | [DATE] |
-| **Status** | In Progress |
+| **Status** | Not Started |
 | **Last Reviewed** | [DATE] |
 
 ---
@@ -285,7 +286,7 @@ All of this evidence is what an auditor will ask for. Document it continuously, 
 | **Evidence/Control** | • IAM policy documentation<br/>• Access review and certification reports (monthly)<br/>• Audit logs query capability<br/>• Offboarding checklist |
 | **Remediation Owner** | [YOUR NAME] |
 | **Remediation Due** | [DATE] |
-| **Status** | In Progress |
+| **Status** | Not Started |
 | **Last Reviewed** | [DATE] |
 
 ---
@@ -304,7 +305,7 @@ All of this evidence is what an auditor will ask for. Document it continuously, 
 | **Evidence/Control** | • Logging policy documentation<br/>• Log retention and archival schedule<br/>• Alert configuration and response procedures<br/>• Sample logs from production environment |
 | **Remediation Owner** | [YOUR NAME] |
 | **Remediation Due** | [DATE] |
-| **Status** | In Progress |
+| **Status** | Not Started |
 | **Last Reviewed** | [DATE] |
 
 ---
@@ -317,13 +318,13 @@ All of this evidence is what an auditor will ask for. Document it continuously, 
 | **Risk Statement** | Data at rest or in transit not encrypted, or weak encryption algorithms used; encryption keys not properly managed |
 | **Likelihood** | 2 (Medium: 10–50%) |
 | **Impact** | 4 (Critical: data exposure, regulatory violation) |
-| **Risk Score** | 8 (High Priority) |
+| **Risk Score** | 8 (Mitigate) |
 | **Affected Asset** | [YOUR DATABASE], storage buckets, API communications, backups |
 | **Mitigations** | • AES-256 encryption at rest for all databases<br/>• TLS 1.2+ for all data in transit<br/>• Certificate management and auto-renewal<br/>• Key rotation schedule (annually)<br/>• Hardware Security Module (HSM) for key storage<br/>• Encryption key access controls |
 | **Evidence/Control** | • Encryption policy documentation<br/>• TLS certificate inventory and renewal log<br/>• Key rotation audit trail<br/>• Database encryption verification report |
 | **Remediation Owner** | [YOUR NAME] |
 | **Remediation Due** | [DATE] |
-| **Status** | In Progress |
+| **Status** | Not Started |
 | **Last Reviewed** | [DATE] |
 
 ---
@@ -336,13 +337,13 @@ All of this evidence is what an auditor will ask for. Document it continuously, 
 | **Risk Statement** | No documented incident response plan; delayed breach notification violates GDPR (72 hours), CCPA, and state breach notification laws |
 | **Likelihood** | 2 (Medium: 10–50%) |
 | **Impact** | 4 (Critical: regulatory fines, legal action) |
-| **Risk Score** | 8 (High Priority) |
+| **Risk Score** | 8 (Mitigate) |
 | **Affected Asset** | All systems |
 | **Mitigations** | • Incident Response Plan documented<br/>• Breach notification procedure and legal contact identified<br/>• Incident response team assigned<br/>• Notification templates and timelines established<br/>• Annual incident response drill/tabletop<br/>• Post-incident review process |
 | **Evidence/Control** | • Incident Response Plan document<br/>• Contact list and escalation procedures<br/>• Drill test records and lessons learned<br/>• Post-incident review samples |
 | **Remediation Owner** | [YOUR NAME] |
 | **Remediation Due** | [DATE] |
-| **Status** | In Progress |
+| **Status** | Not Started |
 | **Last Reviewed** | [DATE] |
 
 ---
@@ -355,13 +356,13 @@ All of this evidence is what an auditor will ask for. Document it continuously, 
 | **Risk Statement** | OS, application, or dependency vulnerabilities unpatched; no patch management schedule |
 | **Likelihood** | 3 (High: 50–90%) |
 | **Impact** | 3 (High: code execution, service disruption) |
-| **Risk Score** | 9 (Critical Priority) |
+| **Risk Score** | 9 (Reduce) |
 | **Affected Asset** | Servers, containers, application dependencies |
 | **Mitigations** | • Automated patch management ([YOUR CLOUD PROVIDER] Systems Manager, Renovate)<br/>• Monthly security update schedule<br/>• Critical patches within 7 days<br/>• Pre-production testing before rollout<br/>• Version pinning with automated update checks<br/>• Vulnerability scanning in CI/CD |
 | **Evidence/Control** | • Patch schedule and tracking log<br/>• Automated vulnerability scan reports (weekly)<br/>• Release notes documenting patch dates<br/>• Container image scanning results |
 | **Remediation Owner** | [YOUR NAME] |
 | **Remediation Due** | [DATE] |
-| **Status** | In Progress |
+| **Status** | Not Started |
 | **Last Reviewed** | [DATE] |
 
 ---
@@ -380,7 +381,7 @@ All of this evidence is what an auditor will ask for. Document it continuously, 
 | **Evidence/Control** | • Backup schedule and retention policy<br/>• DR drill test results and recovery time logs<br/>• Backup encryption and storage documentation<br/>• Database recovery test report (quarterly) |
 | **Remediation Owner** | [YOUR NAME] |
 | **Remediation Due** | [DATE] |
-| **Status** | In Progress |
+| **Status** | Not Started |
 | **Last Reviewed** | [DATE] |
 
 ---
@@ -392,14 +393,14 @@ All of this evidence is what an auditor will ask for. Document it continuously, 
 | **ID** | RISK-014 |
 | **Risk Statement** | [YOUR APP] handles EU/California resident data but lacks GDPR/CCPA controls (e.g., data export, deletion, consent management) |
 | **Likelihood** | 2 (Medium: 10–50%) |
-| **Impact** | 4 (Critical: up to 4% global revenue or €20M in fines) |
-| **Risk Score** | 8 (High Priority) |
+| **Impact** | 4 (Critical: GDPR fines up to €20M or 4% of worldwide annual turnover, whichever is higher, plus penalties under US state privacy laws) |
+| **Risk Score** | 8 (Mitigate) |
 | **Affected Asset** | [YOUR DATABASE], user dashboards, data handling processes |
 | **Mitigations** | • Privacy policy aligned with GDPR/CCPA<br/>• Data subject access request (DSAR) process<br/>• Right-to-deletion functionality<br/>• Consent management system<br/>• Data Processing Agreement with customers<br/>• Privacy Impact Assessment (PIA)<br/>• Data Protection Officer contact |
 | **Evidence/Control** | • Privacy policy (dated)<br/>• Privacy Impact Assessment document<br/>• DSAR response procedure and log<br/>• Consent records and audit trail |
 | **Remediation Owner** | [YOUR NAME] |
 | **Remediation Due** | [DATE] |
-| **Status** | In Progress |
+| **Status** | Not Started |
 | **Last Reviewed** | [DATE] |
 
 ---
@@ -418,7 +419,7 @@ All of this evidence is what an auditor will ask for. Document it continuously, 
 | **Evidence/Control** | • Subprocessor inventory (SUBPROCESSOR-TABLE.md)<br/>• Vendor assessment questionnaires<br/>• Signed DPAs with all vendors<br/>• Annual vendor audit reports |
 | **Remediation Owner** | [YOUR NAME] |
 | **Remediation Due** | [DATE] |
-| **Status** | In Progress |
+| **Status** | Not Started |
 | **Last Reviewed** | [DATE] |
 
 ---
@@ -428,19 +429,97 @@ All of this evidence is what an auditor will ask for. Document it continuously, 
 | Field | Value |
 |-------|-------|
 | **ID** | RISK-016 |
-| **Risk Statement** | [YOUR APP] fails to tell users they are interacting with an AI system, or ships generated content without machine-readable marking, in a jurisdiction that requires it. Duties attach based on where users are rather than where the company is, so a product with no local presence can still be in scope |
+| **Risk Statement** | [YOUR APP] fails to tell users they are interacting with an AI system, or ships generated content without machine-readable marking, in a jurisdiction that requires it. Duties attach based on where users are, so a product with no local presence can still be in scope |
 | **Likelihood** | 3 (High: 50–90%) |
 | **Impact** | 3 (High: regulatory action, private claims, forced product change) |
-| **Risk Score** | 9 (Critical Priority) |
+| **Risk Score** | 9 (Reduce) |
 | **Affected Asset** | Chat and voice interfaces, generated text/image/audio output, onboarding and consent screens |
-| **Mitigations** | • Disclosure at the point of interaction rather than in the privacy policy<br/>• Interface names the assistant or model, which satisfies the EU "unless this is obvious" carve-out<br/>• Machine-readable marking (metadata or watermark) on generated text, image and audio output<br/>• Published self-harm protocol where the product could read as a companion rather than a tool<br/>• Jurisdiction assessment recorded and dated, refreshed at each regulatory review<br/>• Disclosure copy reviewed whenever the interface changes |
-| **Evidence/Control** | • Screenshot of the in-product disclosure, dated<br/>• Marking implementation in code review, with a sample of marked output<br/>• Dated jurisdiction assessment covering EU, UK, China, and applicable US states<br/>• Published self-harm protocol and its URL<br/>• Regulatory change review log (see SOC2-CONTROL-MAPPING CC1.5) |
+| **Mitigations** | • Disclosure at the point of interaction, where the conversation starts (a privacy policy line does not count)<br/>• Interface names the assistant or model. This covers the basic EU duty; the Commission's Article 50 guidelines also expect a spoken notice at the start of a voice conversation and periodic reminders in companion-style products and anything children use<br/>• Reminder cadence set to the strictest market served (New York and Colorado every three hours, China after two hours of continuous use for companion-style services)<br/>• Machine-readable marking (metadata or watermark) on generated text, image and audio output, plus a free way to check a file where California's SB 942 applies<br/>• Published self-harm protocol where the product could read as a companion<br/>• Jurisdiction assessment recorded and dated, refreshed at each regulatory review<br/>• Disclosure copy reviewed whenever the interface changes |
+| **Evidence/Control** | • Screenshot or recording of the in-product disclosure (spoken and visual), dated<br/>• Marking implementation in code review, with a sample of marked output<br/>• Dated jurisdiction assessment covering every market the product is available in<br/>• Published self-harm protocol and its URL<br/>• Regulatory change review log (see SOC2-CONTROL-MAPPING CC3.4) |
 | **Remediation Owner** | [YOUR NAME] |
 | **Remediation Due** | [DATE] |
-| **Status** | In Progress |
+| **Status** | Not Started |
 | **Last Reviewed** | [DATE] |
 
-<!-- CUSTOMIZE: Likelihood is set high because these duties are in force now and apply without a revenue floor in several jurisdictions. Lower it only if you have a dated assessment showing your product is out of scope everywhere it is available. Key dates as of September 2026: EU AI Act Art 50 applied 2026-08-02, with marking of output from systems already on the market due 2026-12-02; China's labeling Measures applied 2025-09-01; California SB 243 applied 2026-01-01 with a $1,000-per-violation private right of action. See SOC2-GUIDE.md, "Telling People They Are Talking to AI." -->
+<!-- CUSTOMIZE: Likelihood is set high because these duties are in force now and apply without a revenue floor in several jurisdictions. Lower it only if you have a dated assessment showing your product is out of scope everywhere it is available. Key dates as of 2026-09-30: EU AI Act Art 50 applied 2026-08-02, with marking of output from systems already on the market due 2026-12-02; China's labeling Measures applied 2025-09-01 and its companion-service order 2026-07-15; South Korea 2026-01-22, India 2026-02-20, Vietnam 2026-03-01, Peru 2026-09-10 in five sectors; California SB 243 applied 2026-01-01 with a $1,000-per-violation private right of action, and SB 942's provenance duty for generated image, video and audio reaches any provider since SB 1000 removed its user floor on 2026-09-30; New York's companion notice since 2025-11-05; Colorado's from 2027-01-01. See SOC2-GUIDE.md, "Telling People They Are Talking to AI," for the full table. -->
+
+---
+
+### 17. Harmful Output to Vulnerable Users (AI-Specific Risk)
+
+| Field | Value |
+|-------|-------|
+| **ID** | RISK-017 |
+| **Risk Statement** | The model gives harmful output to someone at risk: it mishandles a user in crisis or expressing self-harm, gives dangerous advice, presents itself as a therapist or clinician, or exposes a minor to sexual or otherwise age-inappropriate content. Conversational and companion products carry this risk even when nothing in the product is designed for it |
+| **Likelihood** | 3 (High: 50–90%) |
+| **Impact** | 4 (Critical: harm to a person, regulatory action, private claims, app store removal) |
+| **Risk Score** | 12 (Reduce) |
+| **Affected Asset** | Conversation pipeline, system prompts, moderation layer, onboarding and age screens |
+| **Mitigations** | • Crisis detection with a written response protocol and current referral resources for each market<br/>• Output moderation tuned for self-harm, sexual content and dangerous instructions<br/>• No therapeutic or clinical claims in the persona or the marketing<br/>• Age assurance proportionate to the risk, with stricter defaults for minors<br/>• Evaluation set of unsafe conversations run before every prompt or model release<br/>• In-product way to report a harmful response, routed to incident response |
+| **Evidence/Control** | • Published crisis protocol (required by law in some markets)<br/>• Moderation configuration and thresholds<br/>• Pre-release evaluation results<br/>• Harmful-output reports and how each was resolved |
+| **Remediation Owner** | [YOUR NAME] |
+| **Remediation Due** | [DATE] |
+| **Status** | Not Started |
+| **Last Reviewed** | [DATE] |
+
+<!-- CUSTOMIZE: Several jurisdictions now attach specific duties to companion and conversational products (crisis protocols, break reminders for minors, bans on therapy claims). See SOC2-GUIDE.md, "Telling People They Are Talking to AI," and the companion chatbot compliance kit linked there. -->
+
+---
+
+### 18. Unbounded Consumption and Cost Abuse (AI-Specific Risk)
+
+| Field | Value |
+|-------|-------|
+| **ID** | RISK-018 |
+| **Risk Statement** | Scripted abuse, a leaked key, a bug, or an abandoned real-time session consumes model tokens, voice minutes or media minutes without limit, running up provider bills or exhausting quotas and taking the service down for everyone (OWASP LLM10: Unbounded Consumption) |
+| **Likelihood** | 3 (High: 50–90%) |
+| **Impact** | 2 (Medium: unplanned spend, outage when a quota is hit) |
+| **Risk Score** | 6 (Mitigate) |
+| **Affected Asset** | AI provider accounts, real-time media sessions, API keys |
+| **Mitigations** | • Per-user and global rate limits enforced on the server<br/>• Maximum session length and idle timeout enforced on the server, never only in the client<br/>• Spend caps and usage alerts at every provider<br/>• Short-lived, narrowly scoped tokens for clients; long-lived keys stay on the server<br/>• Alert on usage spikes per user and per key |
+| **Evidence/Control** | • Provider spend limit and alert settings (screenshots, dated)<br/>• Rate limit and session timeout configuration<br/>• Usage alert history |
+| **Remediation Owner** | [YOUR NAME] |
+| **Remediation Due** | [DATE] |
+| **Status** | Not Started |
+| **Last Reviewed** | [DATE] |
+
+---
+
+### 19. Cross-User Leakage Through Context, Memory or Retrieval (AI-Specific Risk)
+
+| Field | Value |
+|-------|-------|
+| **ID** | RISK-019 |
+| **Risk Statement** | One user's content surfaces in another user's session through a shared cache, conversation memory, retrieval index or embeddings store, or survives the user's deletion request because derived data (summaries, embeddings) was never deleted (OWASP LLM02 and LLM08) |
+| **Likelihood** | 2 (Medium: 10–50%) |
+| **Impact** | 4 (Critical: breach of confidential content, notification duty, trust loss) |
+| **Risk Score** | 8 (Mitigate) |
+| **Affected Asset** | Vector store, memory and summary stores, caches, prompt assembly |
+| **Mitigations** | • User or tenant filter enforced in the data layer, never left to the prompt<br/>• Separate namespaces per user or tenant in the vector store<br/>• Tests that try to retrieve another user's content and must fail<br/>• Account deletion cascades to embeddings, summaries, memory and caches<br/>• Caches keyed by user, with no shared completions for personalized prompts |
+| **Evidence/Control** | • Cross-user retrieval test results<br/>• Deletion job covering derived stores, with logs<br/>• ARCHITECTURE-MAP.md page 5 listing every derived store |
+| **Remediation Owner** | [YOUR NAME] |
+| **Remediation Due** | [DATE] |
+| **Status** | Not Started |
+| **Last Reviewed** | [DATE] |
+
+---
+
+### 20. AI Provider Model Change, Deprecation or Outage (AI-Specific Risk)
+
+| Field | Value |
+|-------|-------|
+| **ID** | RISK-020 |
+| **Risk Statement** | A provider retires, updates or changes the behavior of a model the product depends on, or suffers an outage, so safety behavior, disclosure, persona or quality shifts without any change on your side, or the feature stops |
+| **Likelihood** | 3 (High: 50–90%) |
+| **Impact** | 2 (Medium: degraded or unsafe behavior until caught, service interruption) |
+| **Risk Score** | 6 (Mitigate) |
+| **Affected Asset** | Every AI feature, prompts tuned to a specific model |
+| **Mitigations** | • Pin model versions in code where the provider allows it<br/>• Subscribe to each provider's deprecation and change notices<br/>• Run the evaluation set (including RISK-017's unsafe cases) on every model change<br/>• Tested fallback provider for critical features<br/>• Model changes recorded as `[MODEL]` entries under CHANGE-MANAGEMENT-POLICY.md |
+| **Evidence/Control** | • Pinned model identifiers in configuration<br/>• Deprecation notices and the response to each<br/>• Evaluation results per model change<br/>• Fallback test record |
+| **Remediation Owner** | [YOUR NAME] |
+| **Remediation Due** | [DATE] |
+| **Status** | Not Started |
+| **Last Reviewed** | [DATE] |
 
 ---
 
@@ -462,7 +541,7 @@ All of this evidence is what an auditor will ask for. Document it continuously, 
 | 1–4 | Monitor and document | [YOUR NAME] (Founder) | Quarterly |
 | 6–8 | Develop mitigation plan | [YOUR NAME] (Founder) | 2 weeks |
 | 9–12 | Immediate remediation | [YOUR NAME] (Founder) | 1 week |
-| 12+ | Critical escalation + incident response | [YOUR NAME] (Founder) | 24 hours |
+| 16 | Critical escalation + incident response | [YOUR NAME] (Founder) | 24 hours |
 
 ---
 

@@ -62,8 +62,8 @@ flowchart TD
 
     ADMIN["[YOUR COMPANY] staff"] -->|"admin console"| B
 
-    classDef ext fill:#fff4e6,stroke:#d9822b
-    classDef store fill:#eef7ff,stroke:#3b7dd8
+    classDef ext fill:#fff4e6,stroke:#d9822b,color:#1a1a1a
+    classDef store fill:#eef7ff,stroke:#3b7dd8,color:#1a1a1a
     class RT,INF,AUX,PAY,COMM ext
     class DB,OBJ,LOG store
 ```
@@ -129,7 +129,7 @@ sequenceDiagram
 
 # Page 3: Real-Time Media Path
 
-Voice, video, and streaming audio. This page exists because generic SOC 2 kits assume request/response and this path behaves differently: data is in flight, often through a third party, sometimes recorded, and in several jurisdictions it is biometric.
+Voice, video, and streaming audio. Real-time media gets its own page because its data stays in flight for the length of a session, often passes through a third party, is sometimes recorded, and in several jurisdictions it is biometric.
 
 <!-- CUSTOMIZE: Delete this page if your product is text-only. -->
 
@@ -147,8 +147,8 @@ flowchart LR
 
     B -.->|"if retained"| OBJ[("Recording / transcript store")]
 
-    classDef ext fill:#fff4e6,stroke:#d9822b
-    classDef store fill:#eef7ff,stroke:#3b7dd8
+    classDef ext fill:#fff4e6,stroke:#d9822b,color:#1a1a1a
+    classDef store fill:#eef7ff,stroke:#3b7dd8,color:#1a1a1a
     class RT,STT,TTS,INF ext
     class OBJ store
 ```
@@ -165,7 +165,7 @@ flowchart LR
 | Is any voice data used for speaker identification? | [YES / NO] |
 | Which jurisdictions treat this as biometric data? | [SEE NOTE] |
 
-**On biometric classification.** Several regimes treat voiceprints and face data as a special category with their own consent and retention rules. Illinois BIPA and Texas CUBI in the United States, and Article 9 of the GDPR in the EU, are the ones most likely to reach a small product. The trigger is usually *identification* rather than mere processing, so a product that transcribes speech and one that recognizes a speaker sit in different places. Write down which one you are and why.
+**On biometric classification.** Voice audio becomes biometric data in most laws only when it is turned into, or can yield, something that identifies the speaker. Under the GDPR (Article 9), voice is special-category data when processed to uniquely identify someone. Illinois BIPA and Texas CUBI cover voiceprints and list no recordings; since 2026-01-01 Texas also exempts voiceprints used to develop or offer AI systems unless the system is used to identify people. Connecticut excludes recordings unless data from them is generated to identify someone, and Washington's biometric law excludes recordings and the data generated from them. Colorado treats a voiceprint, or other data that can be processed to uniquely identify someone, as a "biometric identifier", with notice and deletion duties at any volume since 2025-07-01. California and Washington's My Health My Data Act count a recording from which a voiceprint can be extracted. So the deciding question is whether you or a vendor create a voiceprint or speaker model from the audio. Write down which one you are and why. Children's audio is the exception: under COPPA, audio kept only to answer a child's request must be deleted immediately.
 
 **Auditor asks here:** what happens to audio when a user deletes their account. Trace it to every box on this page, including the provider's own retention.
 
@@ -191,9 +191,9 @@ flowchart TD
     GUARD2 -.-> LOG[("Prompt / completion logs")]
     OUT -.-> HIST
 
-    classDef ext fill:#fff4e6,stroke:#d9822b
-    classDef store fill:#eef7ff,stroke:#3b7dd8
-    classDef guard fill:#f3ffe6,stroke:#5a9e2f
+    classDef ext fill:#fff4e6,stroke:#d9822b,color:#1a1a1a
+    classDef store fill:#eef7ff,stroke:#3b7dd8,color:#1a1a1a
+    classDef guard fill:#f3ffe6,stroke:#5a9e2f,color:#1a1a1a
     class INF ext
     class HIST,RET,LOG store
     class GUARD1,GUARD2,MARK guard
@@ -235,7 +235,7 @@ flowchart LR
     P --> BK[("Backups")]
     O --> BK
 
-    classDef store fill:#eef7ff,stroke:#3b7dd8
+    classDef store fill:#eef7ff,stroke:#3b7dd8,color:#1a1a1a
     class P,O,C,V,L,BK store
 ```
 
@@ -288,7 +288,7 @@ flowchart TD
     B ==>|"B4"| AUX
     B ==>|"B5"| PAY
 
-    classDef ext fill:#fff4e6,stroke:#d9822b
+    classDef ext fill:#fff4e6,stroke:#d9822b,color:#1a1a1a
     class RT,INF,AUX,PAY ext
 ```
 
@@ -339,7 +339,7 @@ flowchart TD
     VAULT["Secret storage<br/>[MANAGER]"] -.-> SVC
     VAULT -.-> CI
 
-    classDef sec fill:#ffecec,stroke:#c1432b
+    classDef sec fill:#ffecec,stroke:#c1432b,color:#1a1a1a
     class VAULT,ADMINUI sec
 ```
 
@@ -385,7 +385,7 @@ flowchart LR
     ART --> EV
     STORE --> EV
 
-    classDef store fill:#eef7ff,stroke:#3b7dd8
+    classDef store fill:#eef7ff,stroke:#3b7dd8,color:#1a1a1a
     class STORE,ADB,ART store
 ```
 

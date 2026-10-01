@@ -43,13 +43,11 @@ This checklist ensures that secrets (API keys, database credentials, encryption 
   - [ ] `.ssh/` (SSH keys)
   - [ ] `secrets/` (local secrets directory)
   - [ ] `config/secrets.yml` or equivalent (Rails, other frameworks)
-  - [ ] Cloud provider credential files:
-    - [ ] `~/.aws/credentials`
-    - [ ] `~/.gcloud/`
-    - [ ] `~/.azure/`
+  - [ ] Cloud provider credential files that land in the project (`credentials`, `*.json` service account keys). The real ones belong in your home directory (`~/.aws/`, `~/.config/gcloud/`, `~/.azure/`), never inside a repository
   - [ ] IDE/Editor files: `.vscode/settings.json` (if contains secrets)
   - [ ] OS files: `.DS_Store`, `Thumbs.db`
-  - [ ] Dependency lock files (if they could contain secrets)
+
+  **Do not ignore dependency lock files** (`package-lock.json`, `poetry.lock`, `uv.lock` and the like). Commit them: they pin exactly what you ship, and dependency scanners read them.
 
 - [ ] **Commit .gitignore Changes**
   ```bash
@@ -63,19 +61,24 @@ This checklist ensures that secrets (API keys, database credentials, encryption 
 
 **Objective:** Detect any secrets accidentally committed in the past.
 
-- [ ] **Scan Repository with Truffledog / git-secrets / Gitleaks**
+- [ ] **Scan Repository with Gitleaks, TruffleHog or git-secrets**
 
   **Option 1: Gitleaks (Recommended)**
   ```bash
-  # Install gitleaks (if not already installed)
-  brew install gitleaks  # or: npm install -g gitleaks / apt-get install gitleaks
+  # Install gitleaks (or download a release binary from github.com/gitleaks/gitleaks)
+  brew install gitleaks
 
   # Scan entire repository history
-  gitleaks detect --source . --verbose
+  gitleaks git -v .
 
-  # Scan since a specific commit
-  gitleaks detect --source . --log-opts "commit1..commit2"
+  # Scan a range of commits
+  gitleaks git --log-opts="commit1..commit2" .
+
+  # Scan the working tree, including files git does not track
+  gitleaks dir -v .
   ```
+
+  Gitleaks 8.19 and later use `git` and `dir`; the older `detect` and `protect` commands still run in 8.x but no longer appear in the help.
 
   **Option 2: git-secrets**
   ```bash
@@ -91,11 +94,15 @@ This checklist ensures that secrets (API keys, database credentials, encryption 
 
   **Option 3: TruffleHog**
   ```bash
-  # Install TruffleHog
-  pip install truffleHog
+  # Install TruffleHog (Homebrew, Docker or a release binary; the pip package
+  # named truffleHog is the retired 2.x release and has none of these commands)
+  brew install trufflehog
 
-  # Scan repository
-  truffleHog filesystem .
+  # Scan the repository's history, showing verified and unverifiable findings
+  trufflehog git file://. --results=verified,unknown
+
+  # Scan the files on disk
+  trufflehog filesystem .
   ```
 
 - [ ] **Review Scan Results**
@@ -108,10 +115,9 @@ This checklist ensures that secrets (API keys, database credentials, encryption 
 
 - [ ] **If Secrets Found:**
   1. [ ] **CRITICAL:** Immediately revoke the exposed secret (rotate/delete)
-  2. [ ] [ ] Remove secret from git history (see Git History Cleanup section below)
-  3. [ ] [ ] Verify the secret was not misused (check access logs, API usage)
-  4. [ ] [ ] Document the incident in security log
-  5. [ ] [ ] If secret leaked to remote (GitHub, etc.), assume compromise and revoke immediately
+  2. [ ] Verify the secret was not misused (check access logs, API usage)
+  3. [ ] Remove the secret from git history (see Part 6). Rewriting history does not un-leak a secret that was pushed: clones, forks and caches keep it, which is why revocation comes first
+  4. [ ] Document the incident in the security log
 
 ---
 
@@ -161,14 +167,23 @@ This checklist ensures that secrets (API keys, database credentials, encryption 
 
   Check: `Good signature from [Your Name]`
 
-- [ ] **Add Pre-Commit Hook to Enforce Signing**
+- [ ] **Or Sign with Your SSH Key** (simpler if you already push over SSH)
   ```bash
-  # File: .git/hooks/pre-commit
-  #!/bin/bash
-  # Prevent commits without GPG signature
+  git config --global gpg.format ssh
+  git config --global user.signingkey ~/.ssh/id_ed25519.pub
+  git config --global commit.gpgsign true
+  ```
 
-  if ! git config --get user.signingkey > /dev/null; then
-    echo "ERROR: Commit signing not configured. Run: git config --global commit.gpgsign true"
+- [ ] **Enforce Signing Where It Counts: on the Server**
+
+  A local hook only reminds you; it runs on your machine and can be skipped. The enforceable control is a branch rule on the code host that rejects unsigned commits (on GitHub, a branch protection rule or ruleset with "Require signed commits"). Screenshot the setting as evidence.
+
+  An optional local reminder, saved as `.git/hooks/pre-commit` (the `#!` line must be the first line of the file):
+  ```bash
+  #!/bin/bash
+  # Refuse to commit unless commit signing is turned on
+  if [ "$(git config --get commit.gpgsign)" != "true" ]; then
+    echo "ERROR: commit signing is off. Run: git config commit.gpgsign true"
     exit 1
   fi
   ```
@@ -234,12 +249,12 @@ Create a file: `SECRETS-INVENTORY.md` (keep this file in secure location, NOT in
 
 - [ ] **Search Codebase for Hardcoded Secrets**
   ```bash
-  # Search for common patterns
-  grep -r "password\s*=" src/ --include="*.py" --include="*.js" --include="*.go"
-  grep -r "api_key\s*=" src/ --include="*.py" --include="*.js" --include="*.go"
-  grep -r "secret\s*=" src/ --include="*.py" --include="*.js" --include="*.go"
-  grep -r "BEGIN RSA PRIVATE KEY" src/ --include="*.py" --include="*.js"
+  # Search for common patterns (-E and [[:space:]] work in both GNU and macOS grep)
+  grep -rEn "(password|api_key|secret|token)[[:space:]]*[:=]" src/ --include="*.py" --include="*.js" --include="*.ts" --include="*.go"
+  grep -rn "PRIVATE KEY-----" src/
   ```
+
+  A scanner (Part 1.2) catches far more than these patterns; treat the grep as a quick spot check.
 
   - [ ] No hardcoded secrets found (or all flagged issues remediated)
 
@@ -307,6 +322,23 @@ Create a file: `SECRETS-INVENTORY.md` (keep this file in secure location, NOT in
 
 ---
 
+### 2.4 Keys That Must Never Ship in a Client
+
+**Objective:** Keep long-lived provider keys out of anything a user can download.
+
+A key inside a mobile app, a desktop app or a web bundle is a published key: anyone can unpack the app and read it, and an AI provider key found that way gets used to run up your bill (see RISK-018). Real-time voice and video AI is where this bites most, because the client talks to the provider directly.
+
+- [ ] **No provider API key in any client build**
+  ```bash
+  # Spot check a built web bundle or unpacked app for key-shaped strings
+  gitleaks dir -v ./dist
+  ```
+- [ ] **Clients get short-lived tokens minted by your server.** Your backend authenticates the user, then asks the provider for a short-lived, narrowly scoped credential for that one session and hands only that to the client. Most real-time AI and media providers offer this (short-lived access tokens, ephemeral client secrets, signed session URLs); check your provider's documentation for its name.
+- [ ] **Token lifetime and scope recorded** for each provider in the inventory above
+- [ ] **Server-side limits still apply**, because a valid short-lived token can still be abused for its lifetime (rate limits, maximum session length)
+
+---
+
 ## Part 3: Secrets Storage
 
 ### 3.1 Local Development
@@ -369,16 +401,29 @@ Create a file: `SECRETS-INVENTORY.md` (keep this file in secure location, NOT in
 
 - [ ] **Use GitHub Secrets for All Sensitive Data**
   ```yaml
-  # File: .github/workflows/deploy.yml
-
-  env:
-    OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-    DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-
-  steps:
-    - name: Run tests
-      run: npm test
+  # File: .github/workflows/test.yml
+  name: test
+  on: [push]
+  permissions:
+    contents: read
+  jobs:
+    test:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v7
+        - name: Run tests
+          run: npm test
+          env:
+            OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
   ```
+
+  Scope each secret to the step that needs it, as above, rather than to the whole workflow.
+
+- [ ] **Prefer OIDC Over Stored Cloud Keys**
+  - GitHub Actions can exchange a short-lived OIDC token for cloud credentials (AWS, Google Cloud, Azure), so no long-lived cloud key sits in your CI secrets at all
+
+- [ ] **Turn On Push Protection**
+  - Where your code host offers it (GitHub calls it secret scanning push protection), a push that contains a recognized secret is blocked before it lands
 
 - [ ] **Secrets Not Logged**
   - [ ] Verify logs don't print secrets:
@@ -441,11 +486,14 @@ Create a file: `SECRETS-INVENTORY.md` (keep this file in secure location, NOT in
   secret = client.get_secret_value(SecretId='prod/openai-api-key')
   ```
 
-- [ ] **Enable Secret Rotation**
+- [ ] **Enable Secret Rotation Where AWS Can Do It**
+
+  Automatic rotation works for secrets AWS knows how to rotate: database credentials, through managed rotation or a rotation Lambda function you attach. A third-party API key, such as an LLM provider key, can only be reissued by that provider, so AWS cannot rotate it; rotate those by hand on the schedule in Part 4.
   ```bash
-  # Configure auto-rotation for long-lived secrets
+  # Database credential with a rotation function attached
   aws secretsmanager rotate-secret \
-    --secret-id prod/openai-api-key \
+    --secret-id prod/database-password \
+    --rotation-lambda-arn arn:aws:lambda:REGION:ACCOUNT:function:ROTATION_FUNCTION \
     --rotation-rules AutomaticallyAfterDays=30
   ```
 
@@ -543,23 +591,9 @@ Create a file: `SECRETS-INVENTORY.md` (keep this file in secure location, NOT in
 
 - [ ] **Enable Automatic Rotation Where Possible**
 
-  **AWS Secrets Manager:**
-  ```bash
-  aws secretsmanager rotate-secret \
-    --secret-id prod/database-password \
-    --rotation-rules AutomaticallyAfterDays=90
-  ```
+  **AWS Secrets Manager:** see Part 3.3. Rotation needs managed rotation or a rotation function, and covers credentials AWS can reissue.
 
-  **Kubernetes Secrets (if applicable):**
-  ```yaml
-  apiVersion: bitnami.com/v1alpha1
-  kind: SealedSecret
-  metadata:
-    name: my-secret
-  spec:
-    encryptedData:
-      password: AgBYGWu6f...
-  ```
+  **Hosting platform secrets:** many managed platforms store secrets but do not rotate them. Record which of yours rotate automatically and which are manual.
 
 - [ ] **Test Automated Rotation**
   - [ ] Manually trigger a test rotation in staging
@@ -588,20 +622,17 @@ Create a file: `SECRETS-INVENTORY.md` (keep this file in secure location, NOT in
 
 - [ ] **Restrict Secret Access in Secrets Manager**
 
-  AWS Secrets Manager IAM Policy:
+  AWS Secrets Manager IAM policy, attached to the application's role (identity-based policies carry no `Principal`):
   ```json
   {
     "Version": "2012-10-17",
     "Statement": [
       {
         "Effect": "Allow",
-        "Principal": {
-          "AWS": "arn:aws:iam::ACCOUNT:role/ECSTaskRole"
-        },
         "Action": [
           "secretsmanager:GetSecretValue"
         ],
-        "Resource": "arn:aws:secretsmanager:region:account:secret:prod/*"
+        "Resource": "arn:aws:secretsmanager:REGION:ACCOUNT:secret:prod/*"
       }
     ]
   }
@@ -619,12 +650,12 @@ Create a file: `SECRETS-INVENTORY.md` (keep this file in secure location, NOT in
   aws cloudtrail describe-trails --region us-east-1
   ```
 
-  **CloudWatch Logs:**
+  **Recent secret reads (CloudTrail event history):**
   ```bash
-  # Search for GetSecretValue calls
-  aws logs filter-log-events \
-    --log-group-name /aws/secretsmanager \
-    --filter-pattern "GetSecretValue"
+  # Secrets Manager API calls are recorded by CloudTrail
+  aws cloudtrail lookup-events \
+    --lookup-attributes AttributeKey=EventName,AttributeValue=GetSecretValue \
+    --max-results 50
   ```
 
 - [ ] **Monitor Secret Access**
@@ -647,26 +678,26 @@ Create a file: `SECRETS-INVENTORY.md` (keep this file in secure location, NOT in
 
 - [ ] **If Secret Is Exposed (in git, logs, etc.):**
 
-  **Within 5 Minutes:**
-  1. [ ] **Remove from Exposure Source**
-     - If in git: Use `git filter-branch` or BFG to remove from history
-     - If in logs: Delete log files containing secret
-     - If in CI/CD: Purge build logs
-
-  2. [ ] **Notify Security Team**
-     - [ ] Declare security incident
-     - [ ] Add to incident log
-
-  **Within 30 Minutes:**
-  3. [ ] **Revoke the Secret**
+  **Immediately:**
+  1. [ ] **Revoke the Secret First**
      - [ ] Delete/revoke API key from provider
      - [ ] Reset password if database credential
      - [ ] Revoke OAuth token
 
-  4. [ ] **Rotate the Secret**
+  2. [ ] **Rotate the Secret**
      - [ ] Generate new secret
      - [ ] Update in secrets manager
      - [ ] Redeploy application
+
+  3. [ ] **Declare an Incident**
+     - [ ] Add to incident log (INCIDENT-RESPONSE-PLAN.md)
+
+  **Then:**
+  4. [ ] **Remove from Exposure Source**
+     - If in git: rewrite history with `git filter-repo` (which git's own documentation recommends over `git filter-branch`) or BFG, then force-push and ask collaborators to re-clone
+     - If in logs: Delete log files containing secret
+     - If in CI/CD: Purge build logs
+     - Removing it does not un-leak it. Anything pushed may already be in clones, forks or caches, which is why revocation comes first
 
   5. [ ] **Investigate Impact**
      - [ ] Check API usage logs for unauthorized calls
@@ -748,7 +779,7 @@ Create a file: `SECRETS-INVENTORY.md` (keep this file in secure location, NOT in
 gitleaks detect --source . --verbose
 
 # Search for hardcoded secrets in code
-grep -r "password\|api_key\|secret\|token" src/ --include="*.py"
+grep -rEn "password|api_key|secret|token" src/ --include="*.py"
 
 # Check file permissions
 ls -la .env
@@ -759,8 +790,8 @@ printenv | sort
 # Test API key validity
 curl -H "Authorization: Bearer $API_KEY" https://api.example.com/v1/test
 
-# Rotate a database password
-mysql -u root -p -e "ALTER USER 'app'@'localhost' IDENTIFIED BY 'newpassword';"
+# Rotate a database password: use your database provider's console or a
+# rotation function, so the new password never lands in shell history
 ```
 
 ---

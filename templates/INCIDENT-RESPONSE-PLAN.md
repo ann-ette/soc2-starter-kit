@@ -29,6 +29,21 @@ This plan establishes procedures for identifying, responding to, and recovering 
 | **Sev 2 (High)** | Potential data exposure, significant vulnerability, or service outage | Secrets committed to public repo, critical CVE in production dependency, extended downtime | Within 4 hours |
 | **Sev 3 (Medium)** | Security weakness, minor vulnerability, or suspicious activity | Failed intrusion attempt, moderate CVE, unusual API usage patterns | Within 24 hours |
 
+### AI-Specific Incidents
+
+An AI product has incident types a conventional plan never names. Classify them with the same severities.
+
+<!-- CUSTOMIZE: Delete rows for AI features you don't ship. Name your actual providers in the third row. -->
+
+| Incident | Example | Default Severity | First Containment Step |
+|----------|---------|------------------|------------------------|
+| **Harmful output to a user** | The model gives self-harm instructions, sexual content to a minor, dangerous advice, or presents itself as a clinician | Sev 1 if a user may be at risk; otherwise Sev 2 | Follow the published crisis protocol where it applies, then block the prompt path or roll back the model or prompt version that produced it |
+| **Injection-driven data exposure** | A crafted message or retrieved document makes the model reveal another user's data or secrets in its instructions, or call a tool it should not | Sev 1 if another user's data left the system; otherwise Sev 2 | Disable the affected tool or retrieval source, rotate any exposed secret, preserve the conversation logs |
+| **AI provider breach or terms change** | Your LLM, speech, voice or avatar vendor reports a breach, or changes its retention or training terms | Sev 1 if your users' data is in the breach scope; otherwise Sev 2 | Confirm what you sent the vendor and how long it kept it, switch to a fallback provider or disable the feature, and start the notification clock if personal data is in scope |
+| **Model or prompt regression** | A provider model update or your own prompt change drops a safety behavior or the AI disclosure | Sev 2 | Roll back to the last known-good model and prompt version |
+
+For every AI incident, preserve the full transcript and the exact model and prompt version that produced the output. A model response cannot be reproduced later without them, and they are the evidence both an auditor and a regulator will ask for.
+
 ## 3. Response Phases
 
 ### Phase 1: Detection
@@ -74,7 +89,7 @@ Incidents may be detected through:
 
 ### Phase 5: Communication and Notification
 
-<!-- CUSTOMIZE: Adjust notification timelines based on your applicable regulations -->
+<!-- CUSTOMIZE: Deadlines run from discovery and depend on where affected people live, not where you are. Check each state with affected residents; California, Colorado, New York and Washington, among others, require notice within 30 days. If you process biometric identifiers of Colorado residents, Colorado requires this plan to include a biometric breach protocol with consumer notice. -->
 
 **Internal notification:**
 
@@ -85,10 +100,12 @@ Incidents may be detected through:
 
 | Regulation | Notification Deadline | Who to Notify |
 |------------|----------------------|---------------|
-| **GDPR** | 72 hours to supervisory authority; without undue delay to affected individuals | Data Protection Authority + affected users |
-| **CCPA** | Without unreasonable delay | Affected California residents |
-| **HIPAA** (if applicable) | 60 days to affected individuals; HHS notification; media if 500+ affected | Individuals + HHS + media (if applicable) |
-| **General best practice** | Within 72 hours | Affected users via email |
+| **GDPR** | Supervisory authority without undue delay and, where feasible, within 72 hours of becoming aware, unless the breach is unlikely to result in a risk; individuals without undue delay when the risk to them is high (not needed if, for example, the data was encrypted); a processor tells the controller without undue delay | Data Protection Authority + affected users where risk is high |
+| **California (Civil Code 1798.82)** | Within 30 calendar days of discovery or notification, with delay allowed only for law enforcement or to determine scope and restore the system; sample notice to the Attorney General within 15 calendar days of notifying if more than 500 California residents | Affected California residents; Attorney General if more than 500 |
+| **New York (Gen. Bus. Law 899-aa)** | Within 30 days after discovery | Affected New York residents and the state agencies the statute names; the Department of Financial Services only if you are a covered entity under 23 NYCRR 500.1 |
+| **HIPAA** (if applicable) | Individuals without unreasonable delay and no later than 60 calendar days after discovery; HHS at the same time if 500 or more, otherwise in a log sent within 60 days after year end; media if more than 500 residents of a state; a business associate tells the covered entity within the same 60 days | Individuals + HHS + media (if applicable) |
+| **FTC Health Breach Notification Rule** (non-HIPAA apps that are personal health record vendors) | Without unreasonable delay and no later than 60 calendar days after discovery; FTC at the same time if 500 or more, otherwise in a log within 60 days after year end; media if 500 or more residents of a state | Individuals + FTC + media |
+| **Internal target** | Within 72 hours of confirming exposure, unless a shorter legal deadline applies | Affected users via email |
 
 **Notification content should include:**
 
@@ -143,7 +160,7 @@ Within 7 days of incident resolution:
 
 This plan is reviewed and tested:
 
-- Annually (at minimum)
+- Annually (at minimum), with a tabletop exercise: walk one scenario (a leaked key, an AI provider breach, a harmful-output report) through this plan from detection to notification, and record the date, the scenario, and every gap found. That record is the evidence for incident recovery plan testing under CC7.5
 - After every Sev 1 or Sev 2 incident
 - After major changes to the application architecture or vendor relationships
 

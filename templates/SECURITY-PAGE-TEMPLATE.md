@@ -9,13 +9,22 @@
 
 ## Team Size Adaptation
 
-This page is a public-facing document (not internal). If you reference security roles or team members, use descriptive titles that work for any team size. For example: "Our security team reviews...," "Our security practices include...," or simply avoid role names. The security commitments are the same regardless of team size.
+This page is a public-facing document (not internal). If you reference security roles or team members, use descriptive titles that work for any team size. For example: "Our security practices include..." or simply avoid role names. The security commitments are the same regardless of team size.
+
+<!-- CUSTOMIZE: Read this before you publish anything below.
+
+     Every line on this page is a public claim about your company, and a security page that
+     overstates your controls is a deceptive statement to the customers who rely on it. Delete
+     every line you cannot evidence today. The optional blocks are commented out so that nothing
+     unearned ships by default; uncomment a block only when the thing it describes is true.
+
+     A short page with five true lines does more for you than a long page with fifty hopeful ones. -->
 
 ---
 
 ## Trust & Security Commitments
 
-At [YOUR COMPANY], security and privacy are core values. We've implemented comprehensive controls to protect customer data and maintain the highest standards of security, availability, and compliance.
+[YOUR COMPANY] builds [YOUR APP] to protect the data our customers trust us with. This page describes the controls we operate today and the ones we are working toward, and it says which is which.
 
 ---
 
@@ -23,22 +32,23 @@ At [YOUR COMPANY], security and privacy are core values. We've implemented compr
 
 ### Our Security Posture
 
-<!-- CUSTOMIZE: Only list certifications you actually have or are actively pursuing.
-     Claiming certifications you haven't completed creates legal liability. Use "in progress"
-     or "controls implemented" language until you have a completed audit report. -->
+<!-- CUSTOMIZE: Only list certifications and reports you actually have or are actively pursuing.
+     Claiming a report or certification you haven't completed creates legal liability. Use
+     "in progress" or "controls implemented" language until you have a completed audit report.
+     SOC 2 produces an attestation report, so say "SOC 2 Type II report," never "SOC 2 certified." -->
 
 **[YOUR COMPANY] security standards:**
 
-- ✓ **SOC 2 Trust Service Criteria**: Controls implemented; formal audit planned for [DATE]
-- ✓ **GDPR**: Privacy controls aligned with European data protection requirements
-- ✓ **CCPA**: Privacy controls aligned with California consumer privacy requirements
-- ✓ **Continuous Security Scanning**: Automated vulnerability detection on every code change
+- **SOC 2 Trust Services Criteria**: Controls implemented; formal examination planned for [DATE]
+- **GDPR**: Privacy controls aligned with European data protection requirements
+- **CCPA**: Privacy controls aligned with California consumer privacy requirements
 
-<!-- Add these lines ONLY when you have completed the relevant certification:
-- ✓ **SOC 2 Type I**: Point-in-time audit completed [DATE]
-- ✓ **SOC 2 Type II**: Independent annual audit completed [DATE]
-- ✓ **ISO 27001**: Certified [DATE]
-- ✓ **Annual Penetration Testing**: Last completed [DATE]
+<!-- Add these lines ONLY when they are true:
+- ✓ **Continuous Security Scanning**: Automated vulnerability and secret scanning on every code change
+- ✓ **SOC 2 Type I**: Report issued [DATE] by [CPA FIRM]
+- ✓ **SOC 2 Type II**: Report covering [PERIOD], issued [DATE] by [CPA FIRM]
+- ✓ **ISO/IEC 27001**: Certified [DATE] by [CERTIFICATION BODY]
+- ✓ **Penetration Testing**: Last completed [DATE] by [FIRM]
 -->
 
 ---
@@ -46,79 +56,96 @@ At [YOUR COMPANY], security and privacy are core values. We've implemented compr
 ## 🛡️ Data Protection
 
 ### Encryption
-- **In Transit**: All data transmitted via TLS 1.2+ encryption (HTTPS)
-- **At Rest**: All data stored with AES-256 encryption
-- **Backups**: All backups encrypted and stored in separate geographic region
+- **In Transit**: All data transmitted via TLS 1.2 or higher (HTTPS)
+- **At Rest**: Data stored with [AES-256] encryption at [YOUR DATABASE] and [OBJECT STORAGE]
+- **Backups**: Backups encrypted [and stored in a separate region]
 
 ### Access Control
-- **Authentication**: Multi-factor authentication (MFA) for all sensitive access
-- **Authorization**: Role-based access control (RBAC) with principle of least privilege
-- **Audit Logging**: All access logged and audited monthly
+- **Authentication**: Multi-factor authentication (MFA) on every administrative account
+- **Authorization**: Access granted on least privilege and reviewed [QUARTERLY]
+- **Audit Logging**: Administrative access logged
 
 ### Infrastructure Security
-- **Cloud Provider**: Hosted on [YOUR CLOUD PROVIDER] with SOC 2 Type II certification
-- **Network Isolation**: Virtual Private Cloud (VPC) with security groups and firewalls
-- **Intrusion Detection**: Real-time monitoring for unauthorized access attempts
-- **Automated Backups**: Daily encrypted backups with cross-region replication
+- **Cloud Provider**: Hosted on [YOUR CLOUD PROVIDER], which holds its own SOC 2 Type II report
+- **Network Isolation**: Databases and internal services not reachable from the public internet
+- **Automated Backups**: [DAILY] encrypted backups
+
+---
+
+## 🤖 AI and Your Data
+
+<!-- CUSTOMIZE: Buyers now ask these questions before any others. Answer each one from your
+     vendors' current terms, and re-check them whenever a provider changes its policy. Training
+     and retention are separate questions: a provider that does not train on your data may still
+     store it. -->
+
+| Question | Our Answer |
+|---|---|
+| Which AI providers process your content? | [LIST, e.g. LLM provider, speech provider, voice provider] |
+| Is your content used to train AI models? | [No. Our providers' business terms exclude it / Only with your opt-in] |
+| How long do AI providers keep your content? | [PROVIDER DEFAULT, e.g. up to 30 days for abuse monitoring / zero retention enabled] |
+| Do people at the provider review your content? | [ANSWER FROM PROVIDER TERMS] |
+| Will you always know you are talking to an AI? | [Yes. The interface says so where every conversation starts] |
+| Is generated content marked as AI-generated? | [ANSWER, where required] |
 
 ---
 
 ## 🚨 Availability & Reliability
 
+<!-- CUSTOMIZE: Publish an uptime number only if your terms of service commit to it. For reference,
+     99.9% allows about 43 minutes of downtime in a 30-day month; 99.95% allows about 22. If you do
+     not offer an SLA, delete the table and keep the status page line. -->
+
 ### Service Level Agreement (SLA)
 
 | Metric | Commitment |
 |--------|------------|
-| **Uptime** | 99.9% (11.5 minutes of downtime/month) |
-| **Recovery Time Objective (RTO)** | Less than 1 hour |
-| **Recovery Point Objective (RPO)** | Less than 1 hour of data loss |
+| **Uptime** | [99.9%] ([about 43 minutes] of downtime in a 30-day month) |
+| **Recovery Time Objective (RTO)** | [TARGET] |
+| **Recovery Point Objective (RPO)** | [TARGET] |
 
 ### Monitoring & Incident Response
-- **24/7 Monitoring**: Real-time alerts for any anomalies
-- **Incident Response**: Dedicated team responds within [X] minutes
-- **Status Page**: Public status dashboard at [STATUS PAGE URL]
-- **Quarterly DR Drills**: Disaster recovery tested quarterly
+- **Monitoring**: Automated alerts on errors, downtime and security events
+- **Incident Response**: Security incidents triaged within [X hours]
+- **Status Page**: [STATUS PAGE URL]
+- **Recovery Testing**: Restore from backup tested [FREQUENCY]
 
 ---
 
-## 🔑 Security Controls & Standards
+## 🔑 How Our Controls Map to SOC 2
 
-### Common Criteria (CC) Controls
+The Security category of SOC 2 has nine groups of common criteria. This is the shape of our program against them; the detail is available to customers under NDA.
 
-| Control | Details |
-|---------|---------|
-| **CC1: Organization & Governance** | Clear security policy, roles, and responsibilities |
-| **CC2: Communication** | Security training, incident reporting procedures |
-| **CC3: Risk Assessment** | Quarterly risk reviews, vulnerability scanning |
-| **CC4: Monitoring** | Continuous monitoring of systems and logs |
-| **CC5: Control Activities** | Access controls, change management, encryption |
-| **CC6: Logical & Physical Access** | MFA, least-privilege access, secure deletion |
-| **CC7: Change Management** | Formal change control, testing, approval |
-| **CC8: Deficiency Management** | Audit findings tracked and remediated |
-| **CC9: Risk Mitigation** | Business continuity, incident response plans |
-
-See [SOC2-CONTROL-MAPPING.md](#) for detailed control mapping.
+| Criteria | What It Covers | How We Address It |
+|---------|---------|---|
+| **CC1** | Control environment | [Code of conduct, defined roles, security training] |
+| **CC2** | Communication and information | [This page, our privacy policy, a published vulnerability reporting channel] |
+| **CC3** | Risk assessment | [Risk register reviewed quarterly, AI-specific risks included] |
+| **CC4** | Monitoring activities | [Quarterly control self-assessment, tracked remediation] |
+| **CC5** | Control activities | [Written policies, technology controls] |
+| **CC6** | Logical and physical access | [MFA, least privilege, quarterly access reviews, encryption] |
+| **CC7** | System operations | [Vulnerability and secret scanning, monitoring, incident response] |
+| **CC8** | Change management | [Every change reviewed, tested and deployed through a pipeline] |
+| **CC9** | Risk mitigation | [Vendor assessments, DPAs, continuity planning] |
 
 ---
 
 ## 🏢 Vendor Security Management
 
-We work with trusted vendors that meet strict security standards. All vendors have signed Data Processing Agreements (DPAs).
+We assess vendors before they receive customer data, and we keep a Data Processing Agreement (DPA) with every vendor that processes personal data on our behalf.
 
-### Vendor & Subprocessor Table
+### Subprocessors
 
-| Vendor | Service | SOC 2 Status | DPA Signed | Data Shared | Last Verified |
-|--------|---------|---|---|---|---|
-| **OpenAI** | LLM API | Type II ✓ | Yes | Conversation text (anonymized) | 2026-03-15 |
-| **Twilio** | Voice/SMS | Type II ✓ | Yes | Phone numbers, voice recordings | 2026-02-01 |
-| **Stripe** | Payment | Level 1 ✓ | Yes | Card last-4, billing info | 2026-03-20 |
-| **AWS** | Hosting | Type II ✓ | Yes | All data (encrypted) | 2026-03-10 |
-| **Google Analytics** | Analytics | Type II ✓ | Yes | Anonymized usage data | 2026-02-10 |
-| **Datadog** | Monitoring | Type II ✓ | Yes | App logs (PII redacted), metrics | 2026-03-01 |
-| **SendGrid** | Email | Type II ✓ | Yes | Email addresses (transactional) | 2026-01-30 |
-| **GitHub** | Code Repository | Type II ✓ | Yes | Source code (private repo) | 2026-02-15 |
+<!-- CUSTOMIZE: List your actual subprocessors, from SUBPROCESSOR-TABLE.md. Publish only what each
+     vendor's own documentation supports, and date the list. -->
 
-**See full details:** [Subprocessor Inventory](SUBPROCESSOR-TABLE.md)
+| Vendor | Service | Data Shared | Location | Last Reviewed |
+|--------|---------|---|---|---|
+| [VENDOR] | [LLM / speech / voice / hosting / payments] | [DATA CATEGORIES] | [REGION] | [DATE] |
+| [VENDOR] | [SERVICE] | [DATA CATEGORIES] | [REGION] | [DATE] |
+| [ADD ROWS] | | | | |
+
+We give customers [30 days'] notice before adding a subprocessor that processes their personal data.
 
 ---
 
@@ -127,87 +154,78 @@ We work with trusted vendors that meet strict security standards. All vendors ha
 ### Privacy Regulations
 
 #### GDPR (Europe)
-- ✓ Data Processing Agreements with customers
-- ✓ Privacy Impact Assessments (PIA) completed
-- ✓ Data subject rights (DSAR, deletion, portability)
-- ✓ 72-hour breach notification
+- Data Processing Agreements available to customers
+- Data subject rights supported (access, correction, deletion, portability, objection)
+- Personal data breaches reported to the supervisory authority within 72 hours where the GDPR requires it, and to affected people without undue delay where the risk to them is high
 - **Contact:** [YOUR EMAIL]
 
 #### CCPA (California)
-- ✓ Consumer privacy rights (access, deletion, opt-out)
-- ✓ Vendor compliance verified
-- ✓ Privacy notice published
+- Consumer privacy rights supported (know, delete, correct, opt out of sale or sharing, limit use of sensitive personal information)
+- Privacy notice published
 - **Contact:** [YOUR EMAIL]
 
 #### Other Jurisdictions
-- ✓ HIPAA (if applicable)
-- ✓ UK GDPR (Brexit-compliant)
-- ✓ Canada PIPEDA
-- ✓ Australia Privacy Act
+
+<!-- CUSTOMIZE: List only the laws you have actually assessed your product against, e.g. UK GDPR,
+     Canada's PIPEDA, Australia's Privacy Act, other US state privacy laws, HIPAA if you sign BAAs.
+     A checkmark here is a claim of compliance. -->
+
+- [LAW]: [WHAT YOU DO]
 
 ### Industry Standards
 
-| Standard | Scope |
+| Standard | How We Use It |
 |----------|-------|
-| **OWASP Top 10** | Web application security best practices |
-| **CIS Controls** | Critical security controls framework |
-| **NIST Cybersecurity Framework** | Risk-based security standards |
-| **Payment Card Industry (PCI DSS)** | Secure payment processing |
+| **OWASP Top 10 (2025)** | Web application security testing reference |
+| **OWASP Top 10 for LLM Applications (2025)** | AI feature threat model reference |
+| **OWASP Top 10 for Agentic Applications (2026)** | Threat model reference for features where a model calls tools or acts for a user |
+| **MITRE ATLAS** | Catalogue of attacker techniques against AI systems, used when testing AI features |
+| **Payments** | Card data handled entirely by [PAYMENT PROCESSOR]; it never touches our servers |
 
 ---
 
 ## 🛠️ Secure Development Practices
 
 ### Code Security
-- **Secure Code Review**: All code reviewed by at least one peer before deployment
-- **Static Application Security Testing (SAST)**: Automated code scanning for vulnerabilities
-- **Dependency Scanning**: Automated scanning for vulnerable libraries (Dependabot, Snyk)
-- **Signed Commits**: All commits must be GPG-signed
-- **No Secrets in Code**: Secrets managed via encrypted vault (AWS Secrets Manager)
+- **Change Review**: [Every change reviewed by a second engineer / Every change passes automated tests and security checks before merge]
+- **Dependency Scanning**: Automated scanning for vulnerable libraries
+- **Secret Scanning**: Automated scanning for credentials in code
+- **No Secrets in Code**: Secrets kept in [SECRET MANAGER], never in source control
+
+<!-- Add ONLY if true:
+- **Static Analysis (SAST)**: Automated code scanning on every change
+- **Signed Commits**: Commit signing enforced on the production branch
+-->
 
 ### Deployment & Change Management
-- **Change Management Policy**: Formal change control for all deployments
-- **Testing**: All changes tested in staging before production
-- **Rollback Plan**: Automated rollback capability for failed deployments
-- **Monitoring**: Real-time monitoring during and after deployments
-- **Audit Trail**: All deployments logged with git commit history
-
-See [CHANGE-MANAGEMENT-POLICY.md](#) for detailed procedures.
+- **Change Control**: Production changes deployed through a pipeline with a record of each deploy
+- **Testing**: Changes tested before production
+- **Rollback**: [Rollback procedure for failed deployments]
 
 ### Vulnerability Management
-- **Patching**: Critical patches applied within 7 days
-- **Vulnerability Scanning**: Weekly automated scans
-- **Penetration Testing**: Annual third-party penetration tests
-- **Responsible Disclosure**: [BUG BOUNTY PROGRAM](https://security.txt) (if applicable)
+- **Patching**: Critical patches applied within [7 days]
+- **Vulnerability Scanning**: [FREQUENCY] automated scans
+- **Responsible Disclosure**: See below, and [`/.well-known/security.txt`](https://[YOUR DOMAIN]/.well-known/security.txt)
+
+<!-- Add ONLY if true:
+- **Penetration Testing**: Third-party penetration test [ANNUALLY], last completed [DATE]
+-->
 
 ---
 
-## 🔒 Data Protection
-
-### Data Classification & Handling
-
-| Classification | Examples | Encryption | Access Control |
-|---|---|---|---|
-| **Sensitive (S)** | Names, emails, voice data, conversation content | AES-256 at rest, TLS in transit | Restricted to authorized staff |
-| **Internal (I)** | Logs, analytics, aggregated metrics | AES-256 at rest, TLS in transit | Engineering team only |
-| **Public (P)** | Blog posts, help articles, API docs | Not encrypted | Public access |
-
-### Data Retention & Deletion
+## 🔒 Data Retention & Deletion
 
 **We delete data according to the following schedule:**
 
 | Data Type | Retention | Deletion Method |
 |---|---|---|
-| **User Accounts** | Until deletion; 30-day grace period | Encrypted deletion from database and backups |
-| **Conversation Data** | [X] months (or user deletion request) | Automated deletion after retention expires |
-| **Voice Recordings** | [X] days | Automatic deletion after retention expires |
-| **Backups** | 30 days (hot), 1 year (archive) | Automated lifecycle deletion |
-| **Payment Records** | 7 years | Legal/tax requirement |
-| **Audit Logs** | 1 year | Archived to immutable storage |
+| **User Accounts** | Until deletion, then a [30-day] grace period | Deleted from the database; removed from backups as they age out |
+| **Conversation Data** | [X] months (or on your request) | Automated deletion after retention expires |
+| **Voice Recordings** | [X] days [or not stored] | Automatic deletion after retention expires |
+| **Backups** | [PERIOD] | Automated lifecycle deletion |
+| **Payment Records** | [PERIOD REQUIRED BY TAX LAW IN YOUR JURISDICTION] | Retained by [PAYMENT PROCESSOR] and in our accounting records |
 
-**Your Rights:** You can request deletion anytime (see Privacy Policy).
-
-See [DATA-RETENTION-POLICY.md](#) for detailed procedures.
+**Your Rights:** You can request deletion at any time (see our [Privacy Policy](#)).
 
 ---
 
@@ -215,93 +233,56 @@ See [DATA-RETENTION-POLICY.md](#) for detailed procedures.
 
 ### Our Incident Response Commitment
 
-- **Detection**: Continuous 24/7 monitoring and alerting
-- **Response**: Incident team mobilized within [X] minutes
-- **Investigation**: Root cause analysis and forensics
-- **Notification**: Customers notified within 72 hours (GDPR requirement)
-- **Remediation**: Security patch deployed within [X] hours
-- **Post-Mortem**: Lessons learned documented and shared
+- **Detection**: Automated monitoring and alerting
+- **Response**: Security incidents triaged within [X hours]
+- **Investigation**: Root cause analysis for every security incident
+- **Notification**: Affected customers notified without undue delay [and within the period your contracts and applicable law require]
+- **Post-Incident Review**: Lessons learned recorded and acted on
 
 ### What Happens If a Breach Occurs
 
 **We will:**
-1. [ ] Immediately investigate and contain the breach
-2. [ ] Assess what data was accessed and by whom
-3. [ ] Notify affected customers within 72 hours (GDPR) or as required by law
-4. [ ] Provide guidance on protective measures customers should take
-5. [ ] Work with regulatory authorities as required
-6. [ ] Implement preventive measures to prevent recurrence
+1. Investigate and contain the breach
+2. Assess what data was accessed and by whom
+3. Notify regulators where the law requires it (under the GDPR, within 72 hours of becoming aware), and notify affected customers and users as the law and our contracts require
+4. Tell you what we know and what you can do to protect yourself
+5. Fix the cause and record what we changed
 
 **Your Rights:** See our [Privacy Policy](#) for your rights in case of a breach.
 
 ---
 
-## 🧪 Testing & Validation
-
-### Annual Third-Party Audits
-- **SOC 2 Type II Audit**: Independent audit of all security controls
-- **Penetration Testing**: Third-party security firm tests for vulnerabilities
-- **Vulnerability Assessment**: Comprehensive scan for known CVEs
-
-### Continuous Security Testing
-- **Weekly Vulnerability Scans**: Automated scanning of infrastructure and code
-- **Monthly Access Reviews**: Audit of who has access to sensitive data
-- **Quarterly Disaster Recovery Drills**: Test backup restoration and failover
-
-### Security Monitoring Dashboard
-
-**Metrics we track & publish:**
-- Uptime: [99.9%](#)
-- Response time (p99): [X]ms
-- Error rate: [X]%
-- Mean Time to Recovery (MTTR): [X] minutes
-
-Live status: [Status Page](#)
-
----
-
 ## 📞 Responsible Disclosure
 
-We take security seriously. If you discover a security vulnerability, please report it responsibly.
-
-**Do NOT publish vulnerabilities publicly before reporting.**
+If you discover a security vulnerability, please report it to us privately so we can fix it before it is published.
 
 ### Report a Vulnerability
 
-**Email:** [SECURITY@YOUR DOMAIN] (or security@[YOUR DOMAIN])
+**Email:** [SECURITY@YOUR DOMAIN]
+**Machine-readable contact:** `https://[YOUR DOMAIN]/.well-known/security.txt` (RFC 9116)
 
 **Include:**
 - Description of the vulnerability
-- Affected component/endpoint
+- Affected component or endpoint
 - Steps to reproduce
 - Potential impact
-- Your contact information
+- How to reach you
 
 **Our Commitment:**
-- ✓ Acknowledge receipt within 24 hours
-- ✓ Investigate within 3 days
-- ✓ Provide status updates every week
-- ✓ Fix and deploy patch within [X] days
-- ✓ Provide credit in security advisory (if desired)
+- Acknowledge receipt within [X business days]
+- Keep you updated while we investigate
+- Credit you in the fix notes if you want credit
 
-**Bounty Program** (if applicable):
-- [BUG BOUNTY DETAILS]
-
-See [Responsible Disclosure Policy](#) for full details.
+<!-- Add ONLY if you run one:
+**Bug Bounty:** [PROGRAM DETAILS AND SCOPE]
+-->
 
 ---
 
 ## 🎓 Security Awareness & Training
 
-### Employee Training
-- **Mandatory**: All employees complete annual security training
-- **Topics**: Password security, phishing, social engineering, data protection
-- **Certification**: Employees certify completion annually
-
-### Customers
-- **Security Best Practices**: Help center articles on secure usage
-- **Privacy Controls**: In-app guides for managing preferences
-- **Data Security Tips**: Blog posts on protecting your account
+- Everyone with access to customer data completes security training [ANNUALLY]
+- Topics include phishing, credential handling, data protection, and the safe use of AI tools with customer data
 
 ---
 
@@ -309,42 +290,30 @@ See [Responsible Disclosure Policy](#) for full details.
 
 ### Available Upon Request
 
-The following compliance documents are available for enterprise customers:
+<!-- CUSTOMIZE: List only documents that exist. SOC 2 reports are restricted-use and are shared
+     under NDA; there is no public registry where anyone can look one up. -->
 
-- [ ] **SOC 2 Type II Report**: Independent audit report
-- [ ] **ISO 27001 Certificate**: International security standard
-- [ ] **Data Processing Agreement (DPA)**: GDPR-compliant terms
-- [ ] **Business Associate Agreement (BAA)**: HIPAA compliance (if applicable)
-- [ ] **Security Questionnaire**: Detailed security assessment responses
-- [ ] **Vendor Assessment**: Third-party vendor security details
+- **Data Processing Agreement (DPA)**
+- **Security Questionnaire Responses**
+- **Subprocessor List**
 
-**Request Documentation:** [COMPLIANCE@YOUR DOMAIN](#)
+<!-- Add ONLY when they exist:
+- **SOC 2 Type II Report** (under NDA)
+- **ISO/IEC 27001 Certificate**
+- **Penetration Test Summary**
+- **Business Associate Agreement (BAA)** (if you handle protected health information and sign BAAs)
+-->
 
----
-
-## 🏆 Our Security Team
-
-### Leadership
-- **Chief Information Security Officer (CISO)**: [NAME], [EXPERIENCE]
-- **Security Lead**: [NAME], [CERTIFICATIONS]
-
-### Security Experience
-- Average security experience: [X] years
-- Certifications: CISSP, CEH, OSCP, etc.
-- Annual training: [X] hours per team member
+**Request Documentation:** [COMPLIANCE@YOUR DOMAIN]
 
 ---
 
 ## 🔗 Security Links
 
-- **[Privacy Policy](PRIVACY-POLICY-TEMPLATE.md)**: How we collect and use your data
+- **[Privacy Policy](#)**: How we collect and use your data
 - **[Terms of Service](#)**: Legal terms of service
-- **[Data Retention Policy](DATA-RETENTION-POLICY.md)**: How long we keep your data
-- **[Incident Response Plan](#)**: How we respond to security incidents
-- **[Change Management Policy](CHANGE-MANAGEMENT-POLICY.md)**: How we manage code changes
-- **[Vendor Management](SUBPROCESSOR-TABLE.md)**: Third-party security assessment
+- **[Subprocessor List](#)**: Who processes data on our behalf
 - **[Status Page](#)**: Real-time service status
-- **[Security Blog](#)**: Security announcements and updates
 
 ---
 
@@ -352,27 +321,16 @@ The following compliance documents are available for enterprise customers:
 
 ### Security Inquiries
 - **Email:** [SECURITY@YOUR DOMAIN]
-- **Phone:** [YOUR PHONE] (optional)
 
 ### Privacy Questions
 - **Email:** [YOUR EMAIL]
 - **Mailing Address:** [YOUR ADDRESS]
 
-### Report a Vulnerability
-- **Email:** [SECURITY@YOUR DOMAIN]
-- **Do not post vulnerabilities publicly**
-- **We commit to a 72-hour acknowledgment**
-
-### Support
-- **Help Center:** [HELP.YOUR DOMAIN](#)
-- **Community:** [COMMUNITY.YOUR DOMAIN](#)
-- **Enterprise Support:** [SUPPORT@YOUR DOMAIN](#)
-
 ---
 
 ## 🔄 Updates & Changes
 
-We update our security practices regularly. Changes to this page will be reflected here with the date of update.
+We review this page whenever our controls, vendors or certifications change, and at least [every six months]. Changes take effect on the date below.
 
 **Last Updated:** [DATE]
 **Next Review:** [DATE]
@@ -381,53 +339,22 @@ We update our security practices regularly. Changes to this page will be reflect
 
 ## 📊 Security Metrics (Optional)
 
-**Public Metrics (Last 12 Months):**
+<!-- CUSTOMIZE: Publish only metrics you measure and are willing to keep publishing. Delete this
+     section otherwise. Do not copy example numbers. -->
 
-| Metric | Value | Trend |
-|--------|-------|-------|
-| Uptime | 99.94% | ↑ (up from 99.92%) |
-| Mean Time to Resolution (MTTR) | 45 minutes | ↓ (down from 60 min) |
-| Critical Vulnerabilities | 0 | ↓ |
-| Security Incidents | 0 | ↓ |
-| Successful Phishing Tests | 2% | ↓ (down from 5%) |
+| Metric | Last 12 Months |
+|--------|-------|
+| Uptime | [MEASURED VALUE] |
+| Security Incidents | [MEASURED VALUE] |
 
 ---
 
-## ✅ Verification Checklist
+## ✅ How You Can Check Our Claims
 
-**You can verify our security claims:**
-
-1. **Check SSL Certificate**
-   ```bash
-   # Visit https://yourapp.com in browser
-   # Click lock icon → Certificate Details
-   # Should show: TLS 1.2+, valid certificate
-   ```
-
-2. **Check HTTPS/TLS**
-   ```bash
-   # All pages should be HTTPS
-   # No "Not Secure" warning
-   ```
-
-3. **Check Security Headers**
-   ```bash
-   # Visit: https://securityheaders.com/?q=yourapp.com
-   # Should show strong security headers
-   ```
-
-4. **Check SSL Grade**
-   ```bash
-   # Visit: https://www.ssllabs.com/ssltest/
-   # Should show: A+ rating
-   ```
-
-5. **Verify SOC 2 Certification**
-   ```bash
-   # Visit: https://soc2.trust-logistics.com/
-   # Search for [YOUR COMPANY]
-   # Should show Type II certification
-   ```
+1. **TLS and certificate:** run our domain through [SSL Labs](https://www.ssllabs.com/ssltest/)
+2. **Security headers:** run our domain through [securityheaders.com](https://securityheaders.com/)
+3. **Vulnerability contact:** fetch `https://[YOUR DOMAIN]/.well-known/security.txt`
+4. **SOC 2 report:** request it from [COMPLIANCE@YOUR DOMAIN]; we share it under NDA <!-- CUSTOMIZE: delete this line until a report exists -->
 
 ---
 
@@ -440,10 +367,6 @@ We update our security practices regularly. Changes to this page will be reflect
 
 ---
 
-**[YOUR COMPANY]** is committed to protecting your data and maintaining the highest security standards. Trust is earned, and we work every day to deserve yours.
+If you have questions about our security practices, contact us at [SECURITY@YOUR DOMAIN].
 
-If you have questions about our security practices, please don't hesitate to contact us at [SECURITY@YOUR DOMAIN].
-
----
-
-*Last Updated: [DATE]* | *[YOUR COMPANY] Security Team*
+*Last Updated: [DATE]* | *[YOUR COMPANY]*

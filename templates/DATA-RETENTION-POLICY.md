@@ -17,7 +17,7 @@ This template uses role names like "Privacy Lead" as a placeholder. For solo fou
 
 ## Overview
 
-This policy defines retention periods and deletion procedures for all data types processed by [YOUR APP]. The policy complies with GDPR, CCPA, and industry best practices, ensuring customer data is retained only as long as necessary for business purposes.
+This policy defines retention periods and deletion procedures for all data types processed by [YOUR APP]. The policy is designed to meet the storage-limitation duties in the GDPR, the CCPA and similar laws, so customer data is retained only as long as necessary for the purposes it was collected for.
 
 <!-- CUSTOMIZE: Adjust retention periods based on your business, legal, and regulatory requirements -->
 
@@ -28,25 +28,32 @@ This policy defines retention periods and deletion procedures for all data types
 | Data Type | Description | Retention Period | Legal Basis | Deletion Method | Notes |
 |-----------|-------------|-----------------|-------------|-----------------|-------|
 | **User Account Data** | Name, email, password hash, account creation date, last login | Until account deletion, minimum 30 days post-deletion | Contract (service provision), Consent | Encrypted deletion from [YOUR DATABASE], backups aged out | See Account Deletion SOP below. PII retained if user requests export. |
-| **Conversation History / Chat Data** | User messages, AI responses, timestamps, metadata | [X] months from last activity, or user deletion request | Consent, Legitimate interest (service improvement) | Secure deletion from database and backups | Users can request deletion anytime via DSAR. AI training: never without explicit consent. |
-| **Voice / Audio Recordings** | Raw audio files from voice API, transcriptions | [X] days to [X] weeks (balance: enough for support, minimal PII retention) | Consent, Legitimate interest (customer support) | Automatic deletion after retention period; encryption at rest | Must comply with voice API vendor retention policy (see SUBPROCESSOR-TABLE). |
-| **Biometric Data** | Voice prints, facial recognition data (if collected) | Until withdrawal of consent or [X] days | Explicit Consent (high sensitivity) | Irreversible deletion via vendor; cannot be re-derived | Never retained longer than necessary. User has right to deletion anytime. |
-| **Payment Data** | Credit card last-4 digits, billing address, payment method type | Until account deletion or end of contract | Contract (PCI compliance) | Tokenized via payment processor; never stored in [YOUR DATABASE] | PCI DSS compliance required. Full card data never retained. |
-| **Transaction / Billing Records** | Invoice numbers, amounts, dates, payment status | 7 years (tax/legal retention) | Legal requirement (tax law, commerce law) | Archived to immutable storage post-7-year mark; encrypted | Retained for audit and legal purposes. Cannot be deleted per law. |
+| **Conversation History / Chat Data** | User messages, AI responses, timestamps, metadata | [X] months from last activity, or user deletion request | Contract (providing the conversation); consent for any use beyond that, such as training | Secure deletion from database and backups | Users can request deletion anytime via DSAR. AI training: never without explicit consent. |
+| **Voice / Audio Recordings** | Raw audio files from voice API, transcriptions | [X] days to [X] weeks (balance: enough for support, minimal PII retention) | Consent, Legitimate interest (customer support) | Automatic deletion after retention period; encryption at rest | Must comply with voice API vendor retention policy (see SUBPROCESSOR-TABLE). Under the GDPR, voice is special-category data when processed to uniquely identify someone. Illinois and Texas cover voiceprints; neither lists recordings. Connecticut excludes audio recordings unless data from them is generated to identify someone. Washington's biometric law excludes audio recordings and data generated from them. Colorado excludes audio recordings from "biometric data" unless used to identify someone, but a voiceprint, or other data that can be processed to uniquely identify someone, is a "biometric identifier", with notice and deletion duties at any volume. California and Washington's health-data law count a recording from which a voiceprint can be extracted. Recordings of children under 13 are personal information under COPPA. |
+| **Biometric Data** | Voice prints, facial recognition data (if collected) | Earliest of purpose met, consent withdrawn, [X] days, or the statutory limit in Notes | Explicit Consent (high sensitivity) | Irreversible deletion via vendor; cannot be re-derived | Never retained longer than necessary. Illinois BIPA: a public retention schedule, destruction when the purpose is met or within 3 years of the user's last interaction, whichever comes first. Texas CUBI, for identifiers captured for a commercial purpose: destroy within a reasonable time and no later than one year after the purpose expires; since 2026-01-01 Texas exempts biometric identifiers used to develop or offer AI systems unless the system is used to identify people. Colorado (any volume, since 2025-07-01): a public written policy and deletion by the earliest of purpose met, 24 months after last interaction, or 45 days (extendable by 45) after an annual review finds it unnecessary. Washington (RCW 19.375.020(4)(b)), for identifiers enrolled for a commercial purpose: no longer than reasonably necessary. |
+| **Payment Data** | Credit card last-4 digits, billing address, payment method type | Until account deletion or end of contract | Contract | Tokenized via payment processor; never stored in [YOUR DATABASE] | Full card data stays with the payment processor, which keeps most of PCI DSS out of your scope; you still complete the processor's self-assessment questionnaire. |
+| **Transaction / Billing Records** | Invoice numbers, amounts, dates, payment status | [PERIOD SET BY TAX AND ACCOUNTING LAW] (varies by country: UK companies keep accounting records for 6 years; in the US the IRS asks for 3 years in most cases and 7 for a bad-debt or worthless-securities claim) | Legal obligation (tax and accounting law) | Archived to restricted, encrypted storage; deleted when the period ends | Retained because the law requires it, so a deletion request does not reach these records. |
 | **System & Application Logs** | API request logs, error logs, access logs, performance metrics | 90 days (hot), 1 year archive | Legitimate interest (security, troubleshooting) | Automated purge from hot storage; archive to cold storage | May contain PII (email addresses, user IDs). Anonymize or aggregate after 90 days where possible. |
-| **Audit Logs** | Admin actions, permission changes, security events, failed access attempts | 1 year minimum (SOC 2 requirement) | Legal requirement (compliance), Legitimate interest (security) | Archived to immutable, encrypted cold storage | Critical for incident investigation. Longer retention for high-risk actions (e.g., data export). |
+| **Audit Logs** | Admin actions, permission changes, security events, failed access attempts | 1 year minimum (a common audit expectation; SOC 2 itself sets no fixed period) | Legitimate interest (security, audit) | Archived to immutable, encrypted cold storage | Critical for incident investigation. Longer retention for high-risk actions (e.g., data export). |
 | **Backup Data** | Full database snapshots, application state, configuration | 30 days (recent), 1 year incremental | Legitimate interest (disaster recovery) | Delete from backup systems after retention; verify deletion | Encryption-in-transit and at rest required. Test restoration quarterly. |
 | **Cached API Responses** | Responses from third-party APIs (LLM, translation, etc.) | [X] days (depends on API provider terms) | Consent, Legitimate interest (performance) | Automatic cache expiration; no manual deletion needed | Check vendor terms (some APIs prohibit caching). Do not cache PII. |
-| **Analytics / Aggregated Data** | User behavior, feature usage, aggregated metrics | 24 months (rolling 2-year window) | Legitimate interest (product analytics) | Automated deletion of data >24 months old; retain only aggregated summaries | Anonymized, cannot be re-identified. Compliant with GDPR Article 11. |
+| **Analytics / Aggregated Data** | User behavior, feature usage, aggregated metrics | [PERIOD] (match your analytics tool's retention setting) | Consent where cookies or device storage are used; otherwise legitimate interest | Automated deletion of data past the period; retain only aggregated summaries | Truly anonymized aggregates fall outside the GDPR (Recital 26). Pseudonymized data, such as events keyed to a user or device ID, is still personal data. |
 | **Support Tickets / Help Center Logs** | Support conversations, help requests, resolution notes | 1 year post-closure, or user deletion request | Legitimate interest (customer support, legal protection) | Delete from ticketing system and backups after 1 year | May contain customer PII. Anonymize summaries before long-term archival. |
-| **Email Communications** | Transactional emails, marketing emails, password reset links, security alerts | Transactional: until account deletion; Marketing: until unsubscribe | Consent (marketing), Contract (transactional) | Deleted from email system and backups per user retention above | Unsubscribe data retained per CAN-SPAM (1 year post-unsubscribe). |
+| **Email Communications** | Transactional emails, marketing emails, password reset links, security alerts | Transactional: until account deletion; Marketing: until unsubscribe | Consent (marketing), Contract (transactional) | Deleted from email system and backups per user retention above | Keep a suppression list for as long as you send marketing email, so an unsubscribed address is never mailed again (CAN-SPAM requires opt-outs honored within 10 business days). |
 | **IP Addresses / Device Identifiers** | User IP, device ID, browser fingerprint, geolocation | 90 days (rolling window) | Legitimate interest (security, fraud detection) | Anonymized or aggregated after 90 days | Used for abuse detection and access logs. Anonymization acceptable alternative to deletion. |
 | **Third-Party Vendor Data** | Data shared with LLM provider, payment processor, analytics platform | Per vendor agreement and DPA; minimum: as long as service active | Contract (vendor terms), DPA requirements | Vendor responsible for deletion; [YOUR COMPANY] audit yearly | Refer to SUBPROCESSOR-TABLE for vendor-specific terms. Right to audit vendor deletion. |
-| **Cookies / Web Tracking Data** | Session cookies, analytics cookies, ad cookies, consent preferences | Session (deleted on logout) or [X] days per cookie policy | Consent (per cookie consent banner) | Automatic deletion per expiration; user can clear via privacy controls | Document cookie types in Privacy Policy. Honor Do-Not-Track headers. |
+| **Cookies / Web Tracking Data** | Session cookies, analytics cookies, ad cookies, consent preferences | Session (deleted on logout) or [X] days per cookie policy | Consent (per cookie consent banner) | Automatic deletion per expiration; user can clear via privacy controls | Document cookie types in Privacy Policy. Honor Global Privacy Control (GPC) signals as an opt-out of sale or sharing, which California requires of businesses that sell or share, as do other states including Connecticut and Oregon. |
 | **Database Archives / Point-in-Time Backups** | Snapshots for disaster recovery, compliance audits | 30 days recent, 90 days incremental, 1 year full snapshots | Legitimate interest (disaster recovery, audit trail) | Delete via database snapshot schedule; verify immutable archive only | Test restoration to confirm backups are usable. Consider separate encryption key. |
-| **User Consent Records** | Consent choices (marketing, analytics, voice training), consent timestamps, withdrawal history | Until withdrawal or account deletion; 3 years post-withdrawal for record-keeping | Consent, Legal requirement (GDPR, CCPA require proof of consent) | Archived if account deleted; retained if withdrawal | Proof of consent is legally required. Never delete audit trail. |
-| **Security Incident Records** | Breach investigation data, forensics, incident reports, remediation actions | 3 years (per compliance standards) | Legal requirement (regulatory, litigation hold) | Archived to immutable storage; never deleted during hold period | Required for regulatory investigations, audits, and legal hold. |
+| **User Consent Records** | Consent choices (marketing, analytics, voice training), consent timestamps, withdrawal history | Until withdrawal or account deletion; 3 years post-withdrawal for record-keeping | Legal obligation to be able to demonstrate consent (GDPR Article 7(1)) | Archived if account deleted; retained if withdrawal | No law found sets the 3-year period; it is your choice. Keep only the record of the choice. California separately requires records of privacy requests and your responses for 24 months (11 CCR 7101(a)). |
+| **Security Incident Records** | Breach investigation data, forensics, incident reports, remediation actions | [PERIOD] | Legal requirement (regulatory, litigation hold) | Archived to immutable storage; never deleted during hold period | The GDPR and UK GDPR (Article 33(5)) require a record of every breach but set no period; Canada requires 24 months (SOR/2018-64 s.6); HIPAA covered entities and business associates keep required security documentation 6 years (45 CFR 164.316(b)(2)(i)). |
+| **Privacy Risk Assessments** (CCPA businesses that process sensitive personal information, such as voiceprints used to identify) | Risk assessments and their updates | As long as the processing continues or 5 years after the assessment is completed, whichever is later | Legal obligation (11 CCR 7155(c)) | Archive, then delete | Assess before starting the processing; processing that began before 2026 must be assessed by 2027-12-31. |
 | **User Settings & Preferences** | Notification settings, language, timezone, UI preferences, feature flags | Until account deletion | Contract (service personalization) | Deleted with account data | Non-sensitive; may be anonymized in aggregate analytics. |
+| **Embeddings / Vector Index** | Vectors derived from user content for retrieval or memory | Same as the content they were derived from | Same as source content | Deleted with the source content; deletion job covers the vector store | Regulators generally treat embeddings of personal content as personal data. The most common place a deletion promise quietly fails. |
+| **Conversation Memory and Summaries** | Model-written summaries, extracted facts, long-term memory about a user | Same as conversation history | Same as conversation history | Deleted with the account and on request | Derived data the user may not know exists; disclose it in the privacy policy. |
+| **Prompt and Completion Logs (Yours)** | Full prompts and responses logged for debugging or quality | [X] days | Legitimate interest (debugging, safety) | Automated purge | Often contain everything the user said. Keep the window short, or log metadata only. |
+| **Prompts and Outputs Held by AI Providers** | Content your AI vendors retain on their side | Per vendor terms (e.g. up to 30 days for abuse monitoring, or zero with zero data retention enabled) | Contract (DPA) | Vendor deletes per its terms; record the terms in SUBPROCESSOR-TABLE | Training opt-out and retention are separate controls; record both. |
+| **Evaluation and Safety Test Sets** | Conversations kept to test prompts and models before release | Until replaced | Legitimate interest (safety testing) | Reviewed each release; removed when replaced | Build these from synthetic or consented conversations rather than raw user data. |
+| **Children's Personal Information** (only if your service is directed to children under 13, in whole or part) | Data collected from a child | Only as long as reasonably necessary for the purpose collected; never indefinitely | Legal obligation (COPPA, 16 CFR 312.10; compliance date 2026-04-22) | Delete with measures that prevent unauthorized access during deletion | Publish this written policy (purposes, business need, deletion timeframe) in your children's privacy notice. Audio of a child's voice collected only to answer a request is deleted immediately after. |
 
 ---
 
@@ -68,9 +75,9 @@ This policy defines retention periods and deletion procedures for all data types
 6. Document deletion in audit log with timestamp and confirmation
 
 **Exceptions:**
-- Transaction records retained for 7 years (legal requirement)
+- Transaction records retained for the period tax and accounting law requires
 - Audit logs retained for 1 year (security requirement)
-- User consent records retained for 3 years post-deletion (regulatory proof)
+- User consent records retained for [3 years] post-deletion (proof of consent; no law sets the period)
 
 ---
 
@@ -108,7 +115,7 @@ This policy defines retention periods and deletion procedures for all data types
 6. Document: log snapshot deletion dates in backup audit trail
 
 **Immutable Archive (1-Year Retention for Compliance):**
-- One full snapshot per month stored in read-only S3 bucket with versioning disabled
+- One full snapshot per month stored in an S3 bucket with Object Lock in compliance mode (Object Lock requires versioning to be enabled)
 - Encrypted with separate key; only compliance team has access
 - Automatic deletion via lifecycle policy after 1 year
 
@@ -151,12 +158,13 @@ This policy defines retention periods and deletion procedures for all data types
 | Category | Minimum | Maximum | Rationale |
 |----------|---------|---------|-----------|
 | **Customer Service** | 30 days | 1 year | Support investigation and dispute resolution |
-| **Legal/Tax** | 7 years | 7 years | IRS, commerce law, regulatory requirements |
-| **Security/Audit** | 1 year | 1 year | Incident investigation, SOC 2 compliance |
+| **Legal/Tax** | [PERIOD SET BY LAW] | [PERIOD SET BY LAW] | Tax and accounting law in each country you operate in |
+| **Security/Audit** | 1 year | [PERIOD] | Incident investigation, audit sampling (SOC 2 sets no fixed period) |
 | **Backup/Disaster Recovery** | 30 days | 1 year | Business continuity, compliance archival |
-| **Analytics** | 24 months | 24 months | Product insights, anonymized after 24 months |
-| **Marketing/Consent** | Until unsubscribe | 3 years (post-unsubscribe) | CAN-SPAM, GDPR consent proof |
-| **Voice/Biometric** | Until consent withdrawal | Until consent withdrawal | Minimize sensitive data retention |
+| **Analytics** | [PERIOD] | [PERIOD] | Product insights; match your analytics tool's retention setting |
+| **Marketing/Consent** | Until unsubscribe | Suppression list: as long as you send marketing email. Consent records: [3 years] after withdrawal | CAN-SPAM (opt-outs honored within 10 business days, never mailed again); GDPR Article 7(1) proof of consent, no period set |
+| **Voice recordings** | None | [X] days | Minimize; keep only what support needs |
+| **Biometric (voiceprints, face templates)** | None | Earliest of purpose met or consent withdrawn, capped at 3 years after last interaction (Illinois), 24 months after last interaction (Colorado) and 1 year after the purpose ends (Texas) | BIPA 15(a), CUBI 503.001, Colorado HB24-1130 |
 
 ---
 
@@ -164,9 +172,9 @@ This policy defines retention periods and deletion procedures for all data types
 
 | Basis | Data Types | Retention Justification |
 |-------|-----------|------------------------|
-| **Contractual Obligation** | User account, billing, support tickets, transaction records | Service provision, payment processing, customer support |
-| **Legal Requirement** | Billing records (7 years), audit logs (1 year), consent records (3 years post-deletion) | Tax law, regulatory compliance (SOC 2, GDPR Article 6(1)(c)) |
-| **Legitimate Interest** | Conversation history, analytics, system logs, device identifiers | Product improvement, fraud detection, security, performance optimization |
+| **Contractual Obligation** | User account, conversation history, billing, support tickets | Service provision, payment processing, customer support |
+| **Legal Obligation** | Billing records, consent records where a law requires proof | Tax and accounting law; GDPR Article 6(1)(c) covers obligations set by law, which a SOC 2 audit is not |
+| **Legitimate Interest** | System and audit logs, device identifiers, fraud signals | Security, fraud detection, audit, performance optimization |
 | **Consent** | Voice recordings, biometric data, marketing emails, analytics cookies | User has explicitly consented; can be withdrawn anytime |
 
 ---
@@ -178,10 +186,10 @@ This policy defines retention periods and deletion procedures for all data types
 User has the right to request:
 - Copy of all personal data retained about them
 - Proof of retention basis
-- List of recipients who have received their data
+- The recipients who received or will receive their data, named individually (CJEU C-154/21), or by category where naming them is impossible or the request is manifestly unfounded or excessive (GDPR Article 12(5))
 - Details on automated decision-making (if any)
 
-**Response Timeline:** 30 days (GDPR requirement)
+**Response Timeline:** Under the GDPR, one month from receipt, extendable by two further months for complex or numerous requests (tell the user within the first month). Under the CCPA, 45 days, extendable once by 45 more. Use the shortest deadline that applies to the requester.
 
 **Process:**
 1. User emails [YOUR EMAIL] with "DSAR Request"
@@ -201,13 +209,13 @@ User can request permanent deletion of all personal data except:
 - Data being used to establish/defend legal claims
 - Data needed for another user's consent (e.g., shared conversation)
 
-**Response Timeline:** 45 days (GDPR requirement)
+**Response Timeline:** Same as access requests above: one month under the GDPR (extendable by two months), 45 days under the CCPA.
 
 **Process:**
 1. User email [YOUR EMAIL] with "Deletion Request"
 2. Confirm user identity
 3. Execute account deletion procedure (see above)
-4. Confirm completion to user within 45 days
+4. Confirm completion to the user within the applicable deadline
 
 ---
 
@@ -235,7 +243,7 @@ User can request data export in machine-readable format (CSV, JSON)
 2. Export all user-created data (account, conversations, preferences)
 3. Format: JSON or CSV per user preference
 4. Encrypt export with user-provided password or secure link
-5. Deliver within 30 days
+5. Deliver within one month (GDPR)
 
 ---
 
@@ -332,7 +340,7 @@ Example:
 ```
 | Vendor | Data Shared | Retention | DPA Signed | Last Deletion Verified |
 |--------|------------|-----------|-----------|----------------------|
-| OpenAI | Conversation text (anonymized) | 30 days | Yes (2026-03-15) | 2026-03-20 |
-| Stripe | Card last-4, amount, date | 7 years (PCI) | Yes (2025-01-10) | N/A (legal hold) |
-| Twilio | Voice recording, transcript | 7 days | Pending | 2026-03-18 |
+| [LLM PROVIDER] | Conversation text | [PROVIDER DEFAULT, e.g. up to 30 days for abuse monitoring] | Yes ([DATE]) | [DATE] |
+| [PAYMENT PROCESSOR] | Card last-4, amount, date | [PER PROCESSOR TERMS AND TAX LAW] | Yes ([DATE]) | N/A (legal obligation) |
+| [VOICE PROVIDER] | Voice recording, transcript | [X] days | Pending | [DATE] |
 ```
